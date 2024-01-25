@@ -1,0 +1,7 @@
+**/node_modules/*
+frontend/vite/full_eFast/.vite/deps/_metadata.json
+frontend/vite/full_eFast/.vite/deps/package.json
+**/target/*
+.*
+**/bin/*
+!/.gitignore
