@@ -23,23 +23,23 @@ public class ReservaController {
     private ReservaService reservaService;
 
     @GetMapping
-    public List<Reserva> getAllOrders() {
+    public List<Reserva> getAllReservas() {
         return reservaService.getAllReservas();
     }
 
-    @GetMapping("/{orderId}")
-    public Reserva getOrderById(@PathVariable Long orderId) {
-        return reservaService.getReservaById(orderId);
+    @GetMapping("/{reservaId}")
+    public Reserva getReservaById(@PathVariable Long reservaId) {
+        return reservaService.getReservaById(reservaId);
     }
 
     @PostMapping
-    public ResponseEntity<String> createOrder(@RequestBody List<Reserva> order) {
-    	System.out.println(order.toString());
-        return reservaService.createReserva(order);
+    public ResponseEntity<String> createReserva(@RequestBody List<Reserva> reserva) {
+    	System.out.println(reserva.toString());
+        return reservaService.createReserva(reserva);
     }
     
     @GetMapping("/user/{userId}")
-    public List<Reserva> getOrdersByUserId(@PathVariable Long userId) {
+    public List<Reserva> getReservasByUserId(@PathVariable Long userId) {
         return reservaService.getReservasByUserId(userId);
     }
 }

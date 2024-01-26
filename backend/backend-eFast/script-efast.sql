@@ -1,0 +1,9 @@
+#DROP DATABASE IF EXISTS efast;  
+ 
+
+CREATE DATABASE efast;  
+
+USE efast;  
+
+
+# CREATE TABLE peliculas ( codPelicula INT NOT NULL AUTO_INCREMENT PRIMARY KEY, nombre VARCHAR(40) NOT NULL, fechaAlta DATE NULL DEFAULT '06/01/10', stock TINYINT NULL, precio FLOAT NOT NULL );  

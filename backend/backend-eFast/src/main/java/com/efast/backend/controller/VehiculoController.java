@@ -19,20 +19,20 @@ import com.efast.backend.services.VehiculoService;
 @CrossOrigin(origins = "*" )
 public class VehiculoController {
     @Autowired
-    private VehiculoService productService;
+    private VehiculoService vehiculoService;
 
     @GetMapping
-    public List<Vehiculo> getAllProducts() {
-        return productService.getAllVehiculos();
+    public List<Vehiculo> getAllVehiculos() {
+        return vehiculoService.getAllVehiculos();
     }
 
     @GetMapping("/{productId}")
-    public Vehiculo getProductById(@PathVariable Long productId) {
-        return productService.getVehiculoById(productId);
+    public Vehiculo getVehiculoById(@PathVariable Long vehiculoId) {
+        return vehiculoService.getVehiculoById(vehiculoId);
     }
 
     @PostMapping
-    public Vehiculo createProduct(@RequestBody Vehiculo product) {
-        return productService.createVehiculo(product);
+    public Vehiculo createVehiculo(@RequestBody Vehiculo vehiculo) {
+        return vehiculoService.createVehiculo(vehiculo);
     }
 }
