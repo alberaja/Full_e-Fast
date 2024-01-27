@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
     public Long login(Usuario user) {
         Usuario existingUser = userRepository.findByUserEmail(user.getUserEmail());
         if (existingUser != null && existingUser.getUserPassword().equals(user.getUserPassword())) {
-            return existingUser.getId();
+            return existingUser.getUserId();
         }
         return null;
     }

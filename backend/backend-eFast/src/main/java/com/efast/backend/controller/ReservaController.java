@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.efast.backend.model.Reserva;
+import com.efast.backend.model.Usuario;
 import com.efast.backend.services.ReservaService;
 
 @RestController
@@ -39,7 +40,7 @@ public class ReservaController {
     }
     
     @GetMapping("/user/{userId}")
-    public List<Reserva> getReservasByUserId(@PathVariable Long userId) {
+    public List<Reserva> getReservasByUserId(@PathVariable Usuario userId) { //Long valor del entity Reserva
         return reservaService.getReservasByUserId(userId);
     }
 }

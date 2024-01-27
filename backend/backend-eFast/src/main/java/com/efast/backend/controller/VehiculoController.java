@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.efast.backend.model.Vehiculo;
+import com.efast.backend.model.VehiculoFavorito;
+import com.efast.backend.services.VehiculoFavService;
 import com.efast.backend.services.VehiculoService;
 
 @RestController
@@ -20,16 +22,24 @@ import com.efast.backend.services.VehiculoService;
 public class VehiculoController {
     @Autowired
     private VehiculoService vehiculoService;
+    
+    @Autowired
+    private VehiculoFavService vehiculoFavService;
 
     @GetMapping
     public List<Vehiculo> getAllVehiculos() {
         return vehiculoService.getAllVehiculos();
     }
 
-    @GetMapping("/{productId}")
+    @GetMapping("/{vehiculoId}")
     public Vehiculo getVehiculoById(@PathVariable Long vehiculoId) {
         return vehiculoService.getVehiculoById(vehiculoId);
     }
+    
+    @GetMapping("/vehiculoFavByUserName/{nombreUsuario}")
+    public List<VehiculoFavorito> getVehiculoFavByUserName(@PathVariable String nombreUsuario) {
+        return vehiculoFavService.getVehiculoFavByUserName(nombreUsuario);
+    }    
 
     @PostMapping
     public Vehiculo createVehiculo(@RequestBody Vehiculo vehiculo) {

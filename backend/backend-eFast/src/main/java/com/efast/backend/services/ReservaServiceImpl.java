@@ -71,7 +71,7 @@ public class ReservaServiceImpl implements ReservaService {
     }
 
     @Override
-    public List<Reserva> getReservasByUserId(Long userId) {
-        return reservaRepository.findByUserId(userId);
+    public List<Reserva> getReservasByUserId(Usuario userId) { //Long
+        return reservaRepository.findByUser(userId);
     }
 }
