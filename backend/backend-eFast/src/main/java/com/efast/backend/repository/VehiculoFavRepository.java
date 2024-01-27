@@ -11,7 +11,7 @@ import com.efast.backend.model.VehiculoFavorito;
 
 @Repository
 public interface VehiculoFavRepository extends JpaRepository<VehiculoFavorito, Long> {
-	// Mismas querys de <> formas
+	// Mismas querys de <>s formas
 	// Consulta JPQL 
 					//@Param("nombreUsuario")
 	  @Query("SELECT vf FROM VehiculoFavorito vf JOIN vf.user u WHERE u.userName = :nombreUsuario")
