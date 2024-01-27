@@ -1,3 +1,4 @@
+#  Dado 1 nombre de usuario, recupera todos los coches favoritos de ese usuario
 use efast;
 SELECT
         * 
@@ -69,4 +70,22 @@ SELECT
         }
     }
 ]       */
+
+#  Dado 1 nombre de usuario, recupera todos los coches favoritos de ese usuario
+# aja: Deberia de ser
+SELECT * FROM efast.usuarios;
+	# ver los favs de cada usuario
+SELECT * FROM efast.vehiculos_fav vf; #Salida:  ## id_fav, user_id, vehicle_id
+												## '1', 	'1', 	'2'
+
+
+# Resultado: Fila del coche2, ya que en efast.vehiculos_fav he marcado que al user 1 con u.user_name = "Alberto" le gusta el vehiculo 2
+SELECT * FROM efast.vehiculos
+		WHERE vehicle_id IN (
+		(SELECT vf.vehicle_id 	#2
+			FROM efast.vehiculos_fav vf 
+			WHERE vf.user_id IN
+			(SELECT u.user_id FROM  efast.usuarios u    WHERE  u.user_name = "Alberto") #1
+		)
+							);
       
