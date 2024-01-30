@@ -1,11 +1,11 @@
 
 import React, { useState, useEffect } from 'react';
 // import SearchBar from './components/SearchBar';
-import SearchResultsCars from '../../components/body/SearchResultsCars';
+import SearchResultsCars from '../../components/body/search-results-cars';
 import axios from 'axios';
 
 import { useModal } from '../../ModalContext';
-import FilterModal from '../../components/filter-modal';
+import FilterModal from '../../components/filter-modal/index.jsx';
 
 //  modificar los Query String de las URLs
 // import { useSearchParams } from "react-router-dom";

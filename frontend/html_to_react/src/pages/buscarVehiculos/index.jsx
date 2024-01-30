@@ -1,10 +1,10 @@
 // import styles from './buscarVehiculo.module.css';
 import styles from './buscarVehiculo.css';
 // import './buscarVehiculo.js'
-import ServicioExclusivoFooter from '../../components/footer/ServicioExclusivoFooter';
+import ServicioExclusivoFooter from '../../components/footer/servicio-exclusivo-footer';
 // import ContactanosOcultoFooter from './components/footer/ContactanosOcultoFooter';
-import DescripyContactoFooter from '../../components/footer/DescripyContactoFooter';
-import Buscador1 from './Buscador1';
+import DescripyContactoFooter from '../../components/footer/descrip-y-contacto-footer';
+import Buscador1 from './buscador1';
 import { useLocation } from "react-router-dom";
 
 export default function BuscarVehiculo() {
