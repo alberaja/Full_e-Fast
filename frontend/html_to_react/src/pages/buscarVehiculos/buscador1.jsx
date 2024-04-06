@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import SearchResultsCars from '../../components/body/search-results-cars';
 import axios from 'axios';
 
-import { useModal } from '../../ModalContext';
+import { useModal } from '../../hooks/modal.jsx';
 import FilterModal from '../../components/filter-modal/index.jsx';
 
 //  modificar los Query String de las URLs
