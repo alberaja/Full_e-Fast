@@ -47,7 +47,7 @@ export function FuelTypeTab({selectedFuelTypes, handleOptionClick}) {
                 <input
                   type="checkbox"
                   value={type.valueHuman}
-                  checked={selectedFuelTypes.includes(type.valueHuman)} /* type.valueHuman */
+                  checked={selectedFuelTypes.includes(type.value)} /* type.valueHuman */
                   onChange={() => handleOptionClick(type.value)} /* type.valueHuman */
                   className="mr-2"
                 />
