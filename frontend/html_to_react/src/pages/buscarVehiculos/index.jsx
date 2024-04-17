@@ -7,6 +7,15 @@ import DescripyContactoFooter from '../../components/footer/descrip-y-contacto-f
 import Buscador1 from './buscador1';
 import { useLocation } from "react-router-dom";
 
+import Drawer from '@mui/material/Drawer';
+import * as React from 'react';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
+import Filtros  from './filtros.jsx';
+
 export default function BuscarVehiculo() {
 
     // console.log(styles);
@@ -17,119 +26,204 @@ export default function BuscarVehiculo() {
     let date1 = (location.state?.date1FormatoSeleccionada ?? 0); //location.state.date1FormatoSeleccionada;
     let date2 = (location.state?.date2FormatoSeleccionada ?? 0); //location.state.date2FormatoSeleccionada;
 
+    const [open, setOpen] = React.useState(false);
+    const drawerWidth = 240;
+
+
+    // boton para filtrar
+    // const [filtro, setFiltro] = React.useState("");
+    // React.useEffect(() => {
+    //     if (filtro === "hidden") {
+    //         document.querySelector('#elfiltro').classList.remove('hidden');
+    //     } else {
+    //         document.querySelector('#elfiltro').classList.add('hidden');
+    //     }
+    // }, [filtro]);
+
+    //     const cambiaFiltro = () => {
+    //         console.log({filtro});
+    //         setFiltro(prevFiltro => prevFiltro == "hidden" ? "" : "hidden" )
+    //     }
+
     return (
+      //  <main> {/*<!--main-->*/}
+      // <span>
+      <>
+        <section className="contenedor__map">
+          {/* <!--Ubicación Google Maps--> */}
+          <div id="map">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2993.1495181159057!2d2.128709215289849!3d41.39255917926372!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4986f48e9b1a3%3A0xcdad0dc13e079034!2sAv.%20de%20Sarri%C3%A0%2C%20150%2C%2008017%20Barcelona!5e0!3m2!1ses!2ses!4v1663318152366!5m2!1ses!2ses"
+              width="600"
+              height="450"
+              style={{ border: "0;" }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+          <div className="ubicacion__vehiculos">
+            <h3 className="ubicacion__vehiculos__parrafo">
+              Av. de Sarrià, 150: Vehículos disponibles
+            </h3>
 
-        //  <main> {/*<!--main-->*/}
-        // <span>
-        <>
-            <section className="contenedor__map">
-                {/* <!--Ubicación Google Maps--> */}
-                <div id="map">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2993.1495181159057!2d2.128709215289849!3d41.39255917926372!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4986f48e9b1a3%3A0xcdad0dc13e079034!2sAv.%20de%20Sarri%C3%A0%2C%20150%2C%2008017%20Barcelona!5e0!3m2!1ses!2ses!4v1663318152366!5m2!1ses!2ses" width="600" height="450" style={{ border: '0;' }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
-                </div>
-                <div className="ubicacion__vehiculos">
-                    <h3 className="ubicacion__vehiculos__parrafo">Av. de Sarrià, 150: Vehículos disponibles</h3>
+            {/* de aja */}
+            {/* se renderizará solo si las tres variables no son nulas o vacías */}
+            {numdiasReservados && date1 && date2 ? (
+              // {location.state.diasReservados}   {location.state.date1FormatoSeleccionada}    {location.state.date2FormatoSeleccionada}
+              <h3>
+                {" "}
+                Seleccionaste {numdiasReservados} dias entre los días {date1} y{" "}
+                {date2}
+              </h3>
+            ) : null}
+          </div>
+        </section>
 
-                    {/* de aja */}
-                    {/* se renderizará solo si las tres variables no son nulas o vacías */}
-                    {numdiasReservados && date1 && date2 ? (
-                        // {location.state.diasReservados}   {location.state.date1FormatoSeleccionada}    {location.state.date2FormatoSeleccionada}
-                        <h3> Seleccionaste {numdiasReservados} dias entre los días {date1} y {date2}</h3>
-                    ) : (null)}
-                </div>
-            </section>
+        {/* <Drawer variant="permanent" open={true}
+            sx={{
+                display: { xs: 'block', sm: 'flex' },  //none
+                '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+              }}> holaaa
+              <Accordion>
+                    <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1-content"
+                    id="panel1-header"
+                    >
+                    Accordion 1. 
+                    Grupo filtros1
+                    </AccordionSummary>
+                    <AccordionDetails>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                    malesuada lacus ex, sit amet blandit leo lobortis eget.
+                    </AccordionDetails>
+                </Accordion>
+                
+              </Drawer> */}
 
-            {/* Listado de coches dinamico contra la API  */}
+        {/* ok boton para filtrar
+        <button className='flex tablet:hidden' onClick={cambiaFiltro}>filtrar </button>
+    <div className="flex">  {/*menufiltros      grid grid-cols-2    
+
+        <div id='elfiltro' className="hidden  tablet:relative md:flex  w-1/4 bg-red-300">  {/* hidden fixed tablet:relative md:flex  w-1/4 bg-red-300
+            filtro
+        </div>
+        <div className="flex">
             <Buscador1></Buscador1>
+        </div>
+    </div> */}
 
-            {/********  aqui abajo todo estatico */}
+        <Filtros></Filtros>  
 
-            {/*<!--contenedor__caja de texto-->*/}
-            {/*<!--Coche Tesla-->*/}
-            <section className="contenedor__caja__vehiculos__tesla" id="vehiculos">
-                <div className="contenedor__caja__vehiculos__dinamico__tesla">
-                    <div className="caja__tesla">
-                        <a href="" className="caja__tesla__imagen">
-                            <img src="images/tesla3.png" className="imagenCoche" />
-                        </a>
-                    </div>
+        {/* Listado de coches dinamico contra la API  */}
+        <Buscador1></Buscador1>
+
+        {/********  aqui abajo todo estatico */}
+
+        {/*<!--contenedor__caja de texto-->*/}
+        {/*<!--Coche Tesla-->*/}
+        <section className="contenedor__caja__vehiculos__tesla" id="vehiculos">
+          <div className="contenedor__caja__vehiculos__dinamico__tesla">
+            <div className="caja__tesla">
+              <a href="" className="caja__tesla__imagen">
+                <img src="images/tesla3.png" className="imagenCoche" />
+              </a>
+            </div>
+          </div>
+          <section className="producto__tesla">
+            <div className="producto__tesla__parrafo">
+              <h1 className="producto__tesla__parrafo">Tesla 3</h1>
+            </div>
+            <section className="producto__tesla__caracteristicas">
+              <div className="producto__tesla__parrafo__caracteristicas">
+                <div className="producto__tesla__parrafo__plazos">
+                  <p className="producto__tesla__parrafo__plazas-p">
+                    <img src="images/icono-user.svg" /> 5 plazas
+                  </p>
                 </div>
-                <section className="producto__tesla">
-                    <div className="producto__tesla__parrafo">
-                        <h1 className="producto__tesla__parrafo">Tesla 3</h1>
-                    </div>
-                    <section className="producto__tesla__caracteristicas">
-                        <div className="producto__tesla__parrafo__caracteristicas">
-                            <div className="producto__tesla__parrafo__plazos">
-                                <p className="producto__tesla__parrafo__plazas-p"><img src="images/icono-user.svg" /> 5 plazas</p>
-                            </div>
-                            <div className="producto__tesla__parrafo__plazos">
-                                <p className="producto__tesla__parrafo__litros-p"><img src="images/equipaje.svg" /> 649 litros</p>
-                            </div>
-                            <div className="producto__tesla__parrafo__plazos">
-                                <p className="producto__tesla__parrafo__autonomia-p"><img src="images/bateria.svg" /> 547km autonomía</p>
-                            </div>
-                        </div>
-                    </section>
-                </section>
-                <section className="barra__tesla">
-                    <div className="barra__tesla__precio">
-                        <div className="barra__tesla__precio__dia">
-                            <p className="precio__dia">Precio por 1 día</p>
-                            <h3 className="precio__dia__tesla-especifico">159€</h3>
-                            <img className="iconoCheck" src="images/check.svg" />
-                            <p className="barra__precio-Cancelacion__gratuita">Cancelación gratuita</p>
-                        </div>
-                    </div>
-                    <a href="teslaElegido.html" className="barra__oferta__tesla">
-                        <div>Ver oferta</div>
-                    </a>
-                </section>
-            </section>{/*<!--contenedor__caja de imagenes Coche-->*/}
-            {/*<!--Moto zero-->*/}
-            <section className="contenedor__caja__vehiculos__Zero" id="vehiculos">
-                <div className="contenedor__caja__vehiculos__dinamico__Zero">
-                    <div className="caja__zero">
-                        <a href="" className="caja__zero__imagen">
-                            <img src="images/Zero-SRF-360-9.png" className="imagenCoche" />
-                        </a>
-                    </div>
+                <div className="producto__tesla__parrafo__plazos">
+                  <p className="producto__tesla__parrafo__litros-p">
+                    <img src="images/equipaje.svg" /> 649 litros
+                  </p>
                 </div>
-                <section className="producto__zero">
-                    <div className="producto__zero__parrafo">
-                        <h1 className="producto__zero__parrafo">Zero SR/F</h1>
-                    </div>
-                    <section className="producto__zero__caracteristicas">
-                        <div className="producto__tesla__parrafo__caracteristicas">
-                            <div className="producto__zero__parrafo__velocidadPunta">
-                                <p className="producto__zero__parrafo__velocidadPunta-p"><img src="images/velocimetro.png" /> 200km/h</p>
-                            </div>
-                            <div className="producto__zero__parrafo__tiempo__carga">
-                                <p className="producto__zero__parrafo__tiempo__carga-p"><img src="images/grid_iconoReloj7.svg" /> 2.4h cargarla</p>
-                            </div>
-                            <div className="producto__zero__parrafo__autonomia">
-                                <p className="producto__zero__parrafo__autonomia-p"><img src="images/bateria.svg" /> 272km autonomía</p>
-                            </div>
-                        </div>
-                    </section>
-                </section>
-                <section className="barra__zero">
-                    <div className="barra__zero__precio">
-                        <div className="barra__zero__precio__dia">
-                            <p className="precio__dia">Precio por 1 día</p>
-                            <h3 className="precio__dia__zero-especifico">79€</h3>
-                            <img className="iconoCheck" src="images/check.svg" />
-                            <p className="barra__precio-Cancelacion__gratuita">Cancelación gratuita</p>
-                        </div>
-                    </div>
-                    <a href="zeroElegido.html" className="barra__oferta__zero">
-                        <div>Ver oferta</div>
-                    </a>
-                </section>
+                <div className="producto__tesla__parrafo__plazos">
+                  <p className="producto__tesla__parrafo__autonomia-p">
+                    <img src="images/bateria.svg" /> 547km autonomía
+                  </p>
+                </div>
+              </div>
             </section>
+          </section>
+          <section className="barra__tesla">
+            <div className="barra__tesla__precio">
+              <div className="barra__tesla__precio__dia">
+                <p className="precio__dia">Precio por 1 día</p>
+                <h3 className="precio__dia__tesla-especifico">159€</h3>
+                <img className="iconoCheck" src="images/check.svg" />
+                <p className="barra__precio-Cancelacion__gratuita">
+                  Cancelación gratuita
+                </p>
+              </div>
+            </div>
+            <a href="teslaElegido.html" className="barra__oferta__tesla">
+              <div>Ver oferta</div>
+            </a>
+          </section>
+        </section>
+        {/*<!--contenedor__caja de imagenes Coche-->*/}
+        {/*<!--Moto zero-->*/}
+        <section className="contenedor__caja__vehiculos__Zero" id="vehiculos">
+          <div className="contenedor__caja__vehiculos__dinamico__Zero">
+            <div className="caja__zero">
+              <a href="" className="caja__zero__imagen">
+                <img src="images/Zero-SRF-360-9.png" className="imagenCoche" />
+              </a>
+            </div>
+          </div>
+          <section className="producto__zero">
+            <div className="producto__zero__parrafo">
+              <h1 className="producto__zero__parrafo">Zero SR/F</h1>
+            </div>
+            <section className="producto__zero__caracteristicas">
+              <div className="producto__tesla__parrafo__caracteristicas">
+                <div className="producto__zero__parrafo__velocidadPunta">
+                  <p className="producto__zero__parrafo__velocidadPunta-p">
+                    <img src="images/velocimetro.png" /> 200km/h
+                  </p>
+                </div>
+                <div className="producto__zero__parrafo__tiempo__carga">
+                  <p className="producto__zero__parrafo__tiempo__carga-p">
+                    <img src="images/grid_iconoReloj7.svg" /> 2.4h cargarla
+                  </p>
+                </div>
+                <div className="producto__zero__parrafo__autonomia">
+                  <p className="producto__zero__parrafo__autonomia-p">
+                    <img src="images/bateria.svg" /> 272km autonomía
+                  </p>
+                </div>
+              </div>
+            </section>
+          </section>
+          <section className="barra__zero">
+            <div className="barra__zero__precio">
+              <div className="barra__zero__precio__dia">
+                <p className="precio__dia">Precio por 1 día</p>
+                <h3 className="precio__dia__zero-especifico">79€</h3>
+                <img className="iconoCheck" src="images/check.svg" />
+                <p className="barra__precio-Cancelacion__gratuita">
+                  Cancelación gratuita
+                </p>
+              </div>
+            </div>
+            <a href="zeroElegido.html" className="barra__oferta__zero">
+              <div>Ver oferta</div>
+            </a>
+          </section>
+        </section>
 
-            {/*<!--CONTACTO Y CONTACTANOS OCULTO-->*/}
-            {/* <section className="contenedor__contacto__contactanos" id="contactos">
+        {/*<!--CONTACTO Y CONTACTANOS OCULTO-->*/}
+        {/* <section className="contenedor__contacto__contactanos" id="contactos">
                 <section className="contenedor__cerrar">
                     <div className="contenedor__cerrar__contacto">
                         <div className="contendor__icono">
@@ -201,20 +295,15 @@ export default function BuscarVehiculo() {
                     </form>
                 </section>
             </section> */}
-            
-            {/*<!--contenedor__caja de imagenes Coche-->*/}
-            {/*<!--Contáctanos-->*/}
 
+        {/*<!--contenedor__caja de imagenes Coche-->*/}
+        {/*<!--Contáctanos-->*/}
 
-            {/* <ServicioExclusivoFooter></ServicioExclusivoFooter>
+        {/* <ServicioExclusivoFooter></ServicioExclusivoFooter>
 
             <DescripyContactoFooter></DescripyContactoFooter> */}
-            {/* </main> */}
-            {/* </span> */}
-        </>
-
-
-
-
-    )
+        {/* </main> */}
+        {/* </span> */}
+      </>
+    );
 }

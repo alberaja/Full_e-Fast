@@ -7,6 +7,13 @@ import axios from 'axios';
 import { useModal } from '../../hooks/modal.jsx';
 import FilterModal from '../../components/filter-modal/index.jsx';
 
+
+import Drawer from '@mui/material/Drawer';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
 //  modificar los Query String de las URLs
 // import { useSearchParams } from "react-router-dom";
 
@@ -50,13 +57,46 @@ export default function Buscador1() {
       searchApi('Mitsubishi');
     }, []); // El array de dependencias vacío asegura que solo se ejecute al montar el componente
 
-   
+
+    // para Drawer
+    const [ setOpen] = React.useState(false);
+    const drawerWidth = 240;   
+    
   // };
 
   const { open, handleOpen, handleClose } = useModal();
   
 
   return (
+    <>
+    <div>
+
+
+       {/* <Drawer variant="permanent" open={true}
+            sx={{
+                display: { xs: 'block', sm: 'none' },
+                '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+              }}> holaaa
+              <Accordion>
+                    <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1-content"
+                    id="panel1-header"
+                    >
+                    Accordion 1. 
+                    Grupo filtros1
+                    </AccordionSummary>
+                    <AccordionDetails>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                    malesuada lacus ex, sit amet blandit leo lobortis eget.
+                    </AccordionDetails>
+                </Accordion>
+              </Drawer> */}
+
+              
+    </div>
+
+
     <div>
       <button className="boton__contáctanos" onClick={handleOpen}>Filtrar Resultados</button>
       <FilterModal isOpen={open} handleClose={handleClose} onFilter={filtrarCampos} />
@@ -66,6 +106,8 @@ export default function Buscador1() {
      
       <SearchResultsCars  results={results} />
     </div>
+
+    </>
   );
 
 }
