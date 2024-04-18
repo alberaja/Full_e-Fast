@@ -1,20 +1,24 @@
 package com.efast.backend.services;
 
+import java.util.Date;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.efast.backend.dto.ConductorDTO;
 import com.efast.backend.dto.ReservaDTO;
 import com.efast.backend.dto.ReservaRequest;
+import com.efast.backend.exception.VehiculoNoAlquilableException;
 import com.efast.backend.model.Conductor;
 import com.efast.backend.model.Reserva;
 import com.efast.backend.model.Vehiculo;
 import com.efast.backend.repository.ConductorRepository;
 import com.efast.backend.repository.ReservaRepository;
+import com.efast.backend.repository.VehiculoRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -25,6 +29,9 @@ public class ReservaServiceImpl implements ReservaService {
 
 	@Autowired
 	private ConductorRepository conductorRepository;
+	
+	@Autowired
+	private VehiculoRepository vehiculoRepository;
 
 	private final ModelMapper modelMapper = new ModelMapper();
 
@@ -104,18 +111,20 @@ public class ReservaServiceImpl implements ReservaService {
 
 	public ReservaDTO crearReserva1(ReservaRequest reservaRequest) {
 		// 1. Crear o recuperar el conductor
-		
 //		ConductorDTO conductReserva = modelMapper.map(reservaRequest.getReserva().getConductorId(), ConductorDTO.class);
 		Conductor conductor = obtenerOCrearConductor(reservaRequest.getConductor());
 
+		// 2. Crear o recuperar el vehículo
+		Vehiculo vehiculo = obtenerOCrearVehiculo( reservaRequest );
+
 		// 3. Crear la reserva
 		Reserva reserva = new Reserva();
-		reserva.setConductorId(conductor ); //new Conductor()    setConductorId(conductor.getConductorId().getLong(""));
-		// 2. Crear o recuperar el vehículo                      // otrasCaracteristicas como nombre, precio..
-		Vehiculo vehiculo = Vehiculo.builder().vehiculo_id(reservaRequest.getReserva().getVehiculoId()).vehicleName("otrasCaracteristicas").price(55).build();
+		reserva.setConductorId(conductor); // new Conductor() setConductorId(conductor.getConductorId().getLong(""));
+		// otrasCaracteristicas como nombre, precio..
+//		Vehiculo vehiculo1 = Vehiculo.builder().vehiculo_id(reservaRequest.getReserva().getVehiculoId()).vehicleName("otr").price(55.0).build();
 		// Verificar si la reserva existe en la base de datos
-		reserva.setVehiculoId(null);  // ok la 1era vez con null, luego va ok con la vble vehiculo
-		
+		reserva.setVehiculoId(vehiculo); // ok la 1era vez con null, luego va ok con la vble vehiculo1
+
 		reserva.setFechaHoraIni(reservaRequest.getReserva().getFechaHoraIni());
 		reserva.setFechaHoraFin(reservaRequest.getReserva().getFechaHoraFin());
 		reserva.setCiudadesVehiculo(reservaRequest.getReserva().getCiudadesDevolverVehiculo());
@@ -124,32 +133,52 @@ public class ReservaServiceImpl implements ReservaService {
 		reserva.setPrecioPorDia(reservaRequest.getReserva().getPrecioPorDia());
 		reserva.setTotalReserva(reservaRequest.getReserva().getTotalReserva());
 		reserva.setComentarios(reservaRequest.getReserva().getComentarios());
+		reserva.setLastUpdated(new Date());
 
 		// 4. Guardar la reserva
 		reservaRepository.save(reserva);
 
-		
 		// 5. Devolver la reserva
 		ReservaDTO reservaResponse = modelMapper.map(reserva, ReservaDTO.class);
 		return reservaResponse;
 		// reserva;
 	}
-	
-	 private Conductor obtenerOCrearConductor(ConductorDTO conductorDTO) {
-	        Conductor conductor = conductorRepository.findByDni(conductorDTO.getDni()).orElse(null);
 
-	        if (conductor == null) { // conductor == null
-	            Conductor conductorNuevo = new Conductor();
-	            conductorNuevo.setNombre(conductorDTO.getNombre());
-	            conductorNuevo.setApellidos(conductorDTO.getApellidos());
-	            conductorNuevo.setDni(conductorDTO.getDni());
-	            conductorNuevo.setTelefono(conductorDTO.getTelefono());
-	            conductorNuevo.setEmail(conductorDTO.getEmail());
-	            conductorRepository.save(conductorNuevo);		// conductorRepository.saveAndFlush()
-	            return conductorNuevo;
-	        } 
-	        
-			return conductor;
-	    }
+	private Conductor obtenerOCrearConductor(ConductorDTO conductorDTO) {
+		Conductor conductor = conductorRepository.findByDni(conductorDTO.getDni()).orElse(null);
+
+		if (conductor == null) { // conductor == null
+			Conductor conductorNuevo = new Conductor();
+			conductorNuevo.setNombre(conductorDTO.getNombre());
+			conductorNuevo.setApellidos(conductorDTO.getApellidos());
+			conductorNuevo.setDni(conductorDTO.getDni());
+			conductorNuevo.setTelefono(conductorDTO.getTelefono());
+			conductorNuevo.setEmail(conductorDTO.getEmail());
+			conductorRepository.save(conductorNuevo); // conductorRepository.saveAndFlush()
+			return conductorNuevo;
+		}
+
+		return conductor;
+	}
+
+	private Vehiculo obtenerOCrearVehiculo( ReservaRequest reservaRequest) {
+		Long idVehiculo = reservaRequest.getReserva().getVehiculoId();
+        Vehiculo vehiculo = vehiculoRepository.findById(idVehiculo).orElse(null);
+
+        if (vehiculo == null) {
+            vehiculo = new Vehiculo();
+            // minimo las que anote con nullable = false : vehicleName, price...
+            vehiculo.setVehicleName(reservaRequest.getReserva().getVehiculoMarcaModelo());
+            vehiculo.setVehiculo_id(idVehiculo);            
+            vehiculo.setPrice(reservaRequest.getReserva().getPrecioPorDia());
+            vehiculo.setQuantity(1);
+            vehiculoRepository.save(vehiculo);
+        } else if(!vehiculo.isAlquilable()) {
+        	throw new VehiculoNoAlquilableException("Vehiculo no disponible para alquilar. Esta Alquilable=false!", HttpStatus.METHOD_NOT_ALLOWED);
+        }
+        
+        vehiculo.setAlquilable(false);
+        return vehiculo;
+    }
 
 }

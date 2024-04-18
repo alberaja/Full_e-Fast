@@ -1,6 +1,7 @@
 package com.efast.backend.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,6 +11,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -39,6 +42,7 @@ public class Reserva implements Serializable {
 //	    @JoinColumn(name = "vehicle_id", nullable = false, columnDefinition = "BIGINT default 0")  // especificar la columna en la tabla de la entidad Reserva que contendrá el identificador del vehículo asociado
 //	    private Vehiculo vehicle;
 	 	@ManyToOne
+	 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	    @JoinColumn(name = "vehiculo_id" /*, nullable = false*/)
 	    private Vehiculo  vehiculoId;  //Set<Vehiculo>. necesario set para poder usarlo luego al hacer .save(entidad)
 
@@ -71,6 +75,10 @@ public class Reserva implements Serializable {
 
 	    @Column(name = "total_reserva")
 	    private Double totalReserva;
+	    
+	    @Column(name = "last_updated")
+	    @Temporal(TemporalType.TIMESTAMP) // Especifica que se trata de una fecha y hora
+	    private Date lastUpdated;
 
 	
 //	    @Data

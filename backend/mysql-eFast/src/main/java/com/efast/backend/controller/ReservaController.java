@@ -3,6 +3,8 @@ package com.efast.backend.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,8 +43,8 @@ public class ReservaController {
 //    }
     
     @PostMapping
-    public ReservaDTO /*Reserva*/ crearReserva(@RequestBody ReservaRequest reservaDTO) {
-        return reservaService.crearReserva1(reservaDTO);
+    public ResponseEntity<ReservaDTO> /*Reserva*/ crearReserva(@RequestBody ReservaRequest reservaDTO) {
+    	return ResponseEntity.status(HttpStatus.CREATED).body(reservaService.crearReserva1(reservaDTO)); 
     }
     
 //    @PostMapping

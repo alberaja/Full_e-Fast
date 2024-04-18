@@ -34,19 +34,22 @@ public class Vehiculo implements Serializable {
 	//@Column(name = "vehicle_id", nullable = false, columnDefinition = "BIGINT default 0")
 	private Long vehiculo_id;
 
-	@Column(nullable = false)
+	@Column(length = 100, nullable = false) // length: Longitud máxima de 1000 caracteres. evitar error 'DataIntegrityViolationException ' insert largo
 	private String vehicleName;//productName
 
 	@Column
 	private String vehicleDescription;//productDescription
 
 	@Column(nullable = false)
-	private int price;
+	private Double price;
 
 	@Column
 	private String imageURI;
 	@Column
 	private int quantity;
+	
+	@Column
+	private boolean alquilable;
 
 //	 @OneToMany(mappedBy = "vehiculo_id")
 //	 private List<Reserva> reservas;

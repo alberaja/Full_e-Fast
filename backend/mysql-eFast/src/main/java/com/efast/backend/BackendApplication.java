@@ -1,5 +1,7 @@
 package com.efast.backend;
 
+import java.util.Iterator;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,20 +27,24 @@ public class BackendApplication {
 		SpringApplication.run(BackendApplication.class, args);
 	}
 
-	@PostConstruct
+	// Descomentar la primera vez. comentar luego para no duplique guardado con cada cambio realizado
+	 @PostConstruct
     public void addVehicles(){
 		System.out.println("entraa addVehicles");
-		Vehiculo vehiculo = new Vehiculo();
-			
-		
+		// insertar 4 vehiculos de prueba
+		for (int i = 0; i < 4; i++) {
+			Vehiculo vehiculo = new Vehiculo();
 		//vehiculo.setVehicleId(0L);  //se añade automaticamente
-	    	vehiculo.setVehicleName("cocheAja1-Prueba");
+			vehiculo.setAlquilable(true);
+	    	vehiculo.setVehicleName("cocheAja-Prueba"+ i);
 	    	vehiculo.setVehicleDescription("Descrip cocheAja1");
-	    	vehiculo.setPrice(50);
-		vehiculo.setImageURI(URL);
+	    	vehiculo.setPrice(50.0);
+	    	vehiculo.setImageURI(URL);
 	    	vehiculo.setQuantity(5);
 		//vehiculo.setStartDate( LocalDateTime.parse("2020-06-14-00.00.00", DateTimeFormatter.ofPattern("yyy-MM-dd-HH.mm.ss")));
 		//vehiculo.setEndDate( LocalDateTime.parse("2020-12-31-23.59.59", DateTimeFormatter.ofPattern("yyy-MM-dd-HH.mm.ss")));				
 		vehiculoRepository.save(vehiculo);
+		
+		}
     }
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.efast.backend.model.Conductor;
+import com.efast.backend.repository.ConductorRepository;
 import com.efast.backend.services.UserService;
 
 @RestController
@@ -23,10 +24,13 @@ import com.efast.backend.services.UserService;
 public class ConductorController {
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private ConductorRepository conductorRepository;
 
     @GetMapping("")
     public List<Conductor> getAllUsers() {
-        return userService.getAllUsers();
+        return conductorRepository.findAll();//return userService.getAllUsers();
     }
 
     @GetMapping("/{userId}")
