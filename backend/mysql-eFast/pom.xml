@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.0.5</version>
+		<version>3.0.5</version> <!-- mantengo esta version q es necesaria para MySQL que micro elastic-eFast-->
 		<relativePath />
 	</parent>
 	<groupId>com.efast</groupId>
@@ -16,6 +16,7 @@
 	<description>Backend para efast</description>
 	<properties>
 		<java.version>17</java.version>
+		<spring-cloud.version>2022.0.0</spring-cloud.version>   <!-- NECESARIO para spb 3.0.5!  Para spb 2.6.4 mejor <spring-cloud.version>2021.0.1-->
 	</properties>
 	<dependencies>
 		<dependency>
@@ -66,8 +67,27 @@
 			<artifactId>modelmapper</artifactId>
 			<version>3.1.1</version>
 		</dependency>
+		
+		<!-- aja: para Eureka -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency> 
 
 	</dependencies>
+	
+	<!-- aja: para Eureka -->
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<build>
 		<plugins>
