@@ -33,6 +33,7 @@ import Radio from "@mui/material/Radio";
 // iconos
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import EvStationTwoToneIcon from "@mui/icons-material/EvStationTwoTone";
+import Buscador1 from "./buscador1";
 
 const drawerWidth = 240;
 
@@ -172,17 +173,20 @@ export default function PersistentDrawerLeft() {
         sx={{
           width: drawerWidth,
           flexShrink: 0,
-          "& .MuiDrawer-paper": {
-            width: drawerWidth,
-            boxSizing: "border-box",
-          },
-        }}
-        variant="persistent"
-        anchor="left"
+          // "& .MuiDrawer-paper": {
+          //   width: drawerWidth,
+          //   boxSizing: "border-box",
+          // },          
+          position: "sticky",
+          mt: "3",
+          display: { xs: "none", md: "block" }  // mostrar menu de filtros solo a partir de pantalla mediana
+        }}        
+        variant="persistent"   //comentar para ver fondo en negro/black, y Drawer por encima de todo
+        // anchor="left"
         open={open}
       >
         <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton onClick={handleDrawerClose} sx={{marginTop: "40%"}} >
             {theme.direction === "ltr" ? (
               <ChevronLeftIcon />
             ) : (
@@ -234,6 +238,7 @@ export default function PersistentDrawerLeft() {
         </div> */}
 
         <div>
+          
           <Accordion /*style={{ background: "green" }}*/>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
@@ -335,6 +340,7 @@ export default function PersistentDrawerLeft() {
           ))}
         </List>
       </Drawer>
+      {/* aja: style del boton */}
       <Main open={open} style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "10vh" }}>
       <Button
             color="success" //"inherit"
@@ -343,28 +349,22 @@ export default function PersistentDrawerLeft() {
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            sx={{ mr: 2, ...(open && { display: "none" }) }}
+            sx={{ mr: 2, ...(open && { display: "none" /*, backgroundColor: "red"*/  }) }}
           >
             {/* <MenuIcon /> */}
             Todos los filtros
           </Button>
-        <DrawerHeader />        
+        <DrawerHeader />       
+       {/* Este codigo si se desplaza a la derecha al expandir el Drawer */}
         {/* <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
           dolor purus non enim praesent elementum facilisis leo vel. Risus at
           ultrices mi tempus imperdiet. Semper risus in hendrerit gravida rutrum
-          quisque non tellus. Convallis convallis tellus id interdum velit
-          laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed
-          adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-          integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-          eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-          quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-          vivamus at augue. At augue eget arcu dictum varius duis at consectetur
-          lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien
-          faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
+          quisque non tellus.  
+           <Buscador1></Buscador1> 
+        </Typography>  */}
+        {/*<Typography paragraph>
           Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
           ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
           elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
