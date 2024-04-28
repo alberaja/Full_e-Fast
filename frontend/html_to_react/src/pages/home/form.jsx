@@ -7,6 +7,7 @@ import { FuelTypeTab } from "./components/FuelTypeTab";
 import { AddressSearch } from "./components/AddressSearch";
 import { BrandType } from "./components/BrandType";
 import DatePicker from "./components/DatePicker";
+import { Link } from "react-router-dom";
 
 
 function parseURL(input) {
@@ -179,12 +180,14 @@ console.log({selectedVehicleTypes}, selectedVehicleTypes);
           showDropoffInput={showDropoffInput}
         />
         <BrandType />
-        <button 
+        {/* //TODO: dejar <button> para mantener estilos asignados antes*/}
+        <Link to={"/busquedaVehiculos?"+ params}
           className="border border-gray-400 rounded-md p-1 text-lg text-gray-700 bg-blue-100"
           // onClick={""}
+          
         >
           Buscar Vehiculos
-          </button> 
+          </Link> 
       </div>      
       <div className="rounded-lg p-3 bg-gray-200 border border-gray-700 inline-flex flex-col shadow-2xl">
         <div className="bg-gray-200 [&>div>label]:text-gray-600 [&>div>label]:font-semibold [&>div>input]:bg-gray-200 [&>div>input]:text-gray-600 flex-col mx-auto justify-between p-2 xl:flex-row flex">

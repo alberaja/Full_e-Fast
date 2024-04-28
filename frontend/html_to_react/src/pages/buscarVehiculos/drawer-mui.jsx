@@ -23,17 +23,13 @@ import MailIcon from "@mui/icons-material/Mail";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-
 import RadioGroup, { useRadioGroup } from "@mui/material/RadioGroup";
 import Radio from "@mui/material/Radio";
 // iconos
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import EvStationTwoToneIcon from "@mui/icons-material/EvStationTwoTone";
-import Buscador1 from "./buscador1";
+import Buscador1 from "./cars-resultados";
+import MenuFiltros from "../../components/filters";
 
 const drawerWidth = 240;
 
@@ -107,14 +103,68 @@ export default function PersistentDrawerLeft() {
   const handleChange3 = (event) => {
     setChecked([checked[0], event.target.checked]);
   };
-  const children = (
+  const childrenFiltros = (
     <Box sx={{ display: "flex", flexDirection: "column", ml: 3 }}>
       <FormControlLabel
-        label="Child 1"
+        // label="Child 1"
+        // label="BEV"
+        label={
+          <>
+            BEV
+            <Typography variant="body3" /*component="span" /*color="textSecondary"*/ marginLeft={"105px"}>
+              (1)
+            </Typography>
+          </>
+        }
         control={<Checkbox checked={checked[0]} onChange={handleChange2} />}
       />
       <FormControlLabel
-        label="Child 2"
+        // label="Child 2" 
+        // label="PHEV"
+        label={
+          <>
+            PHEV
+            <Typography variant="body3" /*component="span" /*color="textSecondary"*/ marginLeft={"95px"}>
+              (2)
+            </Typography>
+          </>
+        }
+        control={<Checkbox checked={checked[1]} onChange={handleChange3} />}
+      />
+      <FormControlLabel
+        // label="SHEV"
+        label={
+          <>
+            SHEV
+            <Typography variant="body3" /*component="span" /*color="textSecondary"*/ marginLeft={"95px"}>
+              (1)
+            </Typography>
+          </>
+        }
+        control={<Checkbox checked={checked[1]} onChange={handleChange3} />}
+      />
+      <FormControlLabel
+        // label="HEV"
+        label={
+          <>
+            HEV
+            <Typography variant="body3" /*component="span" /*color="textSecondary"*/ marginLeft={"105px"}>
+              (0)
+            </Typography>
+          </>
+        }
+        control={<Checkbox checked={checked[1]} onChange={handleChange3} />}
+      />
+      <FormControlLabel
+        // label="MHEV"
+        label={
+          <>
+            MHEV
+            <Typography variant="body3" /*component="span" /*color="textSecondary"*/ marginLeft={"90px"}>
+              (0)
+            </Typography>
+          </>
+        }
         control={<Checkbox checked={checked[1]} onChange={handleChange3} />}
       />
     </Box>
@@ -125,26 +175,7 @@ export default function PersistentDrawerLeft() {
     setChecked(event.target.checked);
   };
 
-  //radio de MUI
-  const StyledFormControlLabel = styled((props) => (
-    <FormControlLabel {...props} />
-  ))(({ theme, checked }) => ({
-    ".MuiFormControlLabel-label": checked && {
-      color: theme.palette.primary.main,
-    },
-  }));
-  //radio de MUI
-  function MyFormControlLabel(props) {
-    const radioGroup = useRadioGroup();
-
-    let checked = false;
-
-    if (radioGroup) {
-      checked = radioGroup.value === props.value;
-    }
-
-    return <StyledFormControlLabel checked={checked} {...props} />;
-  }
+ 
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -237,97 +268,9 @@ export default function PersistentDrawerLeft() {
           <Divider />
         </div> */}
 
-        <div>
-          
-          <Accordion /*style={{ background: "green" }}*/>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel2-content"
-              id="panel2-header"
-            >
-              <Typography>GrupoFiltros1</Typography> {/*Header*/}
-            </AccordionSummary>
-            <AccordionDetails>
-              {/* <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                eget.
-              </Typography> */}
-              {/* <Checkbox
-                checked={checked}
-                onChange={handleChange}
-                inputProps={{ "aria-label": "controlled" }}
-                label="Filtro 1"
-              /> */}
-              <RadioGroup name="use-radio-group" /*defaultValue="first"*/>
-                <MyFormControlLabel
-                  value="first"
-                  label="First"
-                  control={<Radio />}
-                />
-                <MyFormControlLabel
-                  value="second"
-                  label="Second"
-                  control={<Radio />}
-                />
-              </RadioGroup>
-            </AccordionDetails>
-          </Accordion>
-
-          <div>
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel2-content"
-                id="panel2-header"
-              >
-                <EvStationTwoToneIcon />
-                <Typography> Fuel types:</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                {/* <br /> */}
-                <FormControlLabel
-                  label="Parent"
-                  control={
-                    <Checkbox
-                      checked={checked[0] && checked[1]}
-                      indeterminate={checked[0] !== checked[1]}
-                      onChange={handleChange1}
-                    />
-                  }
-                />
-                {children}
-              </AccordionDetails>
-            </Accordion>
-          </div>
-
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel2-content"
-              id="panel2-header"
-            >
-              <DirectionsCarIcon />
-              <Typography> GrupoFiltros3</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <FormControlLabel
-                value="end"
-                control={<Checkbox />}
-                label="Filtro1"
-                labelPlacement="end"
-              />
-              <FormControlLabel
-                value="end"
-                control={<Checkbox />}
-                label="Filtro2"
-                labelPlacement="end"
-              />
-            </AccordionDetails>
-          </Accordion>
-        </div>
-
-        <List /*style={{ background: "red" }}*/>
+      {/* width: min-content; */}
+        <MenuFiltros childrenFiltros={childrenFiltros} checkedLists={checked}  handleChange1={handleChange1}/>
+        {/* <List /*style={{ background: "red" }}     */   /*>
           {["All mail", "Trash", "Spam"].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
@@ -338,7 +281,7 @@ export default function PersistentDrawerLeft() {
               </ListItemButton>
             </ListItem>
           ))}
-        </List>
+        </List> */}
       </Drawer>
       {/* aja: style del boton */}
       <Main open={open} style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "10vh" }}>

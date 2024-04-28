@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 // import SearchBar from './components/SearchBar';
-import SearchResultsCars from '../../components/body/search-results-cars';
+import SearchResultsCars from '../../components/body/search-results-cars.jsx';
 import axios from 'axios';
 
 import { useModal } from '../../hooks/modal.jsx';
@@ -17,7 +17,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 //  modificar los Query String de las URLs
 // import { useSearchParams } from "react-router-dom";
 
-export default function Buscador1() {
+export default function CarsResultados({params}) {    //deserializar el objeto del prop a un string, yaq por default es 1 objeto
 
   //  modificar los Query String de las URLs
   // let [searchParams, setSearchParams] = useSearchParams();
@@ -27,7 +27,7 @@ export default function Buscador1() {
     const searchApi = async (query) => {
       try {
         // OK  const response = await axios.get(`https://api.example.com/search?q=${query}`);  // ejecuta GET por cada letra se tecleea. EMpieza a ejecutar a partir de 3 letras tecleadas en el buscador
-       
+        {console.log("paramsAFiltrar del hijo: "+JSON.stringify(params) )}
         //ok para mostrar 1 tabla. responde 1 array de objetos 
         // const response = await axios.get("https://jsonplaceholder.typicode.com/users");    //  da 10 users siempre
         // responde 1 objetos de elementos
@@ -98,8 +98,8 @@ export default function Buscador1() {
 
 
     <div>
-      <button className="boton__contáctanos" onClick={handleOpen}>Filtrar Resultados</button>
-      <FilterModal isOpen={open} handleClose={handleClose} onFilter={filtrarCampos} />
+      {/* <button className="boton__contáctanos" onClick={handleOpen}>Filtrar Resultados</button> */}
+      {/* <FilterModal isOpen={open} handleClose={handleClose} onFilter={filtrarCampos} /> */}
 
       <h3>Resultados para esas fechas:</h3>        
       {/* <SearchBar onSearch={searchApi} /> */}      

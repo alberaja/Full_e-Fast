@@ -8,7 +8,7 @@ export function AddressSearch({ handleCheckboxChange, showDropoffInput }) {
 
   useEffect(() => {
     // Aquí realizar la llamada al API y establecerías la respuesta en el estado
-    const apiUrl = `http://localhost:8088/api/efast/v1/search-city?name=${searchTerm}`+ `&dropOff=false`;
+    const apiUrl = `http://localhost:8088/api/efast/v1/cities?name=${searchTerm}`+ `&dropOff=false`;
     axios.get(apiUrl)     //`URL_DE_TU_API?search=${searchTerm}`
       .then(response => {
         // setRespuesta(response.data);

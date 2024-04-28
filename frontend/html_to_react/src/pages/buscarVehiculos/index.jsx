@@ -4,7 +4,7 @@ import styles from './buscarVehiculo.css';
 import ServicioExclusivoFooter from '../../components/footer/servicio-exclusivo-footer';
 // import ContactanosOcultoFooter from './components/footer/ContactanosOcultoFooter';
 import DescripyContactoFooter from '../../components/footer/descrip-y-contacto-footer';
-import Buscador1 from './buscador1';
+import CarsResultados from './cars-resultados.jsx';
 import { useLocation } from "react-router-dom";
 
 import Drawer from '@mui/material/Drawer';
@@ -14,7 +14,9 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import Filtros  from './filtros.jsx';
+ 
+
+import  DrawerMUI  from './drawer-mui.jsx';
 
 export default function BuscarVehiculo() {
 
@@ -44,6 +46,19 @@ export default function BuscarVehiculo() {
     //         console.log({filtro});
     //         setFiltro(prevFiltro => prevFiltro == "hidden" ? "" : "hidden" )
     //     }
+
+    // llamada del componente hijo(filtros.jsx) al componete padre(este index)
+    // inicializar con los valores a filtrar(los default/del index )
+    // const [paramsAFiltrar, setParamsAFiltrar] = React.useState("cajaCambio=&tiposElectrico=&tiposVehiculo=&maximoKmStr=&numPlazas=&ciudadesVehiculo=Madrid&fechaHoraIni=05-03-2024T07%3A00&fechaHoraFin=08-03-2024T18%3A00");
+    // const callback = React.useCallback(
+    //   (datos)=>{
+    //     setParamsAFiltrar(datos)
+    //   }
+    // )
+    // recuperar del Path los params a enviar al componente funcional '<CarsResultados>' 
+    const params = location.search;
+    
+
 
     return (
       //  <main> {/*<!--main-->*/}
@@ -114,10 +129,12 @@ export default function BuscarVehiculo() {
         </div>
     </div> */}
 
-        <Filtros></Filtros>  
+        <DrawerMUI ></DrawerMUI>
+        {/* Hacer prop drilling   https://www.aluracursos.com/blog/que-es-prop-drilling : enviar datos de cambios de Filtros->index(esta)->Buscador1(añada los queryparams a la URL de la card de buscar vehiculos)*/}
 
-        {/* Listado de coches dinamico contra la API  */}
-        <Buscador1></Buscador1>
+        {console.log({params})  }
+        {/* Listado de coches dinamico contra la API . Antiguo <Buscador1> */}
+        <CarsResultados params={params} ></CarsResultados>
 
         {/********  aqui abajo todo estatico */}
 
