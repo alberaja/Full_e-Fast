@@ -13,6 +13,8 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import SearchResultsCarsEFast from '../../components/body/search-results-carsEFast.jsx';
+
 
 //  modificar los Query String de las URLs
 // import { useSearchParams } from "react-router-dom";
@@ -27,7 +29,7 @@ export default function CarsResultados({params}) {    //deserializar el objeto d
     const searchApi = async (query) => {
       try {
         // OK  const response = await axios.get(`https://api.example.com/search?q=${query}`);  // ejecuta GET por cada letra se tecleea. EMpieza a ejecutar a partir de 3 letras tecleadas en el buscador
-        {console.log("paramsAFiltrar del hijo: "+JSON.stringify(params) )}
+        // {console.log("paramsAFiltrar del hijo: "+JSON.stringify(params) )}
         //ok para mostrar 1 tabla. responde 1 array de objetos 
         // const response = await axios.get("https://jsonplaceholder.typicode.com/users");    //  da 10 users siempre
         // responde 1 objetos de elementos
@@ -43,6 +45,21 @@ export default function CarsResultados({params}) {    //deserializar el objeto d
       }
     };
 
+    const searchEfastApi = async (query) => {
+      try {
+        // OK
+        // {console.log("paramsAFiltrar del hijo: "+JSON.stringify(params) )}
+        // url completa:
+        // http://localhost:8762/elastic-efast/api/efast/v1/vehicles?page=0&size=10&ciudadesVehiculo=Madrid&fechaHoraIni=05-03-2024T07%3A00&fechaHoraFin=08-03-2024T18%3A00
+        // http://localhost:8762/elastic-efast/api/efast/v1/vehicles (...)?page=0&size=10&ciudadesVehiculo=Madrid&fechaHoraIni=05-03-2024T07%3A00&fechaHoraFin=08-03-2024T18%3A00
+        const response = await axios.get(` http://localhost:8762/elastic-efast/api/efast/v1/vehicles${query}`); 
+    
+        setResults(response.data);        
+      } catch (error) {
+        console.error('Error al realizar la búsqueda:', error);
+      }
+    };
+
     //  modificar los Query String de las URLs
     // desde react r dom 6.0.0 :    https://reactrouter.com/en/main/hooks/use-search-params#usesearchparams
     // setSearchParams(campos);
@@ -51,12 +68,23 @@ export default function CarsResultados({params}) {    //deserializar el objeto d
       
     };
 
+    // llamada al APi previa
+    // useEffect(() => {
+    //         // Realizar una búsqueda inicial al cargar la página
+    //         //searchApi('initialQuery');  // valor de la busqueda inicial
+    //         //{console.log("paramsAFiltrar (re)llamada al API: "+JSON.stringify(params) )}
+    //   searchApi('Mitsubishi');      
+    // }, []); // El array de dependencias vacío asegura que solo se ejecute al montar el componente
+
+
     useEffect(() => {
       // Realizar una búsqueda inicial al cargar la página
       //searchApi('initialQuery');  // valor de la busqueda inicial
-      searchApi('Mitsubishi');
-    }, []); // El array de dependencias vacío asegura que solo se ejecute al montar el componente
-
+      // {console.log("paramsAFiltrar (re)llamada al API: "+JSON.stringify(params) )}
+      searchEfastApi(params);  // params   'Mitsubishi'
+      //TODO: enviar las props de los aggregates al index de /buscarvehiculos-->DrawerMUI--><MenuFiltros>
+      
+    }, [params]);
 
     // para Drawer
     const [ setOpen] = React.useState(false);
@@ -98,13 +126,14 @@ export default function CarsResultados({params}) {    //deserializar el objeto d
 
 
     <div>
-      {/* <button className="boton__contáctanos" onClick={handleOpen}>Filtrar Resultados</button> */}
-      {/* <FilterModal isOpen={open} handleClose={handleClose} onFilter={filtrarCampos} /> */}
+      {/* <button className="boton__contáctanos" onClick={handleOpen}>Filtrar Resultados</button> 
+      <FilterModal isOpen={open} handleClose={handleClose} onFilter={filtrarCampos} /> */}
 
       <h3>Resultados para esas fechas:</h3>        
       {/* <SearchBar onSearch={searchApi} /> */}      
      
-      <SearchResultsCars  results={results} />
+      {/* ok   <SearchResultsCars  results={results} /> */}
+      <SearchResultsCarsEFast  results={results} />
     </div>
 
     </>

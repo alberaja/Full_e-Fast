@@ -25,6 +25,7 @@ import FinalizarReserva from './pages/finalizar-reserva/index.jsx';
 
 // import { ModalProvider } from './ModalContext';
 import ScrollToTop from './ScrollToTop.jsx';
+import Rutas from './pages/buscarVehiculos/filtrar-vehiculos.jsx';
 
 
 function App() {
@@ -59,7 +60,9 @@ function App() {
             <Home></Home>
           </Route>
 
-
+          <Route exact path="/filtrarVehiculos">
+            <Rutas></Rutas>
+          </Route>
 
           <Route exact path="/busquedaVehiculos">
             <BusquedaVehiculos>  </BusquedaVehiculos>
@@ -98,3 +101,6 @@ function App() {
 }
 
 export default App;
+
+
+

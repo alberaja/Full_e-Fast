@@ -5,7 +5,7 @@ import ServicioExclusivoFooter from '../../components/footer/servicio-exclusivo-
 // import ContactanosOcultoFooter from './components/footer/ContactanosOcultoFooter';
 import DescripyContactoFooter from '../../components/footer/descrip-y-contacto-footer';
 import CarsResultados from './cars-resultados.jsx';
-import { useLocation } from "react-router-dom";
+import { useLocation , useHistory } from "react-router-dom";
 
 import Drawer from '@mui/material/Drawer';
 import * as React from 'react';
@@ -14,7 +14,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
- 
+import { useState, useEffect } from 'react';
 
 import  DrawerMUI  from './drawer-mui.jsx';
 
@@ -56,8 +56,28 @@ export default function BuscarVehiculo() {
     //   }
     // )
     // recuperar del Path los params a enviar al componente funcional '<CarsResultados>' 
-    const params = location.search;
+    //old ok  const params = location.search;
     
+    // KAN-2
+    const location2 = useLocation();
+    const history = useHistory();
+    const queryParams = new URLSearchParams(location.search);
+       // Estado inicial con todos los valores de los parámetros de búsqueda
+  const [params, setParams] = useState(location.search);
+    // KAN-2
+    // Función para actualizar los parámetros de búsqueda
+    const updateSearchParams = (newParams) => {
+      newParams = location.search;
+      history.push({ search: newParams });
+      setParams(newParams);
+      //alert({newParams});
+    };
+    // KAN-2
+      // Efecto para sincronizar los valores de búsqueda con el estado
+      useEffect(() => {
+        setParams(location.search);
+        //alert({params});
+      }, [location.search]);
 
 
     return (
@@ -129,10 +149,10 @@ export default function BuscarVehiculo() {
         </div>
     </div> */}
 
-        <DrawerMUI ></DrawerMUI>
+        <DrawerMUI params={params} updateSearchParams={updateSearchParams}></DrawerMUI>
         {/* Hacer prop drilling   https://www.aluracursos.com/blog/que-es-prop-drilling : enviar datos de cambios de Filtros->index(esta)->Buscador1(añada los queryparams a la URL de la card de buscar vehiculos)*/}
 
-        {console.log({params})  }
+        {/* {console.log({params})  } */}
         {/* Listado de coches dinamico contra la API . Antiguo <Buscador1> */}
         <CarsResultados params={params} ></CarsResultados>
 

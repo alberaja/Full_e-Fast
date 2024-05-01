@@ -1,7 +1,7 @@
 import  { useState } from 'react';
 import data from './data';
 
-export function BrandType() {
+export function BrandType({callback}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedBrands, setSelectedBrands] =  useState([])
 
@@ -44,19 +44,20 @@ export function BrandType() {
           onClick={handleOutsideClick}
         >
         <div>
-  {selectedBrands.map((brand, index) => (
+  {/* {selectedBrands.map((brand, index) => (
     <span
       key={index}
       className="bg-gray-200 text-gray-700 rounded-md px-2 py-1 mr-2 mb-2 inline-flex items-center cursor-pointer"
-      onClick={() =>
+      onClick={() => {
         setSelectedBrands((prevSelectedBrands) =>
           prevSelectedBrands.filter((b) => b !== brand)
         )
       }
+      }
     >
       {brand}
     </span>
-  ))}
+  ))} */}
 </div>
 <ul className="w-1/4 my-auto bg-gray-300 p-7 border border-gray-600 rounded-lg divide-y divide-gray-400 relative">
   {data.brandTypes.map((brand, index) => (
@@ -66,6 +67,7 @@ export function BrandType() {
       }`}
       key={index}
       onClick={() => {
+        callback(brand.value)
         setSelectedBrands((prevSelectedBrands) => {
           if (prevSelectedBrands.includes(brand.value)) {
             return prevSelectedBrands.filter((b) => b !== brand.value);

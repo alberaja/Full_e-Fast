@@ -78,10 +78,12 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-export default function PersistentDrawerLeft() {
+export default function PersistentDrawerLeft({ params, updateSearchParams }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [checkedItems, setCheckedItems] = useState({});
+  
+  // console.log({params, updateSearchParams})  
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -268,8 +270,8 @@ export default function PersistentDrawerLeft() {
           <Divider />
         </div> */}
 
-      {/* width: min-content; */}
-        <MenuFiltros childrenFiltros={childrenFiltros} checkedLists={checked}  handleChange1={handleChange1}/>
+      {/* width: min-content; */}      
+        <MenuFiltros childrenFiltros={childrenFiltros} checkedLists={checked}  handleChange1={handleChange1} params={params} updateSearchParams={updateSearchParams}/>
         {/* <List /*style={{ background: "red" }}     */   /*>
           {["All mail", "Trash", "Spam"].map((text, index) => (
             <ListItem key={text} disablePadding>

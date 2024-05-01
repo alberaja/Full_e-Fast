@@ -107,6 +107,12 @@ header::after{/*Sombra en el header*/
     padding: 0.1px;
     height: 100vh;
 }
+/* aja    https://developer.mozilla.org/es/docs/Web/CSS/background-image  */
+.jobs.bgimg{
+    background-image: url("./images/imagen-nav.jpg");
+    background-size: cover;
+    background-position: bottom;  /* 40%*/
+}
 
 .jobs_img{
     width: 100%;
@@ -128,6 +134,11 @@ header::after{/*Sombra en el header*/
     text-transform: uppercase;
     color: rgb(255, 255, 255);
     font-weight: 999;
+}
+
+/* aja */
+.jobs_parrafo.sin_position{
+    position: static;
 }
 
 /*Tabla*/
@@ -1076,6 +1087,11 @@ header::after{/*Sombra en el header*/
     align-self: self-end;
 }
 
+/* aja */
+.menufiltros {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+}
 
 
 

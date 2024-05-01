@@ -1,0 +1,1375 @@
+*{
+    font-family: sans-serif;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    scroll-behavior: smooth;/*anima de forma suave la posición de desplazamento en vez de hacer un salto directo*/
+}
+
+/*navegador*/
+header{
+    top: 0px;
+    position: sticky;
+    background: white;
+    z-index: 300;
+}
+
+header::after{/*Sombra en el header*/
+    position: absolute;
+    height: 0px;
+    left: 0px;
+    content: " ";
+    background: linear-gradient(to bottom, #c9d6ff, #e2e2e2);
+    width: 100%;
+    height: 5px;
+    filter: blur(4px);
+    z-index: 1;
+}
+
+.container{
+    display: flex;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.nav{
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(2,max-content);
+    justify-content: space-between;
+}
+
+.nav_hamburguer{
+    margin: 2px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+}
+
+.nav_logo{
+    object-fit: contain;
+    width: auto;
+    height: auto;
+    max-height: 190px;
+    max-width: 190px;
+    margin: 10px;
+}
+
+/*Navegación responsive (Móvil)*/
+
+/*Barra Menu*/
+.container__menu__responsive{
+    position: fixed;
+    left: 0;
+    width: 100%;/*50% + left: 50%; es chulo tambn*/
+    height: 0vh;
+    top: 85px;
+    background: rgba(5, 56, 241, 0.95);
+    text-align: center;
+    transition: all .5s;
+    /*left: 50%;*/
+}
+.container__menu__responsive li{
+    display: none;
+    line-height: 30px;
+    margin: 50px 0;
+    transition: all .5s;
+}
+.container__menu__responsive li a{
+    color: white;
+    text-transform: uppercase;
+    font-weight: 600px;
+}
+.container__menu__responsive li a.active, .container__menu__responsive li a:hover{
+    color: rgba(245, 222, 179, 0.481);
+    transition: .3s;
+}
+#check{
+    display:none;
+}
+#check:checked ~ .container__menu__responsive{ /*como selector adyacente pero menos estricto. Aplica el cheked al container__menu__responsive*/
+    height: 420px;
+}
+#check:checked ~ .container__menu__responsive li{
+    display: block;
+}
+
+
+/*******main******/
+
+/***Mapa Google Maps***/
+
+
+/*Parrafo*/
+
+
+/*Tabla------*/
+
+/*Tu elección*/
+.contenedor__eleccion{
+    display: block;
+    padding: 0.1px;
+    height: 20px;
+    width: 100%;
+    margin-bottom: 220px;
+}
+.contenedor__eleccion__tu{
+    display: block;
+    height: 100px;
+    margin-top: 100px;
+    margin-left: 5%;
+    margin-bottom: 220px;
+}
+.contenedor__eleccion-parrafo{
+    color: black;
+    font-weight: 600;
+    font-size: 2.6em;
+}
+/*---------------------------------------------------*/
+/*****contenedor__caja de imagenes Coche y Moto*****/
+
+.contenedor__caja__vehiculos__tesla{
+    -webkit-box-shadow: 1px 1px 17px -5px rgba(0,0,0,0.75);
+    -moz-box-shadow: 1px 1px 17px -5px rgba(0,0,0,0.75);
+    box-shadow: 1px 1px 17px -5px rgba(0,0,0,0.75);
+    
+    justify-content: center;
+    width: 90%;
+    min-height: 100px;
+    margin: 100px auto;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0.1px;
+    padding-top: 20px;
+    border-radius: 5%;
+    scroll-margin-top: 18ex;/*aplica margin al evento enlazar vehículos*/
+    margin-bottom: 100px;
+}
+.contenedor__caja__vehiculos__dinamico__tesla{
+    min-width: 160px;
+    width: 50%;
+}
+
+/********* Coche Tesla ***********/
+.caja__tesla{
+    display: block;
+    object-fit: contain;
+    width: auto;
+    height: auto;
+    padding: 0.1px;
+}
+.imagenCoche{
+    object-fit: contain;
+    width: 100%;
+    height: auto;
+    max-height: 650px;
+    max-width: 900px;
+    cursor: pointer;
+}
+
+/*contenedor__caja de texto-----------------------*/
+.producto__tesla{
+    display: block;
+    width: 50%;
+    padding: 0.1px;
+    margin-top: 4%;
+}
+.producto__tesla__parrafo{
+    display: block;
+    object-fit: contain;
+    width: 100%;
+    height: auto;
+    max-height: 650px;
+    max-width: 900px;
+    display: flex;
+    justify-content: start;
+    
+    color: black;
+    font-weight: 600;
+    font-size: 1.8rem;
+} 
+
+/*plazas litros y autonomia*/
+/*plazas*/
+.producto__tesla__caracteristicas{
+    display: block;
+
+    width: 100%;
+    height: auto;
+    max-height: 650px;
+    max-width: 900px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.producto__tesla__parrafo__plazas-p{
+    display: inline-block;
+    font-size: 1.5em;
+}
+
+/*litros*/
+.producto__tesla__parrafo__litros-p{
+    display: inline-block;
+    font-size: 1.5em;
+}
+
+/*autonomía*/
+.producto__tesla__parrafo__autonomia-p{
+    display: inline-block;
+    font-size: 1.5em;
+}
+
+/*Barra Tesla*/
+.barra__tesla{
+    align-self: inherit;
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(2,max-content);
+    justify-content: space-between;
+    display: flex;
+    width: 90%;
+    margin: 0 auto;
+    font-size: 1.5em;
+    margin-bottom: 50px;
+}
+.precio__dia__tesla-especifico{
+    font-family: sans-serif;
+    color: #0c1328;
+
+    font-weight: 999;
+}
+.barra__precio-Cancelacion__gratuita{
+    display: inline-block;
+    color: rgb(31, 153, 39);
+}
+
+.barra__oferta__tesla{
+    margin-right: 20%;
+}
+
+.imagen__llave{
+    display: flex;
+    align-items: center;
+    height: 150px;
+    width: 150px;
+}
+/********* MOTO ZERO **********/
+
+/*****contenedor__caja de imagenes Moto*****/
+
+/*Incluye en el precio*/
+/*¡Muy buena elección!*/
+
+/************************* FORMULARIO ******************************/
+.contenedor-form{
+    -webkit-box-shadow: 1px 1px 17px -5px rgba(0,0,0,0.15);
+    -moz-box-shadow: 1px 1px 17px -5px rgba(0,0,0,0.15);
+    box-shadow: 1px 1px 17px -5px rgba(0,0,0,0.15);
+    display: block;
+    padding: 0.1px;
+    height: 1100px;
+    width: 100%;
+    
+    justify-content: center;
+    width: 90%;
+    min-height: 100px;
+    margin: 100px auto;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0.1px;
+    padding-top: 50px;
+    border-radius: 5%;
+    scroll-margin-top: 18ex;/*aplica margin al evento enlazar vehículos*/
+    margin-bottom: 100px;
+}
+.contenedor__form {
+    display: block;
+    height: 100px;
+    margin-left: 5%;
+    
+      
+}
+
+.contenedor__form__cabeza {
+    color: black;
+    font-weight: 600;
+    font-size: 1.6em;
+}
+
+.contenedor__form__cabeza h2 {
+  margin: 0;
+}
+
+.form {
+  padding: 30px 40px;	
+  color: black;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.form__grupo {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  position: relative;
+}
+
+.form__grupo label {
+  display: inline-block;
+  margin-bottom: 5px;
+  font-size: 24px;
+}
+.comentario__texto label {
+  display: inline-block;
+  margin-bottom: 5px;
+  font-size: 24px;
+}
+
+.form__grupo input {
+    border: 2px solid #f0f0f0;
+    border-radius: 4px;
+    display: block;
+    font-family: inherit;
+    font-size: 24px;
+    padding: 16px;
+    width: 100%;
+}
+.comentario__texto textarea {
+  border: 2px solid #1d1a1a3f;
+  border-radius: 4px;
+  display: block;
+  font-family: inherit;
+  font-size: 24px;
+  padding: 16px;
+  width: 100%;
+  padding-bottom: 50px;
+}
+
+.form__grupo img {
+  /*visibility: hidden;*/
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.form button {
+  background-color: #0247FE;
+  border: 2px solid #0247FE;
+  border-radius: 4px;
+  color: #fff;
+  display: block;
+  font-family: inherit;
+  font-size: 24px;
+  padding: 10px;
+  margin-top: 20px;
+  width: 100%;
+  font-weight: 600; 
+}
+
+.form button:hover {
+	box-shadow: 3px 0px 30px rgba(163,163,163, 1);
+}
+
+.cajaBox{
+  display: inline-block;
+  margin-top: 5px;
+  margin-left: 0px;
+  font-size: 16px;
+}
+
+.form__label {
+	display: block;
+	font-weight: 700;
+	padding: 10px;
+	cursor: pointer;
+}
+
+.form__grupo-input {
+	position: relative;
+}
+
+.form__input {
+	width: 100%;
+	background: #fff;
+	border: 3px solid transparent;
+	border-radius: 3px;
+	height: 45px;
+	line-height: 45px;
+	padding: 0 40px 0 10px;
+	transition: .3s ease all;
+}
+
+.form__input:focus {
+	border: 3px solid #0075FF;
+	outline: none;
+	box-shadow: 3px 0px 30px rgba(163,163,163, 0.4);
+}
+
+.form__input-error {
+	font-size: 15px;
+  margin-top: 4px;
+	margin-bottom: 0;
+	display: none;
+  color: #bb2929;
+}
+
+.form__input-error-activo {
+	display: block;
+}
+
+.form__validacion-estado {
+	position: absolute;
+	right: 10px;
+	bottom: 15px;
+	z-index: 100;
+	font-size: 16px;
+	opacity: 0;
+}
+
+/* ----- -----  Estilos para Validacion ----- ----- */
+.form__grupo-correcto .form__validacion-estado {
+	color: #1ed12d;
+	opacity: 1;
+}
+
+.form__grupo-incorrecto .form__label {
+	color: #bb2929;
+}
+
+.form__grupo-incorrecto .form__validacion-estado {
+	color: #bb2929;
+	opacity: 1;
+}
+
+.form__grupo-incorrecto .form__input {
+	border: 3px solid #bb2929;
+}
+/************************* fin FORMULARIO ******************************/
+
+/************************* FORMULARIO TARJETA DE PAGO ******************************/
+.contenedor-form-tarjeta{
+    -webkit-box-shadow: 1px 1px 17px -5px rgba(0,0,0,0.15);
+    -moz-box-shadow: 1px 1px 17px -5px rgba(0,0,0,0.15);
+    box-shadow: 1px 1px 17px -5px rgba(0,0,0,0.15);
+
+    justify-content: center;
+    min-height: 100px;
+    margin: 100px auto;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 5%;
+    scroll-margin-top: 18ex;/*aplica margin al evento enlazar vehículos*/
+    margin-bottom: 100px;
+    display: block;
+    padding: 0.1px;
+    height: 700px;
+    width: 90%;
+    margin-top: 100px;
+    padding-top: 50px;
+    margin-bottom: 1000px;
+
+}
+.contenedor__form__tarjeta{
+    display: block;
+    height: 100px;
+    margin-left: 5%;  
+}
+
+.contenedor__form__cabeza__tarjeta {
+    color: black;
+    font-weight: 600;
+    font-size: 1.6em;
+}
+
+.contenedor__form__cabeza__tarjeta h2 {
+	margin: 0;
+}
+
+.formulario__grupo {
+	padding: 30px 40px;	
+    color: black;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.formulario__grupo-control {
+	margin-bottom: 20px;
+	padding-bottom: 20px;
+	position: relative;
+}
+
+.formulario__grupo-control label {
+	display: inline-block;
+	margin-bottom: 5px;
+    font-size: 24px;
+}
+.comentario__texto label {/*No hace falta creo*/
+	display: inline-block;
+	margin-bottom: 5px;
+    font-size: 24px;
+}
+
+.formulario__grupo-control input {
+	border: 2px solid #f0f0f0;
+	border-radius: 4px;
+	display: block;
+	font-family: inherit;
+	font-size: 24px;
+	padding: 16px;
+	width: 100%;
+}
+.comentario__texto textarea {/*No hace falta creo*/
+	border: 2px solid #1d1a1a3f;
+	border-radius: 4px;
+	display: block;
+	font-family: inherit;
+	font-size: 24px;
+	padding: 16px;
+	width: 100%;
+    padding-bottom: 50px;
+}
+
+.formulario__grupo-control input:focus {
+	outline: 0;
+	border-color: #777;
+}
+
+.formulario__grupo-control.success input {
+	border-color: #2ecc71;
+}
+
+.formulario__grupo-control.error input {
+	border-color: #e74c3c;
+}
+
+.formulario__grupo-control img {
+	visibility: hidden;
+	position: absolute;
+	top: 38px;
+	right: 10px;
+}
+
+.formulario__grupo-control.success img.fa-check-circle {
+	color: #2ecc71;
+	visibility: visible;
+}
+
+.formulario__grupo-control.error img.fa-exclamation-circle {
+	color: #e74c3c;
+	visibility: visible;
+}
+
+.formulario__grupo-control small  {
+	color: #e74c3c;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	visibility: hidden;
+}
+
+.formulario__grupo-control.error small{
+	visibility: visible;
+}
+
+/******************PRUEBASSSSSSSSSSSSSSS*************************************************************/
+
+
+
+
+.formulario__grupo label {
+  display: inline-block;
+  margin-bottom: 5px;
+  font-size: 24px;
+}
+
+.formulario__grupo-input {
+	position: relative;
+}
+
+.formulario__input {
+	width: 100%;
+	background: #fff;
+	border: 3px solid transparent;
+	border-radius: 3px;
+	height: 45px;
+	line-height: 45px;
+	padding: 0 40px 0 10px;
+	transition: .3s ease all;
+    font-size: 24px;
+}
+
+.formulario__input:focus {
+	border: 3px solid #0075FF;
+	outline: none;
+	box-shadow: 3px 0px 30px rgba(163,163,163, 0.4);
+}
+
+.formulario__input-error {
+	font-size: 15px;
+    margin-top: 4px;
+	margin-bottom: 0;
+	display: none;
+    color: #bb2929;
+}
+
+.formulario__input-error-activo {
+	display: block;
+}
+
+.formulario__validacion-estado {
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+	z-index: 100;
+	font-size: 16px;
+	opacity: 0;
+}
+
+/* ----- -----  Estilos para Validacion ----- ----- */
+.formulario__grupo-correcto .formulario__validacion-estado {
+	color: #1ed12d;
+	opacity: 1;
+}
+
+.formulario__grupo-incorrecto .formulario__label {
+	color: #bb2929;
+}
+
+.formulario__grupo-incorrecto .formulario__validacion-estado {
+	color: #bb2929;
+	opacity: 1;
+}
+
+.formulario__grupo-incorrecto .formulario__input {
+	border: 3px solid #bb2929;
+}
+/******************FINNNNNNNNNNNNNN  PRUEBASSSSSSSSSSSSSSS*************************************************************/
+
+/************************* fin FORMULARIO PAGO******************************/
+
+.contenedor__terminos{
+    -webkit-box-shadow: 1px 1px 17px -5px rgba(0,0,0,0.15);
+    -moz-box-shadow: 1px 1px 17px -5px rgba(0,0,0,0.15);
+    box-shadow: 1px 1px 17px -5px rgba(0,0,0,0.15);
+    display: block;
+    padding: 0.1px;
+    height: 300px;
+    width: 114%;
+    
+    justify-content: center;
+    min-height: 100px;
+    margin: 100px auto;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0.1px;
+    padding-top: 50px;
+    border-radius: 5%;
+    scroll-margin-top: 18ex;/*aplica margin al evento enlazar vehículos*/
+    margin-bottom: 100px;
+    margin-left: -10%;
+}
+.contenedor__terminos__condiciones {
+    display: block;
+    height: 100px;
+    margin-left: 5%;  
+}
+
+.contenedor__terminos__condiciones__cabeza {
+    color: black;
+    font-weight: 600;
+    font-size: 1.6em;
+}
+
+.contenedor__terminos__condiciones__cabeza h2 {
+	margin-bottom: 20px;
+}
+
+.contenedor__terminos__condiciones-p{
+    display: inline-block;
+    margin-top: 5px;
+    margin-left: 0px;
+    font-size: 18px;
+    font-weight: 1;
+    color: black
+}
+
+/*Desglose del precio del coche*/
+.contenedor__desglose{
+    display: block;
+    padding: 0.1px;
+    height: 20px;
+    width: 114%;
+
+    border-top: 2px solid rgba(241, 236, 231, 0.838);
+    margin-left: -10%;
+    margin-bottom: 140px;
+    margin-top: 100px;
+}
+.contenedor__desglose__precioCoche{
+    display: block;
+    height: 100px;
+    margin-top: 100px;
+}
+.contenedor__desglose__precioCoche-parrafo{
+    color: black;
+    font-weight: 600;
+    font-size: 2.6em;
+    margin-left: 5%;
+}
+
+.contenedor__desglose__total{
+    display: block;
+    padding: 0.1px;
+    width: 108%;
+    margin: 10px 40px 0px 30px;
+    margin-left: -5%;
+
+    font-size: 18px;
+    font-weight: 1;
+    color: black
+}
+.contenedor__desglose__total__precio{
+    display: block;
+    height: 100px;
+    margin-top: 20px;
+
+    display: flex;
+    width: 90%;
+    margin: 0 auto;
+
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(2,max-content);
+    justify-content: space-between;
+
+    margin-left: 5%;
+}
+.contenedor__desglose__total__precio-parrafo{
+    font-size: 1.6em;
+}
+
+/*Desglose del precio del FINAL*/
+.contenedor__desglose__total__final{
+    display: block;
+    padding: 0.1px;
+    width: 108%;
+    margin: 10px 40px 0px 30px;
+    margin-left: -10%;
+    border-top: 2px solid rgba(241, 236, 231, 0.838);
+    border-bottom: 2px solid rgba(241, 236, 231, 0.838);
+
+    font-size: 18px;
+    font-weight: 1;
+    color: black;
+    width: 114%;
+}
+.contenedor__desglose__total__final__precio{
+    display: inline-block;
+    height: 80px;
+  
+    display: flex;
+    width: 85.5%;
+    margin: 0 auto;
+
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(2,max-content);
+    justify-content: space-between;
+    
+    margin-left: 9%;
+    margin-right: 50%;
+}
+.contenedor__desglose__total__final__precio-parrafoDia{
+    font-size: 1.6em;
+}
+.contenedor__desglose__total__final__precio-parrafo{
+    font-size: 1.6em;
+}
+
+/*Boton Continuar con la reserva*/
+/*Boton de Buscar*/
+.contenedor__boton{
+    cursor: pointer;
+}
+.contenedor__boton-forma{
+    background-color:#0247FE;
+    color: white;
+    font-size: 1.6em;
+    cursor: pointer;
+
+    font-weight: 600;   
+
+    background: #0247FE;
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
+    border-left: 2px solid black;
+    cursor: pointer;
+    text-align: center;
+    justify-content: center;
+    padding: 26px 26px;
+    border-radius: 1em;
+    width: 114%;
+    margin-left: -10%;
+}
+
+/*Contáctanos*/
+
+.contenedor__caja__contactanos{
+    display: inline-block;
+    background: rgba(241, 236, 231, 0.838);
+    width: 100%;
+    height: 18em;
+    padding: 0.1px;
+    margin-top: 100px;
+}
+.contenedor__caja__parrafo_contactanos{
+    display: block;
+    padding: 6em 1em 0em 1em;
+    font-size: 1.2em;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-end;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(285px, 1fr));
+} 
+.elemento-encabezado-cliente{
+    display: block;
+    text-align: center;
+    padding: 0.5em 1em;
+    margin-left: 0.4em;
+    margin-right: 0.4em;
+    color: rgb(54, 51, 51);
+}
+.boton__contáctanos{
+    display: block;
+    padding: 0.5em 1em;
+    background: #0247FE;
+    color: white;
+    border-radius: 2em;
+    border:none;
+    text-align: center;
+    margin-left: 0.4em;
+    margin-right: 0.4em;
+    cursor: pointer;
+}
+
+/*******Descripción y Contacto********/
+
+/*Logo*/
+.contenedor__contacto__conocernos{
+    height: 700px;
+    width: 100%;
+    background: #0247FE;
+    padding: 0.1px;
+}
+.contenedor__contacto__conocernos__grid{
+    height: 280px;
+    width: 100%;
+    margin-bottom: 5px;
+    padding: 0.1px;
+}
+.contenedor__contacto__conocernos__logotipo{
+    height: 80px;
+    width: 100%;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    text-align: center;
+    padding: 0.1px;
+}
+
+/*Texto*/
+.contenedor__contacto__conocernos__texto{
+    height: 100px;
+    width: 70%;
+    min-width: 250px;
+    text-align: center;
+    margin: 0 auto;
+}
+.contenedor__texto{
+    color: #818a91;
+}
+
+/*Iconos*/
+.contenedor__redesSociales{
+    height: 100px;
+    width: 70%;
+    min-width: 250px;
+    text-align: center;
+    margin: 0 auto;
+}
+.contenedor__redesSociales__instagramFacebook{
+    margin-top: 4em;
+}
+.icono_instagram{
+    margin-right: 10px;
+}
+
+
+/*******Descripción y Contacto********/
+
+.contenedor__contacto__conocernos__grid-sitio{
+    width: 100%;
+    background: #0247FE;
+    padding: 0.1px;
+    margin-top: 120px;
+}
+/*Ven a conocernos en:*/
+.contenedor__contacto__conocernos__sitio{
+    height: 40px;
+    width: 70%;
+    min-width: 250px;
+    text-align: center;
+    margin: 0 auto;
+    color: white;
+}
+.contenedor__contacto__conocernos__sitio__especifico{
+    color: #818a91;
+    text-align: center;
+}
+
+.contenedor__telefono__contacto{
+    height: 40px;
+    width: 70%;
+    min-width: 250px;
+    text-align: center;
+    margin: 0 auto;
+    color: white;
+    margin-top: 20px;
+}
+.contenedor__telefono__contacto__numero{
+    color: #818a91;
+    text-align: center;
+}
+
+.contenedor__comercial{
+    height: 40px;
+    width: 70%;
+    min-width: 250px;
+    text-align: center;
+    margin: 0 auto;
+    color: white;
+    margin-top: 20px;
+}
+.contenedor__comercial__horario{
+    color: #818a91;
+    text-align: center;
+}
+
+.footer__informacion{
+    height: 66px;
+    background-color: rgb(45, 45, 45);
+}
+.footer__informacion__contacto{
+    position: relative;
+    top: 10px;
+    text-align: center;
+    color: #818a91;
+}
+
+/**************************************CONTACTO Y CONTACTANOS OCULTO*******************************************/
+.contenedor__contacto__contactanos{
+    display: none;
+    background: white;
+
+    position: absolute;
+    width: 50%;
+    top: 400px;
+    left: 0;
+    right: 0;
+    margin: auto;
+
+    z-index: 500;/*Por encima del nav*/
+    border: 4px solid #0247FE;
+
+}
+
+.contenedor__cerrar{
+	object-fit: contain;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+ 	max-height: 100%;
+}
+.contenedor__cerrar__contacto{
+	height: auto;
+	width: 100%;
+	display: flex;
+	justify-content: end;
+	margin-top: 10px;
+	margin-left: -10px;
+}
+
+.contenedor__logo{
+    justify-content: center;
+    width: 100%;
+    margin: 10px auto;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0.1px;
+    padding-top: 20px;
+    border-radius: 5%;
+    scroll-margin-top: 18ex;/*aplica margin al evento enlazar vehículos*/
+    margin-bottom: 50px;
+}
+.contenedor__logo__contacto{
+    width: 30%;
+}
+
+.iconoLogo{
+    object-fit: contain;
+    width: 100%;
+    height: auto;
+    max-height: 650px;
+    max-width: 900px;
+}
+
+.reserva__realizada{
+	height: 100px;
+    width: 70%;
+    min-width: 250px;
+    text-align: center;
+    margin: 0 auto;
+
+}
+.reserva__realizada__correctamente{
+	margin: auto;
+}
+.reserva__realizada__correctamente-p{
+	font-size: 1.6em;
+}
+
+/************************* FORMULARIO ******************************/
+
+.contenedor__form1 {
+    display: block;
+    height: 100px;
+    margin-left: 5%;  
+}
+
+.contenedor__form__cabeza {
+    color: black;
+    font-weight: 600;
+    font-size: 1.6em;
+}
+
+.contenedor__form__cabeza h2 {
+  margin: 0;
+}
+
+.contenedor__form1 {
+	-webkit-box-shadow: 1px 1px 17px -5px rgba(0,0,0,0.15);
+    -moz-box-shadow: 1px 1px 17px -5px rgba(0,0,0,0.15);
+    box-shadow: 1px 1px 17px -5px rgba(0,0,0,0.15);
+    display: block;
+    padding: 0.1px;
+    height: 900px;
+    width: 100%;
+    
+    justify-content: center;
+    width: 90%;
+    min-height: 100px;
+    margin: 10px auto;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0.1px;
+    padding-top: 0px;
+    border-radius: 5%;
+    scroll-margin-top: 18ex;/*aplica margin al evento enlazar vehículos*/
+    margin-bottom: 10px;
+}
+
+.form {
+  	padding: 30px 40px;	
+	color: black;
+  	font-weight: 600;
+  	font-size: 1rem;
+}
+
+.form__grupo {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  position: relative;
+}
+
+.form__grupo label {
+  display: inline-block;
+  margin-bottom: 5px;
+  font-size: 24px;
+}
+.comentario__texto label {
+  display: inline-block;
+  margin-bottom: 5px;
+  font-size: 24px;
+}
+
+.form__grupo input {
+    border: 2px solid #f0f0f0;
+    border-radius: 4px;
+    display: block;
+    font-family: inherit;
+    font-size: 24px;
+    padding: 16px;
+    width: 100%;
+}
+.comentario__texto textarea {
+  border: 2px solid #1d1a1a3f;
+  border-radius: 4px;
+  display: block;
+  font-family: inherit;
+  font-size: 24px;
+  padding: 16px;
+  width: 100%;
+  padding-bottom: 50px;
+}
+
+.form__grupo img {
+  /*visibility: hidden;*/
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.form button {
+  background-color: #0247FE;
+  border: 2px solid #0247FE;
+  border-radius: 4px;
+  color: #fff;
+  display: block;
+  font-family: inherit;
+  font-size: 24px;
+  padding: 10px;
+  margin-top: 20px;
+  width: 100%;
+  font-weight: 600; 
+}
+
+.form button:hover {
+	box-shadow: 3px 0px 30px rgba(163,163,163, 1);
+}
+
+.cajaBox{
+  display: inline-block;
+  margin-top: 5px;
+  margin-left: 0px;
+  font-size: 16px;
+}
+
+.form__label {
+	display: block;
+	font-weight: 700;
+	padding: 10px;
+	cursor: pointer;
+}
+
+.form__grupo-input {
+	position: relative;
+}
+
+.form__input {
+	width: 100%;
+	background: #fff;
+	border: 3px solid transparent;
+	border-radius: 3px;
+	height: 45px;
+	line-height: 45px;
+	padding: 0 40px 0 10px;
+	transition: .3s ease all;
+}
+
+.form__input:focus {
+	border: 3px solid #0075FF;
+	outline: none;
+	box-shadow: 3px 0px 30px rgba(163,163,163, 0.4);
+}
+
+.form__input-error {
+	font-size: 15px;
+  margin-top: 4px;
+	margin-bottom: 0;
+	display: none;
+  color: #bb2929;
+}
+
+.form__input-error-activo {
+	display: block;
+}
+
+.form__validacion-estado {
+	position: absolute;
+	right: 10px;
+	bottom: 15px;
+	z-index: 100;
+	font-size: 16px;
+	opacity: 0;
+}
+
+/* ----- -----  Estilos para Validacion ----- ----- */
+.form__grupo-correcto .form__validacion-estado {
+	color: #1ed12d;
+	opacity: 1;
+}
+
+.form__grupo-incorrecto .form__label {
+	color: #bb2929;
+}
+
+.form__grupo-incorrecto .form__validacion-estado {
+	color: #bb2929;
+	opacity: 1;
+}
+
+.form__grupo-incorrecto .form__input {
+	border: 3px solid #bb2929;
+}
+/************************* fin FORMULARIO ******************************/
+
+
+@media (min-width: 768px) {
+
+    /*Navegación responsive (Desktop)*/
+
+    /*Barra Menu*/
+    .nav_hamburguer{
+        display: none; 
+    }
+    .container__menu__responsive{/*Aqui puedo jugar con inicio vehiculo contactos*/
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        top: 44px;
+    }
+    .container__menu__responsive li{/*La separación entre ellos mismos*/
+        display: flex;
+        flex-direction: row;
+        margin-right: 40px;
+    }
+    .container__menu__responsive li a{
+        color: #0247FE;
+        margin-right: 0.5em;
+    }
+    .container__menu__responsive li a.active, .container__menu__responsive li a:hover{
+        background-color:  #2e58cb;
+        color: white;
+        padding: 0.5em 1em;
+        border: 2px solid  #2e58cb;
+        transition: .3s;
+    }
+}
+
+@media (max-width: 520px) {/*Responsive para BuscarVehiculo/teslaElegido*/
+
+    /*Navegación responsive (Móvil)*/
+
+    /*Se quita el ícono check de Cancelación gratuita*/
+    .iconoCheck{
+        display: none;
+        color: rgb(31, 153, 39);
+    }
+}
+
+@media (min-width: 820px) {/*Responsive para BuscarVehiculo/teslaElegido*/
+
+    /*Navegación responsive (Desktop)*/
+
+    /*Es el texto de las especificaciones del tesla*/
+    .producto__tesla{
+        margin-top: 8%;
+    }
+}
+
+@media (max-width: 920px) {/*Responsive para entrega llaves teslaElegido*/
+
+    /*Navegación responsive (Móvil)*/
+
+    /*Es el icono de entrega de llaves del tesla*/
+    .barra__oferta__tesla{
+        margin-right: 6%;
+    }
+    
+    .imagen__llave{
+        display: flex;
+        align-items: center;
+        height: 150px;
+        width: 150px;
+    } 
+}
+@media (max-width: 820px) {/*Responsive para entrega llaves teslaElegido*/
+
+    /*Navegación responsive (Móvil)*/
+
+    /*Es el icono de entrega de llaves del tesla*/
+    .barra__oferta__tesla{
+        margin-right: 0%;
+    }
+    
+    .imagen__llave{
+        display: flex;
+        align-items: center;
+        height: 100px;
+        width: 100px;
+    } 
+}
+
+@media (max-width: 820px) {/*Responsive para reservar teslaReservar*/
+
+    /*Navegación responsive (Móvil)*/
+
+    /*Es el formulario Datos del conductor principal del tesla*/
+    .contenedor-form{
+        height: 1200px;
+        
+    }
+}
+@media (max-width: 420px) {/*Responsive para reservar TeslaReservar*/
+
+    /*Navegación responsive (Móvil)*/
+
+    /*Es el formulario Datos del conductor principal del tesla*/
+    .contenedor-form{
+        height: 1250px;
+        
+    }
+}
+
+@media (max-width: 526px) {/*Responsive para reservar teslaReservar*/ /*antes @media (max-width: 382px) {*/
+
+    /*Navegación responsive (Móvil)*/
+
+    /*Es el formulario Forma de pago del tesla*/
+    .contenedor-form-tarjeta{
+        height: 800px;
+        
+    }
+}
+
+@media (max-width: 663px) {/*Responsive para reservar teslaReservar*/
+
+    /*Navegación responsive (Móvil)*/
+
+   /*Desglose del precio del coche*/
+    .contenedor__desglose{
+        margin-bottom: 200px;
+    }
+}
+
+/**************************************CONTACTO Y CONTACTANOS OCULTO*******************************************/
+@media (max-width: 1105px) {/*Responsive para calendario tamaño móvil*/
+
+    /*Navegación responsive (Móvil)*/
+
+    /*Se pone más pequeño el tamaño de todo el calendario*/
+    .contenedor__contacto__contactanos{
+        width: 90%;
+    }
+}
+
+@media (max-width: 600px) {/*Responsive para calendario tamaño móvil*/
+
+    /*Navegación responsive (Móvil)*/
+
+    /*Se pone más pequeño el tamaño de todo el calendario*/
+    .contenedor__contacto__contactanos{
+        width: 99%;
+    }
+}

@@ -9,6 +9,8 @@ import { BrandType } from "./components/BrandType";
 import DatePicker from "./components/DatePicker";
 import { Link } from "react-router-dom";
 
+import * as React from 'react';
+
 
 function parseURL(input) {
   const params = new URLSearchParams(input);
@@ -86,6 +88,8 @@ function Form() {
     const newParams = new URLSearchParams(params);
     //const name = 'tiposVehiculo';
   
+    console.log("OPTION", optionValue, name);
+
     if (newParams.has(name)) {
       const list = newParams.get(name).split(',');
       console.log("Initial list -> ", list);
@@ -158,6 +162,13 @@ console.log({selectedVehicleTypes}, selectedVehicleTypes);
     handleURLParams(params, optionValue, setParams, name);
   };
 
+   // llamada del componente hijo(BrandType.jsx) al componete padre(form.jsx)   
+   const callback = React.useCallback(
+     (optionValue)=>{
+        handleURLParams(params, optionValue, setParams, "marcaVehiculo")    
+     }
+   )
+
   return (
     <form
       action=""
@@ -179,7 +190,7 @@ console.log({selectedVehicleTypes}, selectedVehicleTypes);
           handleCheckboxChange={handleCheckboxChange}
           showDropoffInput={showDropoffInput}
         />
-        <BrandType />
+        <BrandType callback={callback}/>
         {/* //TODO: dejar <button> para mantener estilos asignados antes*/}
         <Link to={"/busquedaVehiculos?"+ params}
           className="border border-gray-400 rounded-md p-1 text-lg text-gray-700 bg-blue-100"
