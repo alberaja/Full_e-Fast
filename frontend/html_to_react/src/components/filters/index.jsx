@@ -19,10 +19,9 @@ import EvStationTwoToneIcon from "@mui/icons-material/EvStationTwoTone";
 import React, { useState , useEffect} from "react";
 
 
-const MenuFiltros = ({childrenFiltros, checkedLists, handleChange1, updateSearchParams})=> {
+const MenuFiltros = ({childrenFiltros, checkedLists, handleChange1, params2, updateSearchParams, results})=> {
   const [todosFiltros2, setTodosFiltros2] = useState([])
     
-
   const params = useParams()
   // const handleCheckboxChangeAndModifyUrl = (event) => {
   //   const { name, value, checked } = event.target;
@@ -95,79 +94,79 @@ const MenuFiltros = ({childrenFiltros, checkedLists, handleChange1, updateSearch
   });
   
   
-  const handleCheckboxChange = (event) => {
-    const { name, value, checked } = event.target;
-    setFilters((prevFilters) => {
-      let updatedValue;
-      console.log("name: " + name);
-      console.log("prevFilters:" + JSON.stringify(prevFilters));
+  // const handleCheckboxChange = (event) => {
+  //   const { name, value, checked } = event.target;
+  //   setFilters((prevFilters) => {
+  //     let updatedValue;
+  //     console.log("name: " + name);
+  //     console.log("prevFilters:" + JSON.stringify(prevFilters));
 
-      // Si el checkbox se marca, agrega su valor a la cadena de filtro
-      if (checked) {
-        updatedValue = prevFilters[name]
-          ? `${prevFilters[name]},${value}`
-          : value;
-        console.log("value: " + value);
-        console.log("updatedValue: " + updatedValue);
-      } else {
-        // Si el checkbox se desmarca, elimina su valor de la cadena de filtro
-        const values = prevFilters[name]
-          .split(",")
-          .filter((val) => val !== value);
-        updatedValue = values.join(",");
-      }
+  //     // Si el checkbox se marca, agrega su valor a la cadena de filtro
+  //     if (checked) {
+  //       updatedValue = prevFilters[name]
+  //         ? `${prevFilters[name]},${value}`
+  //         : value;
+  //       console.log("value: " + value);
+  //       console.log("updatedValue: " + updatedValue);
+  //     } else {
+  //       // Si el checkbox se desmarca, elimina su valor de la cadena de filtro
+  //       const values = prevFilters[name]
+  //         .split(",")
+  //         .filter((val) => val !== value);
+  //       updatedValue = values.join(",");
+  //     }
 
-      // Guardar el valor de [name]=el name del input checkbox + updatedValue=el valor del input checkbox en la variable todosFiltros
+  //     // Guardar el valor de [name]=el name del input checkbox + updatedValue=el valor del input checkbox en la variable todosFiltros
 
-    const todosFiltros = `${name}=${updatedValue}`;
-    setTodosFiltros2(`${name}=${updatedValue}`)
-    // setTodosFiltros((prevTodosFiltros) => {
-      //   const regex = new RegExp(`${name}=[^&]*`);
-      //   return prevTodosFiltros.replace(regex, filtros);
-      // });
+  //   const todosFiltros = `${name}=${updatedValue}`;
+  //   setTodosFiltros2(`${name}=${updatedValue}`)
+  //   // setTodosFiltros((prevTodosFiltros) => {
+  //     //   const regex = new RegExp(`${name}=[^&]*`);
+  //     //   return prevTodosFiltros.replace(regex, filtros);
+  //     // });
       
       
-      const selectedCheckboxesCount = updatedValue.split(",").length;
-      if (selectedCheckboxesCount === 1) {
-        console.log("Solo hay un checkbox seleccionado");
-      } else if (selectedCheckboxesCount > 1) {
-        console.log("Hay más de un checkbox seleccionado");
-      }
+  //     const selectedCheckboxesCount = updatedValue.split(",").length;
+  //     if (selectedCheckboxesCount === 1) {
+  //       console.log("Solo hay un checkbox seleccionado");
+  //     } else if (selectedCheckboxesCount > 1) {
+  //       console.log("Hay más de un checkbox seleccionado");
+  //     }
       
-      return {
-        ...prevFilters,   //... para arrays grandes
-        [name]: updatedValue,
-        console: console.log({name, updatedValue, filters}),
-        // console: console.log("concatenados: "+ [name] + "="+ updatedValue),
-        todosFiltros: todosFiltros, //[name] + updatedValue,
-        console: console.log({todosFiltros}),     
-        console: console.log({ todosFiltros2})
+  //     return {
+  //       ...prevFilters,   //... para arrays grandes
+  //       [name]: updatedValue,
+  //       console: console.log({name, updatedValue, filters}),
+  //       // console: console.log("concatenados: "+ [name] + "="+ updatedValue),
+  //       todosFiltros: todosFiltros, //[name] + updatedValue,
+  //       console: console.log({todosFiltros}),     
+  //       console: console.log({ todosFiltros2})
       
         
-        // todosFiltros   : "tiposVehiculo=moto,coche"   
-        // todosFiltros   :  "cajaCambio=automatico"
-        // todas:  tiposVehiculo=moto,coche&cajaCambio=automatico
-        //name: es la key de cada grupo de input checkboxs.  filters es el String definitivo a ejecutar
-      };
-    });
+  //       // todosFiltros   : "tiposVehiculo=moto,coche"   
+  //       // todosFiltros   :  "cajaCambio=automatico"
+  //       // todas:  tiposVehiculo=moto,coche&cajaCambio=automatico
+  //       //name: es la key de cada grupo de input checkboxs.  filters es el String definitivo a ejecutar
+  //     };
+  //   });
 
     
     
-    // Modifica los parámetros según el estado del checkbox
-    const newParams = new URLSearchParams(params);
+  //   // Modifica los parámetros según el estado del checkbox
+  //   const newParams = new URLSearchParams(params);
     
-    if (checked) {
-      newParams.append(name, value);
-    } else {
-      newParams.delete(name);
-    }
+  //   if (checked) {
+  //     newParams.append(name, value);
+  //   } else {
+  //     newParams.delete(name);
+  //   }
     
-    // Llama a la función para actualizar los parámetros de búsqueda
-    updateSearchParams(`?${newParams.toString()}`);
-    console.log({updateSearchParams});
-  }
+  //   // Llama a la función para actualizar los parámetros de búsqueda
+  //   updateSearchParams(`?${newParams.toString()}`);
+  //   console.log({updateSearchParams});
+  // }
   
-
+  console.log(JSON.stringify(params))
   // con handleCheckboxChangeModoJS()
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -367,7 +366,18 @@ const MenuFiltros = ({childrenFiltros, checkedLists, handleChange1, updateSearch
                           <>
                             BEV
                             <Typography variant="body3" /*component="span" /*color="textSecondary"*/ marginLeft={"90px"}>
-                              (1)                      
+                              {/* (1)     */}
+                               {/* {console.log(JSON.stringify(results.aggs.aggregates.transmissionTypes.numVehicles))} */}
+                                    {/* {console.log({results})} */}
+                                {/* {console.log(results?.aggs?.aggregates?.[1]?.tiposElectrico.[0]?.numVehiculos)} */}
+                                {/* ( {results.aggs.aggregates[0].transmissionTypes[0].numVehicles} ) */}
+                                {/* {results?.aggs?.aggregates?.[1]?.fuelTypes?.[0]?.numVehicles && ( */}
+                                  {results?.aggs?.aggregates?.[1]?.tiposElectrico?.[0]?.numVehiculos && (
+                                  <div>
+                                    {"("} {results.aggs.aggregates[1].tiposElectrico[0].numVehiculos}  {")"}
+                                  </div>
+                                )}
+                                {/* {console.log("valor para BEV: ", results.aggs.aggregates[1].fuelTypes[0].numVehicles )} */}
                             </Typography>
                           </>
                         }
@@ -383,7 +393,12 @@ const MenuFiltros = ({childrenFiltros, checkedLists, handleChange1, updateSearch
                           <>
                             PHEV
                             <Typography variant="body3" /*component="span" /*color="textSecondary"*/ marginLeft={"90px"}>
-                              (1)                      
+                              {/* (1)                       */}
+                              {results?.aggs?.aggregates?.[1]?.tiposElectrico?.[1]?.numVehiculos && (
+                                  <div>
+                                    {"("} {results.aggs.aggregates[1].tiposElectrico[1].numVehiculos}  {")"}
+                                  </div>
+                                )}
                             </Typography>
                           </>
                         }
@@ -404,7 +419,12 @@ const MenuFiltros = ({childrenFiltros, checkedLists, handleChange1, updateSearch
                         <>
                           SHEV
                           <Typography variant="body3" /*component="span" /*color="textSecondary"*/ marginLeft={"90px"}>
-                            (1)                      
+                            {/* (1)                       */}
+                            {results?.aggs?.aggregates?.[1]?.tiposElectrico?.[2]?.numVehiculos && (
+                                  <div>
+                                    {"("} {results.aggs.aggregates[1].tiposElectrico[2].numVehiculos}  {")"}
+                                  </div>
+                                )}
                           </Typography>
                         </>
                       }
@@ -513,7 +533,7 @@ const MenuFiltros = ({childrenFiltros, checkedLists, handleChange1, updateSearch
                   //  first
                   value="Limitado"
                   // label="Limitado"
-                  onChange={handleCheckboxChange}
+                  onChange={handleCheckboxChangeModoJS}   /* handleCheckboxChange */
                   label={
                     <>
                       Limitado
@@ -528,7 +548,7 @@ const MenuFiltros = ({childrenFiltros, checkedLists, handleChange1, updateSearch
                 // second
                   value="Ilimitado"
                   // label="Ilimitado"
-                  onChange={handleCheckboxChange}
+                  onChange={handleCheckboxChangeModoJS}
                   labeld={
                     <>
                       Ilimitado
@@ -543,7 +563,7 @@ const MenuFiltros = ({childrenFiltros, checkedLists, handleChange1, updateSearch
                 // second
                   value="limitado,ilimitado"
                   label="Ambos"
-                  onChange={handleCheckboxChange}
+                  onChange={handleCheckboxChangeModoJS}   /* handleCheckboxChange */
                   control={<Radio />}
                 />
               </RadioGroup>

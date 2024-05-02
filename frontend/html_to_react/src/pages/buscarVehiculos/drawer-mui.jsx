@@ -30,6 +30,7 @@ import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import EvStationTwoToneIcon from "@mui/icons-material/EvStationTwoTone";
 import Buscador1 from "./cars-resultados";
 import MenuFiltros from "../../components/filters";
+import MenuFiltroscheckboxDinamicos from "../../components/filters/menufiltros-checkbox-dinamicos";
 
 const drawerWidth = 240;
 
@@ -78,12 +79,12 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-export default function PersistentDrawerLeft({ params, updateSearchParams }) {
+export default function PersistentDrawerLeft({ params, updateSearchParams , results}) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [checkedItems, setCheckedItems] = useState({});
   
-  // console.log({params, updateSearchParams})  
+  // console.log({params, updateSearchParams, results})  
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -105,6 +106,7 @@ export default function PersistentDrawerLeft({ params, updateSearchParams }) {
   const handleChange3 = (event) => {
     setChecked([checked[0], event.target.checked]);
   };
+  // no lo uso
   const childrenFiltros = (
     <Box sx={{ display: "flex", flexDirection: "column", ml: 3 }}>
       <FormControlLabel
@@ -114,7 +116,7 @@ export default function PersistentDrawerLeft({ params, updateSearchParams }) {
           <>
             BEV
             <Typography variant="body3" /*component="span" /*color="textSecondary"*/ marginLeft={"105px"}>
-              (1)
+              {/* (1) */}             
             </Typography>
           </>
         }
@@ -270,8 +272,10 @@ export default function PersistentDrawerLeft({ params, updateSearchParams }) {
           <Divider />
         </div> */}
 
-      {/* width: min-content; */}      
-        <MenuFiltros childrenFiltros={childrenFiltros} checkedLists={checked}  handleChange1={handleChange1} params={params} updateSearchParams={updateSearchParams}/>
+      {/* width: min-content; */}    
+          {/* results: para actualizar valores de los aggregates, y TODO: de qué valores mostrar en los checkbox dinamicos */}
+        {/* <MenuFiltros childrenFiltros={childrenFiltros} checkedLists={checked}  handleChange1={handleChange1} params={params} updateSearchParams={updateSearchParams} results={results}/> */}
+        <MenuFiltroscheckboxDinamicos childrenFiltros={childrenFiltros} checkedLists={checked}  handleChange1={handleChange1} params={params} updateSearchParams={updateSearchParams} results={results}/> 
         {/* <List /*style={{ background: "red" }}     */   /*>
           {["All mail", "Trash", "Spam"].map((text, index) => (
             <ListItem key={text} disablePadding>

@@ -60,9 +60,10 @@ function App() {
             <Home></Home>
           </Route>
 
-          <Route exact path="/filtrarVehiculos">
-            <Rutas></Rutas>
-          </Route>
+                {/* TODO: delete. ruta temp para probar filtros */}
+                <Route exact path="/filtrarVehiculos">
+                  <Rutas></Rutas>
+                </Route>
 
           <Route exact path="/busquedaVehiculos">
             <BusquedaVehiculos>  </BusquedaVehiculos>

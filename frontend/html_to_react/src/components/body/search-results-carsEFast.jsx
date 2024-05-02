@@ -92,7 +92,7 @@ const SearchResultsCarsEFast = ({ results }) => {
                 console.log(item.car)
             ))}{ */}
                                 {/* Cars */}
-            {results && results.products?.map((coche) => (
+            {results && results.vehiculos?.map((coche) => (
                 <section key={coche.id}     className="contenedor__caja__vehiculos__tesla" id="vehiculos">
                     <div className="contenedor__caja__vehiculos__dinamico__tesla">
                         <div className="caja__tesla">

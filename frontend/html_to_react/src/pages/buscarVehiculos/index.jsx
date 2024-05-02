@@ -18,6 +18,8 @@ import { useState, useEffect } from 'react';
 
 import  DrawerMUI  from './drawer-mui.jsx';
 
+import axios from 'axios';
+
 export default function BuscarVehiculo() {
 
     // console.log(styles);
@@ -79,6 +81,27 @@ export default function BuscarVehiculo() {
         //alert({params});
       }, [location.search]);
 
+
+    // cargar contenido del Drawer dinamicamente:   <CarsResultados>(responde 'results') que debe usar este padre, y este padre enviarlo al hijo <DrawerMUI>
+    // const [resultadosAggs, setResultadosAggs] = useState();
+    // const callback = React.useCallback((resultados) => {
+    //   setResultadosAggs(resultados);
+    //   console.log({ resultadosAggs });
+    // }, [resultadosAggs]);
+    const [results, setResults] = useState([]);
+    useEffect(() => {     
+      searchEfastApi(params );     
+    }, [params]);
+
+    const searchEfastApi = async (query) => {
+      try {       
+        const response = await axios.get(` http://localhost:8762/elastic-efast/api/efast/v1/vehiculos${query}`); // vehicles
+    
+        setResults(response.data);       
+      } catch (error) {
+        console.error('Error al realizar la búsqueda:', error);
+      }
+    };
 
     return (
       //  <main> {/*<!--main-->*/}
@@ -149,12 +172,12 @@ export default function BuscarVehiculo() {
         </div>
     </div> */}
 
-        <DrawerMUI params={params} updateSearchParams={updateSearchParams}></DrawerMUI>
+        <DrawerMUI params={params} updateSearchParams={updateSearchParams} results={results}></DrawerMUI>
         {/* Hacer prop drilling   https://www.aluracursos.com/blog/que-es-prop-drilling : enviar datos de cambios de Filtros->index(esta)->Buscador1(añada los queryparams a la URL de la card de buscar vehiculos)*/}
 
         {/* {console.log({params})  } */}
         {/* Listado de coches dinamico contra la API . Antiguo <Buscador1> */}
-        <CarsResultados params={params} ></CarsResultados>
+        <CarsResultados params={params} resultados={results} /*callback={callback}*/ ></CarsResultados>
 
         {/********  aqui abajo todo estatico */}
 

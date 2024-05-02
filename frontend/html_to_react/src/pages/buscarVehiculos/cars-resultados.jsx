@@ -19,7 +19,7 @@ import SearchResultsCarsEFast from '../../components/body/search-results-carsEFa
 //  modificar los Query String de las URLs
 // import { useSearchParams } from "react-router-dom";
 
-export default function CarsResultados({params}) {    //deserializar el objeto del prop a un string, yaq por default es 1 objeto
+export default function CarsResultados({params /*,callback*/, resultados}) {    //deserializar el objeto del prop a un string, yaq por default es 1 objeto
 
   //  modificar los Query String de las URLs
   // let [searchParams, setSearchParams] = useSearchParams();
@@ -45,16 +45,17 @@ export default function CarsResultados({params}) {    //deserializar el objeto d
       }
     };
 
-    const searchEfastApi = async (query) => {
+    const searchEfastApi = async (query, /*callback*/) => {
       try {
         // OK
         // {console.log("paramsAFiltrar del hijo: "+JSON.stringify(params) )}
         // url completa:
         // http://localhost:8762/elastic-efast/api/efast/v1/vehicles?page=0&size=10&ciudadesVehiculo=Madrid&fechaHoraIni=05-03-2024T07%3A00&fechaHoraFin=08-03-2024T18%3A00
         // http://localhost:8762/elastic-efast/api/efast/v1/vehicles (...)?page=0&size=10&ciudadesVehiculo=Madrid&fechaHoraIni=05-03-2024T07%3A00&fechaHoraFin=08-03-2024T18%3A00
-        const response = await axios.get(` http://localhost:8762/elastic-efast/api/efast/v1/vehicles${query}`); 
+        const response = await axios.get(` http://localhost:8762/elastic-efast/api/efast/v1/vehiculos${query}`);  //vehicles
     
-        setResults(response.data);        
+        setResults(response.data);  
+        //callback(results);      
       } catch (error) {
         console.error('Error al realizar la búsqueda:', error);
       }
@@ -76,15 +77,16 @@ export default function CarsResultados({params}) {    //deserializar el objeto d
     //   searchApi('Mitsubishi');      
     // }, []); // El array de dependencias vacío asegura que solo se ejecute al montar el componente
 
-
-    useEffect(() => {
-      // Realizar una búsqueda inicial al cargar la página
-      //searchApi('initialQuery');  // valor de la busqueda inicial
-      // {console.log("paramsAFiltrar (re)llamada al API: "+JSON.stringify(params) )}
-      searchEfastApi(params);  // params   'Mitsubishi'
-      //TODO: enviar las props de los aggregates al index de /buscarvehiculos-->DrawerMUI--><MenuFiltros>
-      
-    }, [params]);
+    // ejecutar la busqueda tanto si params!="" como si tiene valores
+     // Realizar una búsqueda inicial al cargar la página
+     // !!  Ok: pero ya no es necesario si llamo al Api desde el padre y le paso la prop 'resultados'
+    // useEffect(() => {     
+    //   //searchApi('initialQuery');  // valor de la busqueda inicial
+    //       // {console.log("paramsAFiltrar (re)llamada al API: "+JSON.stringify(params) )}
+    //   searchEfastApi(params /*,callback*/);  // params   'Mitsubishi'
+    //   //TODO: enviar las props de los aggregates al index de /buscarvehiculos-->DrawerMUI--><MenuFiltros>
+          
+    // }, [params/*, callback*/]);
 
     // para Drawer
     const [ setOpen] = React.useState(false);
@@ -133,7 +135,7 @@ export default function CarsResultados({params}) {    //deserializar el objeto d
       {/* <SearchBar onSearch={searchApi} /> */}      
      
       {/* ok   <SearchResultsCars  results={results} /> */}
-      <SearchResultsCarsEFast  results={results} />
+      <SearchResultsCarsEFast  results={ resultados /*results*/ /*params   results*/} />
     </div>
 
     </>
