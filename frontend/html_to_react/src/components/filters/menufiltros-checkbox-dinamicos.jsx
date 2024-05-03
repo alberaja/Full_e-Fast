@@ -88,18 +88,30 @@ const MenuFiltroscheckboxDinamicos = ({ results }) => {
   //   }));
   // }
   // }; 
+  // const handleCheckboxChangeModoJS = (event) => {
+  //   const { name, checked, value } = event.target;
+  //   setQueryParamsState((prevState) => ({
+  //     ...prevState,
+  //     [name]: name === 'cajaCambio'  || name ==='tiposVehiculo' || name ==='tiposElectrico' || name ==='maximoKmStr' || name ==='numPlazas'  //añadir tantos como nombres de grupos de cada accordeon tenga
+  //       ? checked
+  //         ? [...prevState[name], value]
+  //         : prevState[name].filter((item) => item !== value)
+  //       : prevState[name],
+  //   }));
+  // };
   const handleCheckboxChangeModoJS = (event) => {
     const { name, checked, value } = event.target;
+    
+    // Verifica si el nombre es uno de los grupos definidos
+    const isGroup = ['cajaCambio', 'tiposVehiculo', 'tiposElectrico', 'maximoKmStr', 'numPlazas'].includes(name);
+    
     setQueryParamsState((prevState) => ({
       ...prevState,
-      [name]: name === 'cajaCambio'  || name ==='tiposVehiculo' || name ==='tiposElectrico' || name ==='maximoKmStr' || name ==='numPlazas'  //añadir tantos como nombres de grupos de cada accordeon tenga
-        ? checked
-          ? [...prevState[name], value]
-          : prevState[name].filter((item) => item !== value)
-        : prevState[name],
+      [name]: isGroup ? // Si es un grupo, maneja el estado de manera especial
+        checked ? [...prevState[name], value] : prevState[name].filter((item) => item !== value)
+        : value, // Si no es un grupo, simplemente asigna el valor
     }));
-  };
-  
+  };  
   
   // Actualizar la URL al cambiar los parámetros de consulta
   const history = useHistory(); 
@@ -146,16 +158,18 @@ const MenuFiltroscheckboxDinamicos = ({ results }) => {
                           value={item.valor}
                           name={NAMES[key]}
                           control={<Checkbox />}
-                          checked={isChecked(NAMES[key], item.valor)}
-                          onChange={handleCheckboxChangeModoJS}
+                          checked={isChecked(NAMES[key], item.valor)}                          
+                        onChange={handleCheckboxChangeModoJS}
                           // onChange={(event) => handleCheckboxChangeModoJS(event, label === 'Eléctricos' ? item.valorHumano : "")} // onChange={handleCheckboxChangeModoJS}
+                          //onChange={(event) => handleCheckboxChangeModoJS(event, key === 'tiposElectrico' ? item.valorHumano : undefined, item.valor)}
                           label={
                             <>
                             {/* {console.log({key})} */}
-                              {/*  mostrará {item.valor} en todos los casos excepto cuando label sea igual a "Eléctricos", en cuyo caso mostrará {item.valorHumano}     */}
-                              {/* {label === "Eléctricos" ? item.valorHumano : item.valor} */}
-                              {item.valor}
-                              {/* {key === "tiposElectrico" ? item.valorHumano : item.valor} */}
+                              {/*  mostrará {item.valor} en todos los casos excepto cuando label sea igual a "tiposElectrico", en cuyo caso mostrará {item.valorHumano}     */}
+                                            {/* {label === "Eléctricos" ? item.valorHumano : item.valor} */}
+                                        {/* {item.valor} */}                                 
+                                            {/* {console.log(item.valor, item)} */}
+                              {key === "tiposElectrico" ? item.valorHumano /* valor */ : item.valor}
                               {/* {JSON.stringify(item)} */}
                               <Typography variant="body3" marginLeft={"10px"}>
                                                                       {/* 90px */}
@@ -163,7 +177,7 @@ const MenuFiltroscheckboxDinamicos = ({ results }) => {
                               </Typography>
                             </>
                           }
-                          disabled={item.numVehiculos === 0  && NAMES[key] !== "tiposElectrico"} //disabled={item.numVehicles === 0}
+                          disabled={item.numVehiculos === 0  /*no deshabilitarlo en tiposElectrico: && NAMES[key] !== "tiposElectrico"*/} //disabled={item.numVehicles === 0}
                         />
                       </li>
                     ))}
