@@ -71,7 +71,8 @@ function App() {
             {/* <Footer></Footer> */}
           </Route>
 
-          <Route exact path="/cocheElegido">
+          {/* :id necesario para que detecte el valor id de la URL */}
+          <Route exact path="/vehiculoElegido/:id">
             {/* ?id= */}
             <CocheElegido>  </CocheElegido>
 

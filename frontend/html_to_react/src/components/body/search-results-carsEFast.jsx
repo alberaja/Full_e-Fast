@@ -147,8 +147,9 @@ const SearchResultsCarsEFast = ({ results }) => {
                         <a href="teslaElegido.html" className="barra__oferta__tesla">
                             {/* <div>Ver oferta</div> */}
                                         {/* price: coche.numPlazas   price: coche.capLitros   price: coche.numPlazas   price: coche.autonomiaKm   price: coche.precioDiaEur */}
-                                        {/* price: coche.price  = = precioDiaEur */}                                        
-                            <Link to={{ pathname: '/cocheElegido', state: { diasReservados, coche: coche.car_model, price: coche.price }, }}>Ver oferta</Link>
+                                        {/* price: coche.price  = = precioDiaEur */}    
+                                        {/* {coche.id}               /{id}/ siendo id=coche.id      */}
+                            <Link to={{ pathname: '/vehiculoElegido/'+coche.id, state: { diasReservados, coche: coche.car_model, price: coche.price } }}>Ver oferta</Link>
                             {/* search: "?id="+ "" */}
                         </a>
                     </section>

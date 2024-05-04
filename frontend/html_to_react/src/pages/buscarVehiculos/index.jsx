@@ -183,7 +183,7 @@ export default function BuscarVehiculo() {
 
         {/*<!--contenedor__caja de texto-->*/}
         {/*<!--Coche Tesla-->*/}
-        <section className="contenedor__caja__vehiculos__tesla" id="vehiculos">
+        {/* <section className="contenedor__caja__vehiculos__tesla" id="vehiculos">
           <div className="contenedor__caja__vehiculos__dinamico__tesla">
             <div className="caja__tesla">
               <a href="" className="caja__tesla__imagen">
@@ -230,7 +230,7 @@ export default function BuscarVehiculo() {
               <div>Ver oferta</div>
             </a>
           </section>
-        </section>
+        </section> */}
         {/*<!--contenedor__caja de imagenes Coche-->*/}
         {/*<!--Moto zero-->*/}
         <section className="contenedor__caja__vehiculos__Zero" id="vehiculos">

@@ -297,7 +297,7 @@ const MenuFiltros = ({childrenFiltros, checkedLists, handleChange1, params2, upd
                 // Filtro1
                 // label="automatico"
                 // labelPlacement="end"
-                onChange={handleCheckboxChangeModoJS}  //handleCheckboxChange
+                // onChange={handleCheckboxChangeModoJS}  //handleCheckboxChange
                 label={
                   <>
                     Automático
