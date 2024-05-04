@@ -10,7 +10,9 @@ import DatePicker from "./components/DatePicker";
 import { Link } from "react-router-dom";
 
 import * as React from 'react';
+import useSessionStorage from "../../hooks/session-storage";
 
+import { isBefore } from 'date-fns';
 
 function parseURL(input) {
   const params = new URLSearchParams(input);
@@ -24,9 +26,27 @@ function parseURL(input) {
   return params.toString();
 }
 
+function getTime(date) { // 05-03-2024T07:00
+  return `${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}`;
+}
 
+function getDate(date) {// 05-03-2024T07:00
+  return `${date.getFullYear()}-${((date.getMonth() + 1) + "").padStart(2, "0")}-${(date.getDate() + "").padStart(2, "0")}`;
+}
 
-function Form() {
+function setTime(date, newDate) {
+  date.setHours(newDate.getHours());
+  date.setMinutes(newDate.getMinutes());
+  date.setSeconds(newDate.getSeconds());
+}
+
+function setDate(date, newDate) {
+  date.setDate(newDate.getDate());
+  date.setMonth(newDate.getMonth());
+  date.setFullYear(newDate.getFullYear());
+}
+
+ function Form() {
   const [showDropoffInput, setShowDropoffInput] = useState(false);
   const [selectedRange, setSelectedRange] = useState([
     {
@@ -35,19 +55,56 @@ function Form() {
       key: "selection",
     },
   ]);
-  const [startTime, setStartTime] = useState("");
-  const [endTime, setEndTime] = useState("");
+  // const [startTime, setStartTime] = useState("");
+  // const [endTime, setEndTime] = useState("");
+  const currentDate = new Date(); // Obtener la fecha actual
+  const day = String(currentDate.getDate()).padStart(2, '0'); // Obtener el día y agregar un 0 al principio si es necesario
+  const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Obtener el mes y agregar un 0 al principio si es necesario
+  const year = currentDate.getFullYear(); // Obtener el año  
+  const formattedDateToday = `${day}-${month}-${year}`; // Formatear la fecha como "dd-mm-yyyy"
+
+  const [range, setRange] = useSessionStorage("Rango", 
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: "selection",
+    }, 
+    {
+      handleGet: (value) => {
+      const {key, startDate, endDate} = JSON.parse(value);
+      return {
+        key,
+        startDate: new Date(startDate),
+        endDate: new Date(endDate)
+      }
+    },
+    handleSet: ({startDate, endDate, key}) => JSON.stringify({
+      key,
+      startDate: startDate.toISOString(),
+      endDate: endDate.toISOString()
+    })
+  })
 
   const handleStartTimeChange = (event) => {
-    setStartTime(event.target.value);
+    setRange({
+      ...range,
+      startDate: new Date(event.target.value)
+    });
   };
 
   const handleEndTimeChange = (event) => {
-    setEndTime(event.target.value);
+    setRange({
+      ...range,
+      endDate: new Date(event.target.value)
+    });
   };
 
   const handleStartDateChange = (event) => {
     const date = new Date(event.target.value);
+    const dateString = event.target.value;
+    const parts = dateString.split('-'); // Dividir la cadena en partes usando el guion
+    const formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`; // Reorganizar las partes para formar el formato deseado
+    // setStartDate(/*event.target.value*/formattedDate); // establece el estado de la fecha de inicio
     handleSelect([
       {
         startDate: date,
@@ -59,20 +116,33 @@ function Form() {
 
   const handleEndDateChange = (event) => {
     const date = new Date(event.target.value);
-    handleSelect([
-      {
-        startDate: selectedRange[0].startDate,
-        endDate: date,
-        key: "selection",
-      },
-    ]);
+    const dateString = event.target.value;
+    const parts = dateString.split('-');
+    const formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+  //   if (endDate >= startDate) {
+  //     // La fecha de endDate es mayor o igual que startDate
+  //     // setEndDate(formattedDate);   // establece el estado
+  //     // no lo uso
+  //     handleSelect([
+  //       {
+  //         startDate: selectedRange[0].startDate,
+  //         endDate: date,
+  //         key: "selection",
+  //       },
+  //     ]);
+  // } else {
+  //   alert("La fecha de entrega debe ser mayor o igual que la fecha del inicio del alquiler");
+  //   // setEndDate(startDate);
+  // }    
   };
 
   const handleSelect = (ranges) => {
     setSelectedRange([ranges[0]]);
+    console.log({selectedRange});
   };
   const handleSelectDesktop = (ranges) => {
     setSelectedRange([ranges.selection]);
+    console.log({selectedRange});
   };
 
   const handleCheckboxChange = () => {
@@ -169,6 +239,47 @@ console.log({selectedVehicleTypes}, selectedVehicleTypes);
      }
    )
 
+   const createHandleDate = (dateType) => (e) => {
+    if(e.target.value === ""){
+      return setRange((range) => ({
+        ...range,
+        [dateType]: dateType === "endDate"? range.startDate ?? new Date() : new Date()
+      }))
+    } 
+    const newDate = new Date(e.target.value);
+    if(dateType === "endDate" && newDate < range.startDate){ 
+      setDate(newDate, range.startDate);
+    }
+    const date = dateType === "endDate" ? range.endDate : range.startDate;
+    setTime(newDate, date);
+    setRange((range) => ({
+    ...range,
+      [dateType]: newDate
+    }));
+   }
+
+   const createHandleTime = (timeType) => (e) => {
+    if(e.target.value === ""){
+      return setRange((range) => ({
+        ...range,
+        [timeType]: new Date()
+      }))
+    } 
+    const [hours, minutes] = e.target.value.split(":").map(Number);
+    const newDate = new Date(timeType === "endDate" ? range.endDate : range.startDate);
+    newDate.setHours(hours);
+    newDate.setMinutes(minutes);
+    if(timeType === "endDate" && isBefore( newDate, range.startDate)){
+      setTime(newDate, range.startDate);
+   
+    }
+    const date = timeType === "endDate" ? range.endDate : range.startDate;
+    setDate(newDate, date);
+    setRange((range) => ({
+      ...range,
+        [timeType]: newDate
+      }));
+   }
   return (
     <form
       action=""
@@ -183,7 +294,7 @@ console.log({selectedVehicleTypes}, selectedVehicleTypes);
           handleOptionClick={handleVehicleTypeClick}
         />
         <FuelTypeTab
-          selectedFuelTypes={selectedFuelTypes}
+          selectedFuelTypes={selectedFuelTypes}s
           handleOptionClick={handleFuelTypeClick}
         />
         <AddressSearch
@@ -203,38 +314,45 @@ console.log({selectedVehicleTypes}, selectedVehicleTypes);
       <div className="rounded-lg p-3 bg-gray-200 border border-gray-700 inline-flex flex-col shadow-2xl">
         <div className="bg-gray-200 [&>div>label]:text-gray-600 [&>div>label]:font-semibold [&>div>input]:bg-gray-200 [&>div>input]:text-gray-600 flex-col mx-auto justify-between p-2 xl:flex-row flex">
           <div className="mb-4">
-            <label>pick up: </label>
+            <label>pick up: </label>              
+            {/* {console.log({startTime})} */}
             <input
               type="time"
-              value={startTime}
-              onChange={handleStartTimeChange}
+              value={getTime(range.startDate)}
+              onChange={createHandleTime("startDate")} 
             />
             <div className="xl:hidden">
               <input
                 type="date"
-                value={selectedRange[0].startDate.toISOString().split("T")[0]}
-                onChange={handleStartDateChange}
+                value={getDate(range.startDate)}
+                onChange={createHandleDate("startDate")} 
               />
             </div>
           </div>
           <div>
             <label>Drop off: </label>
-            <input type="time" value={endTime} onChange={handleEndTimeChange} />
+            <input 
+              type="time" 
+              value={getTime(range.endDate)} 
+              onChange={createHandleTime("endDate")}
+            />
             <div className="xl:hidden">
+              {/* {console.log("selectedRange[0].endDate.toISOString().split('T')[0]: ", selectedRange[0].endDate.toISOString().split("T")[0] )} */}
               <input
                 type="date"
-                value={selectedRange[0].endDate.toISOString().split("T")[0]}
-                onChange={handleEndDateChange}
+                value={getDate(range.endDate)}  /* ej:  2024-05-04    */
+                onChange={createHandleDate("endDate")}
               />
             </div>
           </div>
         </div>
         <div className="xl:block">
         {/* https://www.npmjs.com/package/react-date-range */}
-          <DatePicker
-            selectedRange={selectedRange}
-            handleSelect={handleSelectDesktop}
-          />
+          {/* <DatePicker
+            // selectedRange={range}
+            // handleSelect={handleSelectDesktop}
+                //onChange={createHandleTime("startDate")} 
+          /> */}
         </div>
         
       </div>

@@ -102,7 +102,7 @@ const FinalizarReserva = ({ results }) => {
                         </div>
                     </div>
                     <div className="barra__oferta__tesla">
-                        <img className="imagen__llave" src="images/entrega__llave.png" />
+                        <img className="imagen__llave" src="/images/entrega__llave.png" />
                     </div>
                 </section>
             </section>

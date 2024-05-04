@@ -25,7 +25,7 @@ import SearchBar from './SearchBar';
 import axios from 'axios';
 //import { AppSearchAPIConnector} from "@elastic/search-ui-app-search-connector";
 
-import Form from './form.jsx';
+import Form from "./form.jsx";
 
 import {
   PagingInfo,
