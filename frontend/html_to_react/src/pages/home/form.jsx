@@ -6,7 +6,9 @@ import { VehicleTypeTab } from "./components/VehicleTypeTab";
 import { FuelTypeTab } from "./components/FuelTypeTab";
 import { AddressSearch } from "./components/AddressSearch";
 import { BrandType } from "./components/BrandType";
+//desktop no de mui:
 import DatePicker from "./components/DatePicker";
+// import { DatePicker } from '@mui/x-date-pickers';
 import { Link } from "react-router-dom";
 
 import * as React from 'react';
@@ -187,6 +189,7 @@ function setDate(date, newDate) {
     }
   
     setParams(newParams);
+    console.log({params});
   }
 
   const [params, setParams] = useState(
@@ -215,7 +218,7 @@ console.log({selectedVehicleTypes}, selectedVehicleTypes);
     }
 
     const name = 'tiposVehiculo';
-    handleURLParams(params, optionValue, setParams, name);  
+    handleURLParams(params, optionValue, setParams, name);    
   };
 
   const [selectedFuelTypes, setSelectedFuelTypes] = useState([]);
@@ -280,11 +283,11 @@ console.log({selectedVehicleTypes}, selectedVehicleTypes);
         [timeType]: newDate
       }));
    }
-  return (
-    <form
+  return (   
+  <form
       action=""
       className="w-[90%] sm:w-[70%] flex p-5 border border-gray-800 m-4 rounded-xl bg-gray-300 justify-between mx-auto flex-col xl:flex-row"
-    >
+    >      
       <h5>URL compuesta: {parseURL(params.toString())}</h5>{" "}
       {/* aja: .sin_position : quitar la position: absolute; de .jobs_parrafo */}
        <h1 className="jobs_parrafo sin_position">Tu vehículo eléctrico de alquiler</h1>
@@ -353,6 +356,24 @@ console.log({selectedVehicleTypes}, selectedVehicleTypes);
             // handleSelect={handleSelectDesktop}
                 //onChange={createHandleTime("startDate")} 
           /> */}
+              {/* el de MUI que tenia antes: */}
+              {/* <DatePicker
+                  disablePast
+                  // aja disableFuture
+                  label='Date From - Fecha de recogida'
+                  // minDate= {new Date() }
+                  // defaultValue={dayjs('2023-12-17')}
+                  value={getTime(range.startDate)} //value={dataForm.dateFrom}
+                  onChange={(newValue) => {
+                    // aja newValue es la nueva fecha que ha introducido
+                    const formatoFechaDate = new Date(newValue !== null ? newValue.toString() : new Date());  // fuerza que siempre see 1 fecha al menos
+                    // antes:                  dateTo: newValue
+                    setDataForm({ ...dataForm, dateFrom: formatoFechaDate });
+                    actualizarDiasReservadosFrom(newValue);
+                  }}
+                  renderInput={(params) => <TextField {...params} fullWidth />}
+                // readOnly  
+                /> */}
         </div>
         
       </div>
@@ -365,7 +386,8 @@ console.log({selectedVehicleTypes}, selectedVehicleTypes);
           Buscar Vehiculos
           </button> 
       </div> */}
-    </form>
+    </form>     
+    
   );
 }
 

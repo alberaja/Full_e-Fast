@@ -120,7 +120,7 @@ const MenuFiltroscheckboxDinamicos = ({ results }) => {
 
     // evitar cargar queryparams en vacio por default en la URL
     Object.entries(queryParamsState).forEach(([key, value]) => 
-      value.length > 0 
+      /*console.log({key, value}) && */ /**/value.length > 0 
       && searchParams.append(key, value)
     )
     history.push(`/busquedaVehiculos?${searchParams.toString()}`);
