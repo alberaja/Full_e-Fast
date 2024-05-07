@@ -4,9 +4,11 @@
   "private": true,
   "dependencies": {
     "@elastic/react-search-ui": "^1.21.1",
+    "@elastic/react-search-ui-views": "^1.21.2",
     "@elastic/search-ui-app-search-connector": "^0.10.0",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "@mui/base": "5.0.0-beta.40",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.12.2",
     "@mui/x-date-pickers": "^5.0.20",

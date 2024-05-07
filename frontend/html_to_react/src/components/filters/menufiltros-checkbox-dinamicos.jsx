@@ -32,16 +32,35 @@ const NAMES = {
   maximoNumPlazas: "numPlazas",
 };
 
+
 const MenuFiltroscheckboxDinamicos = ({ results }) => {
+  const location = useLocation();
+const queryParams = new URLSearchParams(location.search);
+//console.log("----queryParams", paramsToObject(location.search));
+
   const [queryParamsState, setQueryParamsState] = useState({
-    ciudadesVehiculo: "",
-    fechaHoraIni: "",
-    fechaHoraFin: "",
-    tiposVehiculo: [],
-    tiposElectrico: [],
-    cajaCambio: [],
-    maximoKmStr: [],
-    numPlazas: [],
+    // evitar recibir params en vacio
+    // ciudadesVehiculo: "",
+    // fechaHoraIni: "",
+    // fechaHoraFin: "",
+    // tiposVehiculo: [],
+    // tiposElectrico: [],
+    // cajaCambio: [],    
+    // maximoKmStr: [],
+    // numPlazas: [],
+
+    // aqui debo recibir todos los valores que setee(en 'params') desde el /index, por ej tb marcaVehiculo
+    ciudadesVehiculo: queryParams.get('ciudadesVehiculo') || '',
+    fechaHoraIni: queryParams.get('fechaHoraIni') || '',
+    fechaHoraFin: queryParams.get('fechaHoraFin') || '',
+    tiposVehiculo: queryParams.getAll('tiposVehiculo') || [],
+    tiposElectrico: queryParams.getAll('tiposElectrico') || [],
+    cajaCambio: queryParams.getAll('cajaCambio') || [],
+
+    maximoKmStr: queryParams.getAll('maximoKmStr') || [],
+    numPlazas: queryParams.getAll('numPlazas') || [],
+    
+    marcaVehiculo: queryParams.getAll('marcaVehiculo') || [],
   });
 
   const isChecked = (name, value) => {
@@ -120,7 +139,7 @@ const MenuFiltroscheckboxDinamicos = ({ results }) => {
 
     // evitar cargar queryparams en vacio por default en la URL
     Object.entries(queryParamsState).forEach(([key, value]) => 
-      /*console.log({key, value}) && */ /**/value.length > 0 
+      /*console.log({key, value}) && */ value?.length > 0   
       && searchParams.append(key, value)
     )
     history.push(`/busquedaVehiculos?${searchParams.toString()}`);
@@ -193,3 +212,15 @@ const MenuFiltroscheckboxDinamicos = ({ results }) => {
 };
 
 export default MenuFiltroscheckboxDinamicos;
+
+// function paramsToObject(search) {
+
+//   const entries = new URLSearchParams(search)
+
+//   const result = {}
+
+//   for (const [key, value] of entries) { // each 'entry' is a [key, value] tupple
+//       if (value !== "") result[key] = value
+//   }
+//   return result
+// }
