@@ -286,11 +286,10 @@ console.log({selectedVehicleTypes}, selectedVehicleTypes);
    }
 
 
-   // forma2 de enviar valores de fecha-hora a /busquedaVehiculos
    const [forms, setForms] = useState({
-    timeStart: '00:07',
+    timeStart: '',
     dateStart: '',
-    timeEnd: '24:00',
+    timeEnd: '',
     dateEnd: ''
    })
 
@@ -298,7 +297,7 @@ console.log({selectedVehicleTypes}, selectedVehicleTypes);
 
    const handleChangeForm = (field, value) => {
       setForms({
-        ...forms, // 1 copia del forms, pero va a cambiar solo el valor del [field]
+        ...forms,
         [field]: value
       })
    }
@@ -307,8 +306,6 @@ console.log({selectedVehicleTypes}, selectedVehicleTypes);
     const updateParams = () => {
       // format
       //"VehiclecityNames=Madrid&dateTimeStart=05-03-2024T07:00&dateTimeEnd=08-03-2024T18:00"
-      // ej enviado:   localhost:3005/busquedaVehiculos?fechaHoraIni=08-05-2024T22%3A03&fechaHoraFin=09-05-2024T00%3A05  %3A=:
-      //             = localhost:3005/busquedaVehiculos?fechaHoraIni=08-05-2024T22:03&fechaHoraFin=09-05-2024T00:05
       let newParams = ''
       
       if (forms.timeStart && forms.dateStart) {
@@ -321,7 +318,7 @@ console.log({selectedVehicleTypes}, selectedVehicleTypes);
       setNewParams(parseURL(params.toString()) + newParams)
     }
     updateParams()
-   }, [forms, params])  //cada vez que se modifique alguno de los 2 params 
+   }, [forms, params])
 
   return (   
   <form
@@ -329,7 +326,6 @@ console.log({selectedVehicleTypes}, selectedVehicleTypes);
       className="w-[90%] sm:w-[70%] flex p-5 border border-gray-800 m-4 rounded-xl bg-gray-300 justify-between mx-auto flex-col xl:flex-row"
     >      
       <h5>URL compuesta: {parseURL(params.toString())}</h5>{" "}
-      {/* <h5>URL newParams: {parseURL(newParams.toString())}</h5>{" "} */}
       {/* aja: .sin_position : quitar la position: absolute; de .jobs_parrafo */}
        <h1 className="jobs_parrafo sin_position">Tu vehículo eléctrico de alquiler</h1>
       <div className="w-full flex flex-col p-5 gap-4"> {/*TODO: cargar desde APi no desde data.js*/}
