@@ -290,7 +290,7 @@ console.log({selectedVehicleTypes}, selectedVehicleTypes);
    const [forms, setForms] = useState({
     timeStart: '00:07',
     dateStart: '',
-    timeEnd: '24:00',
+    timeEnd: '00:00',
     dateEnd: ''
    })
 

@@ -52,7 +52,7 @@ export default function Contactanos({ estilo , open, handleOpen, handleClose}) {
                         <div className="contenedor__logo__contacto">
                             <div className="">
                                 <a href="" className="">
-                                    <img src="images/logo-empresa.png" className="iconoLogo" />
+                                    <img src="/images/logo-empresa.png" className="iconoLogo" />
                                 </a>
                             </div>
                         </div>

@@ -81,7 +81,7 @@ export default function ServicioExclusivoFooter() {
         <div className="contenedor__cerrar__contacto">
           <div className="contendor__icono">
             <a href="teslaReservar.html" className="contendor__icono__cerrado">
-              <img src="images/iconoCerrar.svg" className="iconoCerrar" />
+              <img src="/images/iconoCerrar.svg" className="iconoCerrar" />
             </a>
           </div>
         </div>
@@ -91,7 +91,7 @@ export default function ServicioExclusivoFooter() {
         <div className="contenedor__logo__contacto">
           <div className="">
             <a href="" className="">
-              <img src="images/logo-empresa.png" className="iconoLogo" />
+              <img src="/images/logo-empresa.png" className="iconoLogo" />
             </a>
           </div>
         </div>

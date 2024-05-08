@@ -7,7 +7,7 @@ export default function DescripyContactoFooter() {
     <section className="contenedor__contacto__conocernos" >
       <div className="contenedor__contacto__conocernos__grid">
         <div className="contenedor__contacto__conocernos__logotipo">
-          <img src="images/logo-empresa2.png" className="nav_logo" />
+          <img src="/images/logo-empresa2.png" className="nav_logo" />
         </div>
         <div className="contenedor__contacto__conocernos__texto">
           <div className="contenedor__texto">
@@ -18,8 +18,8 @@ export default function DescripyContactoFooter() {
         </div>
         <div className="contenedor__redesSociales">
           <div className="contenedor__redesSociales__instagramFacebook">
-            <img src="images/instagram.svg" className="icono_instagram" />
-            <img src="images/facebook.svg" className="icono_facebook" />
+            <img src="/images/instagram.svg" className="icono_instagram" />
+            <img src="/images/facebook.svg" className="icono_facebook" />
           </div>
         </div>
       </div>

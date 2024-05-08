@@ -75,10 +75,10 @@ export default function Header() {  //export para q luego pueda importarse en in
 
         <header className="header" >{ /*  style={}{ /* { /* <!--nav--> */}
             <nav className="nav container">
-                <img src="images/logo-empresa.png" className="nav_logo" />
+                <img src="/images/logo-empresa.png" className="nav_logo" />
                 <input type="checkbox" id="check" />
                 <label htmlFor="check" className="nav_hamburguer">
-                    <img src="images/icon-hamburger.svg" className="nav_hamburguer" />
+                    <img src="/images/icon-hamburger.svg" className="nav_hamburguer" />
                 </label>
                 <ul className="container__menu__responsive">
                     <li className="container__menu__responsive-item" className="container__menu__responsive-item-inicio">

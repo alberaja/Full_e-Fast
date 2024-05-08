@@ -11,7 +11,7 @@ export default function CalendarModal() {
         <div className="selected-date"></div>
 
         <a href="#calendar__link-cerrar" className="calendar__iconosCalendario-cerrar">{ /* <!--link--> */}
-          <img src="images/iconoCerrar.svg" className="cruz__cerrar-icono" />
+          <img src="/images/iconoCerrar.svg" className="cruz__cerrar-icono" />
         </a>
 
         <div className="calendar__info">{ /* <!--incluye las dos flechas para mover hacia adelante o hacia atrás, y su mes y año en el calendario--> */}

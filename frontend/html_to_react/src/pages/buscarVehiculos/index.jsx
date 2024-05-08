@@ -19,6 +19,7 @@ import { useState, useEffect } from 'react';
 import  DrawerMUI  from './drawer-mui.jsx';
 
 import axios from 'axios';
+import moment from 'moment';
 
 export default function BuscarVehiculo() {
 
@@ -102,6 +103,10 @@ export default function BuscarVehiculo() {
         console.error('Error al realizar la búsqueda:', error);
       }
     };
+  
+    //console.log(queryParams);
+    const numDiasRangoEntreFechas = calcularRangoEntreFechas(queryParams );    
+    console.log("nº dias calculados de alquiler -->", numDiasRangoEntreFechas);
 
     return (
       //  <main> {/*<!--main-->*/}
@@ -177,7 +182,7 @@ export default function BuscarVehiculo() {
 
         {/* {console.log({params})  } */}
         {/* Listado de coches dinamico contra la API . Antiguo <Buscador1> */}
-        <CarsResultados params={params} resultados={results} /*callback={callback}*/ ></CarsResultados>
+        <CarsResultados params={params} resultados={results} numDiasRangoEntreFechas={numDiasRangoEntreFechas} /*callback={callback}*/ ></CarsResultados>
 
         {/********  aqui abajo todo estatico */}
 
@@ -237,7 +242,7 @@ export default function BuscarVehiculo() {
           <div className="contenedor__caja__vehiculos__dinamico__Zero">
             <div className="caja__zero">
               <a href="" className="caja__zero__imagen">
-                <img src="images/Zero-SRF-360-9.png" className="imagenCoche" />
+                <img src="/images/Zero-SRF-360-9.png" className="imagenCoche" />
               </a>
             </div>
           </div>
@@ -249,17 +254,17 @@ export default function BuscarVehiculo() {
               <div className="producto__tesla__parrafo__caracteristicas">
                 <div className="producto__zero__parrafo__velocidadPunta">
                   <p className="producto__zero__parrafo__velocidadPunta-p">
-                    <img src="images/velocimetro.png" /> 200km/h
+                    <img src="/images/velocimetro.png" /> 200km/h
                   </p>
                 </div>
                 <div className="producto__zero__parrafo__tiempo__carga">
                   <p className="producto__zero__parrafo__tiempo__carga-p">
-                    <img src="images/grid_iconoReloj7.svg" /> 2.4h cargarla
+                    <img src="/images/grid_iconoReloj7.svg" /> 2.4h cargarla
                   </p>
                 </div>
                 <div className="producto__zero__parrafo__autonomia">
                   <p className="producto__zero__parrafo__autonomia-p">
-                    <img src="images/bateria.svg" /> 272km autonomía
+                    <img src="/images/bateria.svg" /> 272km autonomía
                   </p>
                 </div>
               </div>
@@ -366,4 +371,16 @@ export default function BuscarVehiculo() {
         {/* </span> */}
       </>
     );
+}
+
+function calcularRangoEntreFechas(queryParams){
+    if (!queryParams.get('fechaHoraIni') || !queryParams.get('fechaHoraFin') ) return ''
+    const fechaHoraIni = queryParams.get('fechaHoraIni').split('T')[0];
+    const fechaHoraFin = queryParams.get('fechaHoraFin').split('T')[0];  
+    console.log(fechaHoraIni, fechaHoraFin)
+    moment.locale('es'); 
+    const date1 = moment(fechaHoraIni, 'DD-MM-YYYY');
+    const date2 = moment(fechaHoraFin, 'DD-MM-YYYY');
+    console.log(date1.toDate(), date2.toDate())
+    return date2.diff(date1, 'days');
 }

@@ -70,7 +70,7 @@ const FinalizarReserva = ({ results }) => {
                 <div className="contenedor__caja__vehiculos__dinamico__tesla">
                     <div className="caja__tesla">
                         <a href="teslaCaracteristicas.html" className="caja__tesla__imagen">
-                            <img src="images/tesla3.png" className="imagenCoche" />
+                            <img src="/images/tesla3.png" className="imagenCoche" />
                         </a>
                     </div>
                 </div>
@@ -81,13 +81,13 @@ const FinalizarReserva = ({ results }) => {
                     <section className="producto__tesla__caracteristicas">
                         <div className="producto__tesla__parrafo__caracteristicas">
                             <div className="producto__tesla__parrafo__plazos">
-                                <p className="producto__tesla__parrafo__plazas-p"><img src="images/icono-user.svg" /> 5 plazas</p>
+                                <p className="producto__tesla__parrafo__plazas-p"><img src="/images/icono-user.svg" /> 5 plazas</p>
                             </div>
                             <div className="producto__tesla__parrafo__plazos">
-                                <p className="producto__tesla__parrafo__litros-p"><img src="images/equipaje.svg" /> 649 litros</p>
+                                <p className="producto__tesla__parrafo__litros-p"><img src="/images/equipaje.svg" /> 649 litros</p>
                             </div>
                             <div className="producto__tesla__parrafo__plazos">
-                                <p className="producto__tesla__parrafo__autonomia-p"><img src="images/bateria.svg" /> 547km autonomía</p>
+                                <p className="producto__tesla__parrafo__autonomia-p"><img src="/images/bateria.svg" /> 547km autonomía</p>
                             </div>
                         </div>
                     </section>

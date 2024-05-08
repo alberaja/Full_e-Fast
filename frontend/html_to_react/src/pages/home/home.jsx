@@ -222,20 +222,20 @@ function Home() {
           <div className="contenedor__caja__vehiculos__dinamico">
             <div className="caja__tesla">{ /* <!--Coche Tesla--> */}
               <div className="caja__tesla__icono">
-                <img src="images/iconoTeslaR.jpg" className="iconoTesla" />
+                <img src="/images/iconoTeslaR.jpg" className="iconoTesla" />
               </div>
               <a href="teslaCaracteristicas.html" className="caja__tesla__imagen">
-                <img src="images/tesla3.png" className="imagenCoche" />
+                <img src="/images/tesla3.png" className="imagenCoche" />
               </a>
             </div>
           </div>
           <div className="contenedor__caja__vehiculos__dinamico">
             <div className="caja__motoZero">{ /* <!--Moto Zero--> */}
               <div className="caja__zero__icono">
-                <img src="images/iconoMotoZero1.png" className="iconoZero" />
+                <img src="/images/iconoMotoZero1.png" className="iconoZero" />
               </div>
               <a href="zeroCaracteristicas.html" className="caja__zero__imagen">
-                <img src="images/Zero-SRF-360-9.png" className="imagenMoto" />
+                <img src="/images/Zero-SRF-360-9.png" className="imagenMoto" />
               </a>
             </div>
           </div>

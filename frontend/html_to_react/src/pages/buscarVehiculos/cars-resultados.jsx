@@ -19,7 +19,7 @@ import SearchResultsCarsEFast from '../../components/body/search-results-carsEFa
 //  modificar los Query String de las URLs
 // import { useSearchParams } from "react-router-dom";
 
-export default function CarsResultados({params /*,callback*/, resultados}) {    //deserializar el objeto del prop a un string, yaq por default es 1 objeto
+export default function CarsResultados({params /*,callback*/, resultados, numDiasRangoEntreFechas}) {    //deserializar el objeto del prop a un string, yaq por default es 1 objeto
 
   //  modificar los Query String de las URLs
   // let [searchParams, setSearchParams] = useSearchParams();
@@ -135,7 +135,7 @@ export default function CarsResultados({params /*,callback*/, resultados}) {    
       {/* <SearchBar onSearch={searchApi} /> */}      
      
       {/* ok   <SearchResultsCars  results={results} /> */}
-      <SearchResultsCarsEFast  results={ resultados /*results*/ /*params   results*/} />
+      <SearchResultsCarsEFast  results={ resultados /*results*/ /*params   results*/} numDiasRangoEntreFechas={numDiasRangoEntreFechas} />
     </div>
 
     </>

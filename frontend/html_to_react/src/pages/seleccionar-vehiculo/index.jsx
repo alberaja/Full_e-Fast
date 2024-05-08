@@ -27,13 +27,13 @@ const CocheElegido = ({ /*results*/ }) => {
     // console.log(results.Cars);
     const location = useLocation();   // visualizar los estados que llegan en una ruta de react router dom
     // console.log("location.state:", location.state);
-    let numdiasReservados = location.state.diasReservados;
-    let coche = location.state.coche;
-    let precio; //= location.state.price;    // = precioDiaEur   // precio ={results?.vehiculos[0]?.precio[0].por1DiaEuros}
-    let precioAlquilerCalculado = precio * numdiasReservados;
-    let numPlazas = location.state.numPlazas;
-    let capLitros = location.state.capLitros;
-    let autonomiaKm = location.state.autonomiaKm;
+    let numdiasReservados = location?.state?.diasReservados ?? 0;   //si es undefined, devolver 0
+    let coche = location?.state?.coche;
+    let precio = 30; //= location.state.price;    // = precioDiaEur   // precio ={results?.vehiculos[0]?.precio[0].por1DiaEuros}
+    //let precioAlquilerCalculado = precio * numdiasReservados;
+    let numPlazas = location?.state?.numPlazas;
+    let capLitros = location?.state?.capLitros;
+    let autonomiaKm = location?.state?.autonomiaKm;
     // {console.log("valor actual: ", precio)}
 
 
@@ -59,6 +59,8 @@ const CocheElegido = ({ /*results*/ }) => {
         const fetchData = async () => {
             try {
               const response = await fetch(`http://localhost:8762/elastic-efast/api/efast/v1/vehiculos?idVehiculo=${id}`);
+              //console.log(response.status)
+              if(response.status !== 200 ){ history.push("/")}
               const data = await response.json();
             //   console.log(data);
             setResults(data);
@@ -71,14 +73,14 @@ const CocheElegido = ({ /*results*/ }) => {
           fetchData();
     }, [id]);
 
-    
-
+    let precioAlquilerCalculado = results?.vehiculos[0]?.precio[0].por1DiaEuros ? results?.vehiculos[0]?.precio[0].por1DiaEuros * numdiasReservados : null;
+    console.log("precioAlquilerCalculado=", results?.vehiculos[0]?.precio[0].por1DiaEuros, '*',numdiasReservados, precioAlquilerCalculado)
     return (
         // /cocheElegido
         // <main>
         
         <>
-        <div><img src="images/Zero-SRF-360-9.png" className="imagenCoche" /> </div>
+        {/* <div><img src="/images/Zero-SRF-360-9.png" className="imagenCoche" /> </div> */}
             {/* <!--Elección--> */}
             {/* aja: traerse el Hash del module CSS */}
             {/* resultado: class="teslaElegido_contenedor__eleccion__DJXrw"
@@ -313,7 +315,7 @@ const CocheElegido = ({ /*results*/ }) => {
             <section className={ styles["contenedor__desglose__total"] }>
                 <div className={ styles["contenedor__desglose__total__precio"] }>
                     <div className={ styles["contenedor__desglose__total__precio-parrafo"] }>Precio del alquiler</div>
-                    <div className={ styles["contenedor__desglose__total__precio-parrafo"] }>{precioAlquilerCalculado}€</div>
+                    <div className={ styles["contenedor__desglose__total__precio-parrafo"] }>{precioAlquilerCalculado > 0 ? `${precioAlquilerCalculado}€` : '---'}</div>
                 </div>
             </section>
 

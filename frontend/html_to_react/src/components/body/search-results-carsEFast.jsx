@@ -11,11 +11,11 @@ import BatteryChargingFullRoundedIcon from "@mui/icons-material/BatteryChargingF
 import LocalDrinkIcon from '@mui/icons-material/LocalDrink';
 import CheckTwoToneIcon from "@mui/icons-material/CheckTwoTone";
 
-const SearchResultsCarsEFast = ({ results }) => {
+const SearchResultsCarsEFast = ({ results , numDiasRangoEntreFechas}) => {
 
     // ver que llega
     // console.log(results.Cars);
-    let diasReservados = 5;
+    let diasReservados = numDiasRangoEntreFechas;//= 5;
     //sessionStorage.getItem('diasReservados') ?? new Date(); 
     return (
         // OK mostrar en Lista
