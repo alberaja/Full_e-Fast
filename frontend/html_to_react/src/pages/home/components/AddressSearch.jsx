@@ -7,12 +7,12 @@ export function AddressSearch({ handleCheckboxChange, showDropoffInput }) {
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    // Aquí realizar la llamada al API y establecerías la respuesta en el estado
-    const apiUrl = `http://localhost:8088/api/efast/v1/ciudades?nombre=${searchTerm}`+ `&ciudadesDevolverVehiculos=false`;  ///ciudades?nombre     dropOff=false
+    // Aquí realizar la llamada al API y establecerías la respuesta en el estado.   Iniciar en espacio blanco si en la API quito @NotBlank
+    const apiUrl = `http://localhost:8088/api/efast/v1/ciudades?nombre=${searchTerm || ' '}`+ `&ciudadesDevolverVehiculos=false`;  ///ciudades?nombre     dropOff=false
     axios.get(apiUrl)     //`URL_DE_TU_API?search=${searchTerm}`
       .then(response => {
         // setRespuesta(response.data);
-        setCiudades(response.data.uniqueCitis);
+        setCiudades(response.data.ciudadesUnicas); //uniqueCitis
       })
       .catch(error => {
         console.error('Error al obtener la respuesta de la API:', error);
