@@ -7,8 +7,16 @@ import { FuelTypeTab } from "./components/FuelTypeTab";
 import { AddressSearch } from "./components/AddressSearch";
 import { BrandType } from "./components/BrandType";
 //desktop no de mui:
-import DatePicker from "./components/DatePicker";
-// import { DatePicker } from '@mui/x-date-pickers';
+ import DatePicker from "./components/DatePicker";
+// import { DatePickerMUI } from '@mui/x-date-pickers';
+
+// import dayjs from 'dayjs';
+// import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
+// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+// import { StaticDateRangePicker } from '@mui/x-date-pickers-pro/StaticDateRangePicker';
+// import { pickersLayoutClasses } from '@mui/x-date-pickers/PickersLayout';
+
 import { Link } from "react-router-dom";
 
 import * as React from 'react';
@@ -296,12 +304,20 @@ console.log({selectedVehicleTypes}, selectedVehicleTypes);
 
    const [newParams, setNewParams] = useState('')
 
-   const handleChangeForm = (field, value) => {
-      setForms({
-        ...forms, // 1 copia del forms, pero va a cambiar solo el valor del [field]
+  //  const handleChangeForm = (field, value) => {
+  //   console.log(field, value);
+  //     setForms({
+  //       ...forms, // 1 copia del forms, pero va a cambiar solo el valor del [field]
+  //       [field]: value
+  //     })
+  //     //console.log({forms}); 
+  //  }
+  const handleChangeForm = (field, value) => {    
+    setForms((prevForm)=>({
+        ...prevForm, // 1 copia del forms, pero va a cambiar solo el valor del [field]
         [field]: value
-      })
-   }
+    }))
+ }
 
    useEffect(() => {
     const updateParams = () => {
@@ -322,6 +338,8 @@ console.log({selectedVehicleTypes}, selectedVehicleTypes);
     }
     updateParams()
    }, [forms, params])  //cada vez que se modifique alguno de los 2 params 
+
+   const [date, setDate] = useState();
 
   return (   
   <form
@@ -367,7 +385,7 @@ console.log({selectedVehicleTypes}, selectedVehicleTypes);
               value={forms['timeStart']}
               onChange={(e) => handleChangeForm('timeStart', e.target.value)}
             />
-            <div className="xl:hidden">
+            <div className="xl:hidden"> {/* cuando la pantalla sea de tamaño extra grande (xl), el elemento <div> con esta clase no se mostrará */}
               <input
                 type="date"
                 // value={getDate(range.startDate)}
@@ -398,13 +416,16 @@ console.log({selectedVehicleTypes}, selectedVehicleTypes);
             </div>
           </div>
         </div>
-        <div className="xl:block">
+        <div className="xl:block hidden"> {/* = xs:hidden ya que hidden ya hace eso automáticamente en pantallas extra pequeñas.*/}
+                                          {/* hidden permite ocultar el <DatePicker> para Desktop */}
         {/* https://www.npmjs.com/package/react-date-range */}
-          {/* <DatePicker
+          {/* para Desktop */}
+          <DatePicker
             // selectedRange={range}
             // handleSelect={handleSelectDesktop}
-                //onChange={createHandleTime("startDate")} 
-          /> */}
+                //onChange={createHandleTime("startDate")}                 
+              setDates = {handleChangeForm}              
+          />
               {/* el de MUI que tenia antes: */}
               {/* <DatePicker
                   disablePast
@@ -423,6 +444,27 @@ console.log({selectedVehicleTypes}, selectedVehicleTypes);
                   renderInput={(params) => <TextField {...params} fullWidth />}
                 // readOnly  
                 /> */}
+             {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DemoContainer
+                  components={[
+                    'DateRangePicker',
+                    'MobileDateRangePicker',
+                    'DesktopDateRangePicker',
+                    'StaticDateRangePicker',
+                  ]}
+                >
+                    <DemoItem label="Static variant" component="StaticDateRangePicker">
+                    <StaticDateRangePicker
+                      defaultValue={[dayjs('2022-04-17'), dayjs('2022-04-21')]}
+                      sx={{
+                        [`.${pickersLayoutClasses.contentWrapper}`]: {
+                          alignItems: 'center',
+                        },
+                      }}
+                    />
+            </DemoItem>
+          </DemoContainer>
+        </LocalizationProvider> */}
         </div>
         
       </div>
