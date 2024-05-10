@@ -24,7 +24,9 @@ import { DayPicker } from "react-day-picker";
 import { useState } from "react";
 import "./datepicker.css";
 import moment from "moment";
-
+import 'moment/locale/es';
+import { es } from 'date-fns/locale';
+ 
 export default function MyDatePicker( { setDates }) {
   const [selected, setSelected] = useState();
   //console.log(selected);
@@ -42,8 +44,9 @@ export default function MyDatePicker( { setDates }) {
   }
 
   //formatear la fecha a mostrar en el <p>
-  const formattedDateFrom = moment(selected?.from).format('DD-MM-YYYY');
-  const formattedDateTo = moment(selected?.to).format('DD-MM-YYYY');
+  moment.locale('es');
+  const formattedDateFrom = moment(selected?.from).format('dddd,DD MMMM');
+  const formattedDateTo = moment(selected?.to).format('dddd,DD MMMM'); //DD-MM-YYYY    LL o ll   [de]
   const currentDateMoment = moment().format('DD-MM-YYYY');
 
   return (
@@ -51,7 +54,7 @@ export default function MyDatePicker( { setDates }) {
       {" "}
       {/* Evitar mostrar formattedDateTo con fecha actual si aun no ha seleccionado el formattedDateTo */}
       {selected && formattedDateTo != currentDateMoment  &&(
-        <div className="flex">
+        <div className="flex gap-2 justify-center" >
           {" "}
           {/*<p>{selected?.from?.toString()}</p>{" "}  Thu May 30 2024 00:00:00 GMT+0200 (hora de verano de Europa central)*/}
           <p>{formattedDateFrom }</p>{" "}
@@ -65,6 +68,7 @@ export default function MyDatePicker( { setDates }) {
         selected={selected}
         onSelect={selectDates}
         disabled={disabledPastDates}  //deshabilitar mostras fechas anteriores a currentDate
+        locale={es}
       />
     </div>
   );
