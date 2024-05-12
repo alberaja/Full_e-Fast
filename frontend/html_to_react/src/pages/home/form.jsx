@@ -171,31 +171,44 @@ function setDate(date, newDate) {
   
     console.log("OPTION", optionValue, name);
 
-    if (newParams.has(name)) {
-      const list = newParams.get(name).split(',');
-      console.log("Initial list -> ", list);
-  
-      if (!list.includes(optionValue)) {
-        list.push(optionValue);
-      } else {
-        const index = list.indexOf(optionValue);
-        console.log("current index -> ", index);
-        if (index > -1) {
-          list.splice(index, 1);
-        }
-      }
-  
-      console.log("Final list -> ", list);
-      if (list.length > 0) {
-        newParams.set(name, list.join(','));
-      } else {
-        newParams.delete(name);
-      }
+    // ciudadesVehiculo  para los inputs de ciudades de <AddressSearch>
+    if ( (name === "ciudadesVehiculo" || name === "ciudadesDevolverVehiculo") && optionValue === undefined) {
+      newParams.delete(name);
     } else {
-      const list = [optionValue];
-      console.log({ list });
-      newParams.append(name, list.join(','));
-    }
+      if (newParams.has(name)) {
+        const list = newParams.get(name).split(",");
+        console.log("Initial list -> ", list);
+
+        if (!list.includes(optionValue)) {
+          list.push(optionValue);
+        } else {
+          const index = list.indexOf(optionValue);
+          console.log("current index -> ", index);
+          if (index > -1) {
+            list.splice(index, 1);
+          }
+        }
+
+        console.log("Final list -> ", list);
+        if (list.length > 0) {
+            // ciudadesVehiculo
+            if((name === "ciudadesVehiculo" || name === "ciudadesDevolverVehiculo")) {
+              if(optionValue) {
+                newParams.delete(name);
+                newParams.set(name, optionValue);
+              }
+            } else{  // logica de los filtros que no son ciudadesVehiculo
+          newParams.set(name, list.join(","));
+            }
+        } else {   // ciudadesVehiculo
+          newParams.delete(name);
+        }
+      } else {
+        const list = [optionValue];
+        //console.log({ list });
+        newParams.append(name, list.join(","));
+      }
+  }
   
     setParams(newParams);
     console.log({params});
@@ -227,6 +240,7 @@ console.log({selectedVehicleTypes}, selectedVehicleTypes);
     }
 
     const name = 'tiposVehiculo';
+    console.log("valor ahora:  params:", params, "optionValue",optionValue, "setParams", setParams);
     handleURLParams(params, optionValue, setParams, name);    
   };
 
@@ -250,6 +264,24 @@ console.log({selectedVehicleTypes}, selectedVehicleTypes);
         handleURLParams(params, optionValue, setParams, "marcaVehiculo")    
      }
    )
+
+   // llamada del componente hijo(BrandType.jsx) al componete padre(form.jsx)   
+   const callbackCiudades = React.useCallback(
+    (optionValue)=>{
+      // Pick up:  ciudadesVehiculo
+      // Drop off: ciudadesDevolverVehiculo
+      //console.log("valor ahora:  params:", params, "optionValue",optionValue, setParams);
+       handleURLParams(params, optionValue, setParams, "ciudadesVehiculo")
+    }
+  )
+  const callbackCiudadesDevolverVehiculo = React.useCallback(
+    (optionValue)=>{
+      // Pick up:  ciudadesVehiculo
+      // Drop off: ciudadesDevolverVehiculo
+      //console.log("valor ahora:  params:", params, "optionValue",optionValue, setParams);
+       handleURLParams(params, optionValue, setParams, "ciudadesDevolverVehiculo")
+    }
+  )
 
    const createHandleDate = (dateType) => (e) => {
     if(e.target.value === ""){
@@ -362,6 +394,8 @@ console.log({selectedVehicleTypes}, selectedVehicleTypes);
         <AddressSearch
           handleCheckboxChange={handleCheckboxChange}
           showDropoffInput={showDropoffInput}
+          callbackCiudades={callbackCiudades}
+          callbackCiudadesDevolverVehiculo={callbackCiudadesDevolverVehiculo}          
         />
         <BrandType callback={callback}/>
         {/* //TODO: dejar <button> para mantener estilos asignados antes*/}

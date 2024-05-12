@@ -11,6 +11,7 @@
     "@mui/base": "5.0.0-beta.40",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.12.2",
+    "@mui/system": "^5.15.15",
     "@mui/x-date-pickers": "^5.0.20",
     "@stripe/react-stripe-js": "^1.1.2",
     "@stripe/stripe-js": "^1.9.0",
