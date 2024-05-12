@@ -30,7 +30,8 @@ export function AddressSearch({ handleCheckboxChange, showDropoffInput , callbac
   }, [searchTerm]);
 
   const handleChange = (event) => {
-    console.log("event.target", event.target.id);
+    //console.log("event.target", event.target.id);
+    // Recupero por el id asignado a <Autocomplete
     if(event?.target?.id.includes("autocompleteDevolverVehiculos")){
       setIsCiudadesDevolverVehiculo(true);
     } else {setIsCiudadesDevolverVehiculo(false);}
