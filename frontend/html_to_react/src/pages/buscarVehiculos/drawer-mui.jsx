@@ -182,7 +182,8 @@ export default function PersistentDrawerLeft({ params, updateSearchParams , resu
  
 
   return (
-    <Box sx={{ display: "flex" }}>
+    // <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex" }} style={{ position: "relative", zIndex: 9 }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         {/* <Toolbar> */}

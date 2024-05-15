@@ -106,6 +106,7 @@ const SearchResultsCarsEFast = ({ results , numDiasRangoEntreFechas}) => {
                         <div className="producto__tesla__parrafo">    
                                                                         {/* {coche.car} {coche.car_model} */}                         {/* BEV                                 Moto */}
                             <h1 className="producto__tesla__parrafo">{coche.marcay_modelo_vehiculo}  </h1> <h5 style={{ color: 'gray' }}>{coche.caracteristicas[0].tipoVehiculo} {coche.tipo_vehiculo} </h5>
+                            {/* <div className="text-sm text-gray-500">{coche.caracteristicas[0].tipoVehiculo} - Híbrido xx</div> */}
                         </div>
                         <section className="producto__tesla__caracteristicas">
                             <div className="producto__tesla__parrafo__caracteristicas">

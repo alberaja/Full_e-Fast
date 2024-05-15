@@ -13,7 +13,8 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import SearchResultsCarsEFast from '../../components/body/search-results-carsEFast.jsx';
+//import SearchResultsCarsEFast from '../../components/body/search-results-carsEFast.jsx';
+import SearchResultsCarsEFast from '../../components/body/search-results-nuitari.jsx';
 
 
 //  modificar los Query String de las URLs
