@@ -38,7 +38,8 @@ const NAMES = {
 const MenuFiltroscheckboxDinamicos = ({ results }) => {
   const location = useLocation();
 const queryParams = new URLSearchParams(location.search);
-//console.log("----queryParams", paramsToObject(location.search));
+console.log("----queryParams", paramsToObject(location.search));
+
 
   const [queryParamsState, setQueryParamsState] = useState({
     // evitar recibir params en vacio
@@ -52,17 +53,18 @@ const queryParams = new URLSearchParams(location.search);
     // numPlazas: [],
 
     // aqui debo recibir todos los valores que setee(en 'params') desde el /index, por ej tb marcaVehiculo
+    //no usar getAll, get para evitar fallo . Hacer el split(',') solo para los que puedan llegar concatenados
     ciudadesVehiculo: queryParams.get('ciudadesVehiculo') || '',
     fechaHoraIni: queryParams.get('fechaHoraIni') || '',
     fechaHoraFin: queryParams.get('fechaHoraFin') || '',
-    tiposVehiculo: queryParams.getAll('tiposVehiculo') || [],
-    tiposElectrico: queryParams.getAll('tiposElectrico') || [],
-    cajaCambio: queryParams.getAll('cajaCambio') || [],
+    tiposVehiculo: queryParams.get('tiposVehiculo')?.split(',') || [],
+    tiposElectrico: queryParams.get('tiposElectrico')?.split(',') || [],
+    cajaCambio: queryParams.get('cajaCambio') || [],
 
-    maximoKmStr: queryParams.getAll('maximoKmStr') || [],
-    numPlazas: queryParams.getAll('numPlazas') || [],
+    maximoKmStr: queryParams.get('maximoKmStr') || [],
+    numPlazas: queryParams.get('numPlazas') || [],
     
-    marcaVehiculo: queryParams.getAll('marcaVehiculo') || [],
+    marcaVehiculo: queryParams.get('marcaVehiculo')?.split(',') || [],
   });
 
   const isChecked = (name, value) => {
@@ -222,17 +224,17 @@ const queryParams = new URLSearchParams(location.search);
 
 export default MenuFiltroscheckboxDinamicos;
 
-// function paramsToObject(search) {
+function paramsToObject(search) {
 
-//   const entries = new URLSearchParams(search)
+  const entries = new URLSearchParams(search)
 
-//   const result = {}
+  const result = {}
 
-//   for (const [key, value] of entries) { // each 'entry' is a [key, value] tupple
-//       if (value !== "") result[key] = value
-//   }
-//   return result
-// }
+  for (const [key, value] of entries) { // each 'entry' is a [key, value] tupple
+      if (value !== "") result[key] = value
+  }
+  return result
+}
 function createQueryUrl(params) {
   const url = Object.entries(params).map(([field, data]) => {
       if (!Array.isArray(data)) {
