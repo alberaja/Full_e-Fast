@@ -1,5 +1,5 @@
 // src/components/SearchResults.js
-import React from 'react';
+import React , { useState } from 'react';
 import './teslaReservar.css';
 import { useLocation } from "react-router-dom";
 
@@ -43,9 +43,9 @@ const FinalizarReserva = ({ results }) => {
 
 
     // form submit function which will invoke after successful validation
-    const onSubmit = (data) => {
-        alert(JSON.stringify(data));
-    };
+    // const onSubmit = (data) => {
+    //     alert(JSON.stringify(data));
+    // };
 
     // console.log(watch("ejemplo")); // to watch individual input by pass the name of the input
     // watch para obtener el valor actual del checkbox
@@ -53,6 +53,34 @@ const FinalizarReserva = ({ results }) => {
 
     // para STRIPE
     const stripePromise = loadStripe("pk_test_51OLugQACmPQ0R4zJmCHu91pqTI1MzU23TskkU7Bn7fmiK5onZbnRhbSXgE32rJm2rL5wy3DMYJIEHYfLIlhau0gA000m3ggUpz");
+
+
+    const [formData, setFormData] = useState({
+        // Aquí puedes inicializar el estado de tus campos de formulario si es necesario
+        //nombre: "",       
+        // Otros campos de formulario aquí
+         //email: "",
+      });
+    
+    // Añade los valores a enviarse luego desde handleSubmitForm()
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+          ...formData,
+          [name]: value,
+        });
+      };
+    const handleSubmitForm = (e) => {
+        e.preventDefault();
+        // Aquí puedes realizar las acciones necesarias con los datos del formulario
+        console.log("aceptoTerminos: ", aceptoTerminos);
+        console.log("Valores de la reserva en formData: ", formData);
+        if(aceptoTerminos){
+            // enviar POST
+            
+        }
+        // onSubmit(formData);
+      };
 
     return (
         // /finalizarReserva
@@ -113,7 +141,8 @@ const FinalizarReserva = ({ results }) => {
                     <div className="contenedor__form__cabeza">
                         <h2>Datos del conductor principal</h2>
                     </div>
-                    <form action="" id="form" className="form" onSubmit={handleSubmit(onSubmit)}>
+                    {/* seguir https://codesandbox.io/p/sandbox/form-reservar-wr54px?file=%2Fsrc%2FApp.js%3A22%2C31-22%2C39 */}
+                    <form /*action=""*/ id="form" className="form" /*onSubmit={handleSubmit(onSubmit)}*/ onSubmit={handleSubmitForm}>
                         {/* Nombre */}
                         <div className="form__grupo" id="grupo__nombre">
                             <label htmlFor="nombre" className="form__label">
@@ -130,7 +159,7 @@ const FinalizarReserva = ({ results }) => {
                                 <input
                                     className="form__input"
                                     name="nombre"
-                                    id="nombre"
+                                    //id="nombre"
                                     placeholder="felipe"
                                     /*defaultValue="Alberto"*/
                                     {...register("firstName", {
@@ -138,6 +167,8 @@ const FinalizarReserva = ({ results }) => {
                                         maxLength: 40,
                                         pattern: /^[A-Za-z]+$/i,
                                     })}
+                                    //value={formData.nombre}
+                                    onChange={handleInputChange}
                                 />
                                 {/* {
                                     ErrorsMap.firstName[errors?.firstName?.type] !== undefined && (
@@ -179,6 +210,7 @@ const FinalizarReserva = ({ results }) => {
                                         required: true,
                                         pattern: /^[A-Za-z]{3,50} [A-Za-z]{3,70}$/i,
                                     })}
+                                    onChange={handleInputChange}
                                 />
                                 {errors?.lastName?.type === "required" && <p>Introduce tus apellidos</p>}
                                 {errors?.lastName?.type === "pattern" && <p>Deben ser dos apellidos</p>}
@@ -208,6 +240,7 @@ const FinalizarReserva = ({ results }) => {
                                         required: true,
                                         pattern: /^\d{8}[a-zA-Z]$/i,
                                     })}
+                                    onChange={handleInputChange}
                                 />
                                 {errors?.dni?.type === "pattern" && <p>Completa el DNI y no pongas - </p>}
                                 <img className="form__validacion-estado" alt="Validación de estado" />
@@ -237,6 +270,7 @@ const FinalizarReserva = ({ results }) => {
                                         required: true,
                                         pattern: /^\d{9}$/i,
                                     })}
+                                    onChange={handleInputChange}
                                 />
                                 {errors?.telephone?.type === "pattern" && <p>Debe de haber 9 dígitos</p>}
                                 <img className="form__validacion-estado" alt="Validación de estado" />
@@ -267,6 +301,7 @@ const FinalizarReserva = ({ results }) => {
                                         pattern:
                                             /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i,
                                     })}
+                                    onChange={handleInputChange}
                                 />
                                 {errors?.email?.type === "pattern" && <p>Completa el email</p>}
                                 <img className="form__validacion-estado" alt="Validación de estado" />
@@ -277,7 +312,7 @@ const FinalizarReserva = ({ results }) => {
                         <div className="comentario__texto">
                             <label htmlFor="comentario">Comentarios</label>
                             {/* aja  rows="3" cols="65"  */}
-                            <textarea></textarea>
+                            <textarea onChange={handleInputChange} name="comentarios"></textarea>
                         </div>
                         {/* Términos */}
                         <div className="" id="grupo__terminos">
@@ -300,7 +335,7 @@ const FinalizarReserva = ({ results }) => {
                         {/* usar la variable "aceptoTerminos" para verificar si el checkbox está marcado */}
                         {/* {aceptoTerminos ? "" : <p>-----El checkbox no está marcado. Debes aceptar las condiciones.</p>} */}
                         {!aceptoTerminos ? <p>-----El checkbox no está marcado. Debes aceptar las condiciones.</p> : ""}
-                        <button className="boton__enviar__formulario">Guardar datos</button>
+                        <button className="boton__enviar__formulario" /*onClick={onSubmit}*/>Guardar datos</button>
 
                     </form>
                 </div>
@@ -447,7 +482,7 @@ const FinalizarReserva = ({ results }) => {
                             <div className="contenedor__boton__reserva__final">
                                 <a href="" className="contenedor__boton">
                                     {/* <!-- link--> */}
-                                    <button type="submit" formaction="teslaReservaFinalizada.html" className="contenedor__boton-forma">Confirmar pago</button>
+                                    <button type="submit" /*formaction="teslaReservaFinalizada.html"*/ className="contenedor__boton-forma">Confirmar pago</button>
                                 </a>
                             </div>
                         </section>
