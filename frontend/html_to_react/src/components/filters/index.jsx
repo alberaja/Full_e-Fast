@@ -3,7 +3,8 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Checkbox, RadioGroup } from "@mui/material";
-import { useParams , useLocation, useHistory} from 'react-router-dom';
+//r-router-dom v5 import { useParams , useLocation, useHistory} from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom'
 import Radio from "@mui/material/Radio";
 import Typography from "@mui/material/Typography";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -199,7 +200,8 @@ const MenuFiltros = ({childrenFiltros, checkedLists, handleChange1, params2, upd
     }));
   };
   // Actualizar la URL al cambiar los parámetros de consulta
-  const history = useHistory(); 
+  //const history = useHistory(); 
+  let navigate = useNavigate();
   useEffect(() => {
     const searchParams = new URLSearchParams();
 
@@ -221,7 +223,8 @@ const MenuFiltros = ({childrenFiltros, checkedLists, handleChange1, params2, upd
     //   numPlazas: queryParamsState.numPlazas,
     // }).toString();
     //window.history.replaceState(null, null, `/busquedaVehiculos?${queryParamsString}`);
-    history.push(`/busquedaVehiculos?${searchParams.toString()}`);
+    //r-router-dom v5 history.push(`/busquedaVehiculos?${searchParams.toString()}`);
+    navigate(`/busquedaVehiculos?${searchParams.toString()}`);
   }, [queryParamsState]);
  
   const isChecked = (name, value) => {

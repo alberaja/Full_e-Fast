@@ -27,10 +27,6 @@ import FinalizarReserva from './pages/finalizar-reserva/index.jsx';
 import ScrollToTop from './ScrollToTop.jsx';
 import Rutas from './pages/buscarVehiculos/filtrar-vehiculos.jsx';
 
-  //r-router-dom v6
-import { Routes } from 'react-router-dom/dist/index.js'
-import { BrowserRouter } from "react-router-dom";
-
 
 function App() {
 
@@ -39,9 +35,7 @@ function App() {
 
   return (
 
-// https://reactrouter.com/en/main/router-components/browser-router
-<BrowserRouter>
-    {/* <Router> */}
+    <Router>
       {/* add div y main.... partes comun    <div>
           <Header />  */}
       {/* <Header /> */}
@@ -54,18 +48,47 @@ function App() {
       <Header />
       <main>
         {/* </ModalProvider> */}
-        {/* Switch por Routes */}
-        <Routes>
-              <Route exact path="/" element={<Home></Home>} />
-              {/* para que no falle /index.html, DEBE ir igual que la tuta / */}
-              <Route exact path="/index.html" element={<Home></Home>} />
-              {/* TODO: delete. ruta temp para probar filtros */}
-              <Route exact path="/filtrarVehiculos" element={<Rutas></Rutas>} />
-              <Route exact path="/busquedaVehiculos" element={<BusquedaVehiculos>  </BusquedaVehiculos>} />
-              {/* :id necesario para que detecte el valor id de la URL */}
-              <Route exact path="/vehiculoElegido/:id" element={<CocheElegido>  </CocheElegido>} />
-              <Route exact path="/finalizarReserva" element={<FinalizarReserva>  </FinalizarReserva>} />
-        </Routes>
+        {/* Switch por routes */}
+        <Switch>   
+          {/* sin exacts */}
+          <Route exact path="/">
+            {/* <Home /> */}
+            <Home></Home>
+          </Route>
+
+          {/* para que no falle /index.html, DEBE ir igual que la tuta / */}
+          <Route exact path="/index.html">
+            {/* <Home /> */}
+            <Home></Home>
+          </Route>
+
+                {/* TODO: delete. ruta temp para probar filtros */}
+                <Route exact path="/filtrarVehiculos">
+                  <Rutas></Rutas>
+                </Route>
+
+          <Route exact path="/busquedaVehiculos">
+            <BusquedaVehiculos>  </BusquedaVehiculos>
+
+            {/* <Footer></Footer> */}
+          </Route>
+
+          {/* :id necesario para que detecte el valor id de la URL */}
+          <Route exact path="/vehiculoElegido/:id">
+            {/* ?id= */}
+            <CocheElegido>  </CocheElegido>
+
+            {/* <Footer></Footer> */}
+          </Route>
+
+          <Route exact path="/finalizarReserva">
+            {/* ?id= */}
+            <FinalizarReserva>  </FinalizarReserva>
+
+            {/* <Footer></Footer> */}
+          </Route>
+
+        </Switch>
 
         {/* aja: <ModalProvider> Lo uso para hacer Global el Modal de contacto, así este Modal(formulario de contacto) NO es sólo de ambito local para el componente ServicioExclusivoFooter.jsx  */}
         {/* <ModalProvider> */}
@@ -75,8 +98,8 @@ function App() {
       </main>
       <Footer></Footer>
       {/* </div>  */}
-    {/* </Router> */}
-</BrowserRouter>
+    </Router>
+
 
   );
 }

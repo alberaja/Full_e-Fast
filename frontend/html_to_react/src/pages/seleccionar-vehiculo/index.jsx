@@ -1,7 +1,8 @@
 // src/components/SearchResults.js
 import React, { useEffect , useState} from 'react';
 import styles from './teslaElegido.module.css';
-import { useLocation , useHistory } from "react-router-dom";
+//r-router-dom v5 import { useLocation , useHistory } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom"
 
 import { useParams } from 'react-router-dom';
 
@@ -39,14 +40,16 @@ const CocheElegido = ({ /*results*/ }) => {
 
 
     const location2 = useLocation();
-    const history = useHistory();
+      //r-router-dom v5 const history = useHistory();
+      let navigate = useNavigate()
     const queryParams = new URLSearchParams(location.search);
        // Estado inicial con todos los valores de los parámetros de búsqueda
   const [params, setParams] = useState(location.search);
     // Función para actualizar los parámetros de búsqueda
     const updateSearchParams = (newParams) => {
       newParams = location.search;
-      history.push({ search: newParams });
+        //r-router-dom v5 history.push({ search: newParams });
+        navigate({ search: newParams })
       setParams(newParams);
       alert({newParams});
     };
@@ -60,7 +63,7 @@ const CocheElegido = ({ /*results*/ }) => {
             try {
               const response = await fetch(`http://localhost:8762/elastic-efast/api/efast/v1/vehiculos?idVehiculo=${id}`);
               //console.log(response.status)
-              if(response.status !== 200 ){ history.push("/")}
+              if(response.status !== 200 ){ navigate("/") /* r-router-dom v5 history.push("/") */}
               const data = await response.json();
             //   console.log(data);
             setResults(data);

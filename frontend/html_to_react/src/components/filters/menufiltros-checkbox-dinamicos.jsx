@@ -6,7 +6,9 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Checkbox } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { useHistory, useLocation, useParams } from "react-router-dom";
+//r-router-dom v5 import { useHistory, useLocation, useParams } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom"
+
 
 // iconos
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
@@ -133,7 +135,8 @@ const queryParams = new URLSearchParams(location.search);
   };  
   
   // Actualizar la URL al cambiar los parámetros de consulta
-  const history = useHistory(); 
+  //r-router-dom v5 const history = useHistory(); 
+  let navigate = useNavigate()
   useEffect(() => {
     const searchParams = new URLSearchParams();
 
@@ -142,7 +145,13 @@ const queryParams = new URLSearchParams(location.search);
       /*console.log({key, value}) && */ value?.length > 0   
       && searchParams.append(key, value)
     )
-    history.push(`/busquedaVehiculos?${searchParams.toString()}`);
+      //r-router-dom v5 history.push(`/busquedaVehiculos?${searchParams.toString()}`);
+      navigate(`/busquedaVehiculos?${searchParams.toString()}`);
+    console.log("aquiii----->>> ", searchParams);
+    // nuitari
+    // const val = createQueryUrl(queryParamsState);
+    // console.log("val:  ", val);
+    // history.push(`/busquedaVehiculos?${val.toString()}`);
   }, [queryParamsState]);
 
   return (
@@ -224,3 +233,12 @@ export default MenuFiltroscheckboxDinamicos;
 //   }
 //   return result
 // }
+function createQueryUrl(params) {
+  const url = Object.entries(params).map(([field, data]) => {
+      if (!Array.isArray(data)) {
+          return `&${field}=${data}`
+      }
+      return data.map(value => `&${field}=${value}`).join("")
+  }).join('')
+  return url.substring(1, url.length)
+}

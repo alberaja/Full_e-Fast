@@ -5,7 +5,8 @@ import ServicioExclusivoFooter from '../../components/footer/servicio-exclusivo-
 // import ContactanosOcultoFooter from './components/footer/ContactanosOcultoFooter';
 import DescripyContactoFooter from '../../components/footer/descrip-y-contacto-footer';
 import CarsResultados from './cars-resultados.jsx';
-import { useLocation , useHistory } from "react-router-dom";
+  //r-router-dom v5 import { useLocation , useHistory } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom"
 
 import Drawer from '@mui/material/Drawer';
 import * as React from 'react';
@@ -63,7 +64,8 @@ export default function BuscarVehiculo() {
     
     // KAN-2
     const location2 = useLocation();
-    const history = useHistory();
+      //r-router-dom v5 const history = useHistory();
+      let navigate = useNavigate()
     const queryParams = new URLSearchParams(location.search);
        // Estado inicial con todos los valores de los parámetros de búsqueda
   const [params, setParams] = useState(location.search);
@@ -71,7 +73,9 @@ export default function BuscarVehiculo() {
     // Función para actualizar los parámetros de búsqueda
     const updateSearchParams = (newParams) => {
       newParams = location.search;
-      history.push({ search: newParams });
+        //r-router-dom v5 history.push({ search: newParams });
+        navigate({ search: newParams })  
+      console.log("updateSearchParams----->>> ", newParams);
       setParams(newParams);
       //alert({newParams});
     };

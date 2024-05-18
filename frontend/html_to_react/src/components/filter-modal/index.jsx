@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ModalLayout from '../modal-layout'
-import { useHistory, useLocation } from 'react-router-dom/cjs/react-router-dom';
+//r-router-dom v5 import { useHistory, useLocation } from 'react-router-dom/cjs/react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom'
 import { useParams } from 'react-router-dom';
 const FilterModal = ({ isOpen, handleClose, onFilter }) => {
 
@@ -9,7 +10,9 @@ const FilterModal = ({ isOpen, handleClose, onFilter }) => {
 
 
   const location = useLocation();
-  const history = useHistory();  // historico del navegador
+  //r-router-dom v5 const history = useHistory();  // historico del navegador
+  let navigate = useNavigate()
+
 
   // Obtener los parámetros de búsqueda del objeto location
   // URLSearchParams devuelve 1 objeto serializado
@@ -127,7 +130,8 @@ const FilterModal = ({ isOpen, handleClose, onFilter }) => {
     if (queryString !== location.search.slice(1)) {
       const newSearch = queryString ? `?${queryString}` : "";
       const newUrl = `${location.pathname}${newSearch}${location.hash}`;
-      history.push(newUrl);
+      //r-router-dom v5   history.push(newUrl);
+      navigate(newUrl)
       handleSearch();
     }
 
@@ -135,7 +139,7 @@ const FilterModal = ({ isOpen, handleClose, onFilter }) => {
     //history.push({ search: params.toString() });
     // aja !!!!!!!!!!!!!!!!!!!!
     //  handleSearch(); // aja: ejecutar la llamada tras los cambios    !!!!!!!!!!!!!!!!!!!!
-  }, [query, radioValue, numBolsasValue, marcaCocheValue, history]); // ojo!! añadirlo aqui tb para verificar si están seleccionados
+  }, [query, radioValue, numBolsasValue, marcaCocheValue, /*r-router-dom v5 history*/, navigate]); // ojo!! añadirlo aqui tb para verificar si están seleccionados
 
   // Función para manejar la búsqueda
   const handleSearch = () => {
