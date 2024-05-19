@@ -7,6 +7,10 @@ const cors = require("cors");
 
 const app = express();
 
+//------------>>
+//instalar:  (node+) express(pnpm install express) y cors(pnpm install cors)
+// ejecutarlo por cmd:  node .\index.js
+//<<------------
 app.use(cors({ origin: "http://localhost:3005" }));  // 3000 to 3005
 app.use(express.json());
 
