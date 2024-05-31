@@ -127,7 +127,7 @@ public class ReservaServiceImpl implements ReservaService {
 
 		reserva.setFechaHoraIni(reservaRequest.getReserva().getFechaHoraIni());
 		reserva.setFechaHoraFin(reservaRequest.getReserva().getFechaHoraFin());
-		reserva.setCiudadesVehiculo(reservaRequest.getReserva().getCiudadesDevolverVehiculo());
+		reserva.setCiudadesVehiculo(reservaRequest.getReserva().getCiudadesVehiculo());
 		reserva.setCiudadesDevolverVehiculo(reservaRequest.getReserva().getCiudadesDevolverVehiculo());
 		reserva.setNumeroDias(reservaRequest.getReserva().getNumeroDias());
 		reserva.setPrecioPorDia(reservaRequest.getReserva().getPrecioPorDia());
