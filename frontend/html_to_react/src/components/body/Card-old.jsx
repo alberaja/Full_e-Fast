@@ -1,64 +1,82 @@
 import { useMemo, useState } from 'react'
 import * as Icons from './Icons'
 import { Chip, Tooltip } from '@mui/material'
-import { Link } from 'react-router-dom'
+import { Link, Route } from 'react-router-dom';
+import { useStoreVehiculo } from '../../zustand/store';
 
 
-
+const IconSide = [{ icon: "Information", value: 0 }, { icon: "Car", value: 1 }, { icon: "Engine", value: 2 }]
 
 export default function Card(props) {
     const [selected, setSelected] = useState(0)
-
     const { id, tipo, nombre, ECO, maletero, tipoMotor, autonomia, limiteKm, descripcion, cajaCambios, cancelacion, precioDia, ofertaEspecial, precioOferta, extras, coverImage, plazas,
-        año, comfort, prestaciones, conservacion, todoRiesgo, image, url, idCar
-
-    } = props
-    const IconSide = [{ icon: "Information", value: 0 }, { icon: "Car", value: 1, props: { tipo } }, { icon: "Engine", value: 2 }]
+        año, comfort, prestaciones, conservacion, todoRiesgo
+        , url, diasReservados,idCar
+    } = props    
     const pegatina = ECO ? 'Cero.webp' : "Eco.webp"
 
+    // Zustand
+    const {setIdVehiculo,carData,updateDataCar} = useStoreVehiculo() // carData es donde esta la informacion de toda la data
 
-    const IconSidebar = useMemo(() => IconSide.map(({ icon, value, props }) => {
+    // console.log("url-->", url);
+    // console.log("diasReservados-->", url.state.diasReservados);
+    let ruta = url.pathname;
+
+    const IconSidebar = useMemo(() => IconSide.map(({ icon, value }) => {
         const Icono = Icons[icon]
-        //console.log(props)
-        return (<div className={`flex-1 p-2 pl-2 transition-all	${selected === value ? "bg-slate-300" : "bg-slate-200"} `} onClick={() => setSelected(value)} ><Icono selected={selected === value} {...props} className="w-6 h-6 text-black transition-all	" /></div>)
-
-    }), [selected, IconSide])
-    const MainProps = { cancelacion, maletero, plazas, descripcion, cajaCambios, limiteKm, tipoMotor }
+        return (<div className={`flex-1 p-2 pl-2 transition-all	${selected === value ? "bg-slate-300" : "bg-slate-200"} `} onClick={() => setSelected(value)} ><Icono selected={selected === value} className="w-6 h-6 text-black transition-all	" /></div>)
+    }), [selected])
+    const MainProps = { cancelacion, maletero, plazas, descripcion, cajaCambios, limiteKm }
     const VehiculoProps = { comfort, conservacion, todoRiesgo, extras }
     const MotorProps = { tipoMotor, autonomia, prestaciones }
     const Sections = [<MainContent {...MainProps} />, <VehicleContent {...VehiculoProps} />, <EngineContent {...MotorProps} />]
 
 
     const precioComponent = ofertaEspecial ? <div className='text-xl'>Precio: <span className=" line-through text-gray-500">{precioDia}</span>€<span className="ml-3 font-bold text-green-700 ">{precioOferta} €</span> <span className='ml-2'> &#47; dia</span></div> :
-        <div className='text-2xl'> <span className="font-bold">{precioDia} €</span> <span className='ml-2'> &#47; dia</span></div>
+        <div className='text-xl'> Precio: <span className="font-bold">{precioDia} €</span> <span className='ml-2'> &#47; dia</span></div>
     return (
 
-        <div className="lg:h-80 mx-auto flex flex-wrap bg-slate-200 rounded-lg rounded-bl-none lg:rounded-lg lg:rounded-tr-none  shadow-2xl relative mb-9 lg:mb-0">
-            <div className="relative lg:h-80  rounded-lg rounded-b-none lg:rounded-none lg:rounded-l-lg  overflow-hidden  ">
-                <img src={`/images/cars/${pegatina}`} alt={nombre} class="absolute bottom-4 left-4 w-7 h-7 " />
-                <img src={`/images/card/${image}`} alt={nombre} class=" h-full " />
+        <div className="lg:h-80 mx-auto flex flex-wrap bg-slate-200 rounded-lg rounded-tr-none  shadow-2xl relative">
+            <div className="relative lg:h-80 rounded-l-lg overflow-hidden ">
+                <img src={`/images/cars/${pegatina}`} alt={nombre} class="absolute bottom-4 left-4 w-14 h-14 " />
+                <img src={`/images/cars/${coverImage}`} alt={nombre} class=" h-full " />
             </div>
             <div
-                className="flex flex-col  px-4 pb-4  justify-start w-full lg:w-[30vw] lg:px-10 lg:py-6 mt-6 lg:mt-0 "
+                className="flex flex-col   justify-start lg:w-[30vw] lg:px-10 lg:py-6 mt-6 lg:mt-0 "
             >
                 <h1
                     className="text-gray-900 text-3xl title-font font-medium mb-1"
                 >
                     {nombre} ({año})
                 </h1>
+                {/* Zustand */}
+                {/* {JSON.stringify(carData.numeroDiasReservados)}
+                {JSON.stringify(carData.vehiculoId)} */}
                 <div className="flex flex-col w-full flex-1">
                     {Sections[selected]}
                 </div>
-                <div className="flex flex-row  justify-between w-full items-center">
+                <div className="flex justify-between w-full items-center">
                     {precioComponent}
-                     <Link to={url.pathname} state={{ diasReservados: url.state.diasReservados }} className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"> Ver oferta </Link>
-
+                    {/* <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+                        Alquilar
+                    </button> */}
+                    {/* { console.log("URL:", url.state.diasReservados) } */}
+                    {/* <Link to={ url }   className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Ver oferta</Link> */}
+                    {/* <Link to={{ url , state: { diasReservados, coche: coche.car_model, price: coche.price } }}>Ver oferta</Link>     */}
+                    {/* <Link to={{ url, state: { diasReservados: url.state.diasReservados } }} className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"> Ver oferta </Link> */}
+                    {/*React-router-dom v5 <Link to={{  pathname: url.pathname , state: { diasReservados: url.state.diasReservados }}} className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"> Ver oferta </Link> */}
+                    {/*React-router-dom v6 */}
+                    <Link to={url.pathname} state={{ diasReservados: url.state.diasReservados }} className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"> Ver oferta </Link>
+                    {/* Zustand */}
+                    <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded" onClick={() => {
+                        updateDataCar({numeroDiasReservados: url.state.diasReservados, vehiculoId : idCar, vehiculoMarcaModelo: nombre })
+                    }}>prueba Zustand</button>
+                    
                 </div>
 
             </div>
-            <div className="absolute -bottom-10 flex lg:-right-10  lg:flex-col lg:top-0 lg:bottom-[inherit] bg-slate-200 divide-y divide-dashed divide-slate-400 rounded-b-lg lg:rounded-none lg:rounded-r-lg  overflow-hidden">
+            <div className="absolute -right-10 bg-slate-200 divide-y divide-dashed divide-slate-400  rounded-r-lg  overflow-hidden">
                 {/*
-                <div className="absolute -right-10 bg-slate-200 divide-y divide-dashed divide-slate-400  rounded-r-lg  overflow-hidden">
                 <div className={`flex-1 p-2 pl-5 `} ><Icons.Information selected className="w-6 h-6 text-black" /></div>
                 <div className={`flex-1 p-2 pl-5 `} ><Icons.Car className="w-6 h-6 text-black" /></div>
                 <div className={`flex-1 p-2 pl-5 `} ><Icons.Engine className="w-6 h-6 text-black" /></div>
@@ -76,23 +94,12 @@ export default function Card(props) {
     )
 }
 
-function MainContent({ cajaCambios, cancelacion, descripcion, maletero, plazas, limiteKm, tipoMotor }) {
-    const iconEngines = {
-        BEV: { icon: Icons.Electric, text: "100% Eléctrico" , value: "BEV"},
-        HEV: { icon: Icons.Electric, text: "Híbrido no enchufable" , value: "HEV" },
-        MHEV: { icon: Icons.Fuel, text: "Hibrido ligero" , value: "MHEV"},
-        PHEV: { icon: Icons.Fuel, text: "Híbrido Enchufable" , value: "PHEV"},  // text es el tooltip=hover
-        SHEV: { icon: Icons.FuelElectric, text: "Híbrido Puro" , value: "SHEV"},
-
-
-
-    }
+function MainContent({ cajaCambios, cancelacion, descripcion, maletero, plazas, limiteKm }) {
     const IconsValues = [
         { text: `Caja de cambios de tipo ${cajaCambios} `, Icon: cajaCambios === "Manual" ? Icons.GearManual : Icons.GearAutomatic, value: cajaCambios[0] },
         { text: "Capacidad del maletero", Icon: Icons.Luggage, value: maletero },
         { text: "Plazas del Vehiculo", Icon: Icons.Seat, value: plazas },
-        { text: limiteKm < 10000 ? `limite de ${limiteKm} kilometros` : "kilometraje ilimitado", Icon: Icons.Limite, value: limiteKm < 10000 ? `${limiteKm} km` : "Ilimitado" },
-        { text: iconEngines[tipoMotor].text, Icon: iconEngines[tipoMotor].icon, value: iconEngines[tipoMotor].value }
+        { text: limiteKm < 10000 ? `limite de ${limiteKm} kilometros` : "kilometraje ilimitado", Icon: Icons.Limite, value: limiteKm < 1000000000 ? `${limiteKm} km` : "Ilimitado" }
     ]
 
     const InfoIcons = IconsValues.map(({ text, Icon, value }) => <Tooltip title={text} key={text} className='flex'><Icon className=" w-5 h-5" style={{ verticalSlign: "text-bottom" }} /> <span className='ml-2 mr-4 text-base font-semibold '>{value}</span></Tooltip>)

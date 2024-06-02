@@ -64,7 +64,7 @@ export default function CarsResultados({params /*,callback*/, resultados, numDia
 
     //  modificar los Query String de las URLs
     // desde react r dom 6.0.0 :    https://reactrouter.com/en/main/hooks/use-search-params#usesearchparams
-    // setSearchParams(campos);
+     //setSearchParams(searchParams);
     const filtrarCampos =(campos) => {
       console.log(campos)    // campos=valor seleccionado en el input type=radio del index de FilterModal.jsx
       

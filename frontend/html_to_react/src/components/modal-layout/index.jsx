@@ -36,7 +36,7 @@ const style = {
 
     position: 'fixed',
         // top: '50%',
-        top: "425px",
+        top: "595px", // ok "425px",
         left: '50%',
         // left: '0',
         // right: '0',
@@ -64,7 +64,7 @@ const ModalLayout = ({isOpen, handleClose, children}) => {
             open={isOpen}
             onClose={handleClose}
             closeAfterTransition
-            backdropcomponent={Backdrop}  //fondo oscuro
+            //backdropcomponent={Backdrop}  //fondo oscuro
             backdropprops={{
                 timeout: 500,
             }}
@@ -72,14 +72,14 @@ const ModalLayout = ({isOpen, handleClose, children}) => {
             //  disableEnforceFocus  // sin esto puesto(por defacult) el modal intentará enfocar automáticamente el primer elemento enfocable dentro de él al abrirse
             disableScrollLock // Evita el bloqueo del desplazamiento del body , hace que MUI  no aplique sus cambios del CSS del body: overflow: hidden;     
 
-        >
-            <Fade in={isOpen}>
+        >   
+            {/* <Fade in={isOpen}> */}
                 {/* sx={style} */}
-                <Box sx={style}>
+                <Box sx={style}>                  
                     {children}
                     {/* Otros campos y lógica del formulario */}
                 </Box>
-            </Fade>
+            {/* </Fade> */}
         </Modal>
   )
 }

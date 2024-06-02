@@ -9,6 +9,7 @@ import { useParams } from 'react-router-dom';
 //ok antes import './buscarVehiculo.css';
 import { Link, Route } from 'react-router-dom';
 
+import Card2 from './../../components/body/card2.jsx'
 
 // iconos
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
@@ -16,6 +17,8 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import BatteryChargingFullRoundedIcon from "@mui/icons-material/BatteryChargingFullRounded";
 import LocalDrinkIcon from '@mui/icons-material/LocalDrink';
 import CheckTwoToneIcon from "@mui/icons-material/CheckTwoTone";
+import { useStoreVehiculo } from '../../zustand/store.js';
+
 
 //import imagen from 'images/Zero-SRF-360-9.png'; // Ruta relativa   ../../../public/images/entrega__llave.png
 
@@ -27,17 +30,18 @@ const CocheElegido = ({ /*results*/ }) => {
     // ver que llega
     // console.log(results.Cars);
     const location = useLocation();   // visualizar los estados que llegan en una ruta de react router dom
-    // console.log("location.state:", location.state);
+     console.log("location.state:", location.state);
     let numdiasReservados = location?.state?.diasReservados ?? 0;   //si es undefined, devolver 0
     let coche = location?.state?.coche;
-    let precio = 30; //= location.state.price;    // = precioDiaEur   // precio ={results?.vehiculos[0]?.precio[0].por1DiaEuros}
+    //let precio = 30; //= location.state.price;    // = precioDiaEur   // precio ={results?.vehiculos[0]?.precio[0].por1DiaEuros}
     //let precioAlquilerCalculado = precio * numdiasReservados;
     let numPlazas = location?.state?.numPlazas;
     let capLitros = location?.state?.capLitros;
     let autonomiaKm = location?.state?.autonomiaKm;
     // {console.log("valor actual: ", precio)}
 
-
+    // Zustand
+    const {setearValoresZustand_cardVehicleData, setearRentalData_datosReserva} = useStoreVehiculo()
 
     const location2 = useLocation();
       //r-router-dom v5 const history = useHistory();
@@ -67,17 +71,36 @@ const CocheElegido = ({ /*results*/ }) => {
               const data = await response.json();
             //   console.log(data);
             setResults(data);
-              // Aquí puedes manejar la respuesta de la llamada GET
+
+            // recuperar precio para guardarlo en Zustand
+            //let precioAlquilerCalculado = data?.vehiculos[0]?.precio[0].por1DiaEuros ? data?.vehiculos[0]?.precio[0].por1DiaEuros * numdiasReservados : 0;
+            //console.log("data?.vehiculos[0]?.precio[0].precioOferta", data?.vehiculos[0]?.precio[0].precioOferta)
+            const hasSpecialOffer = data?.vehiculos[0]?.precio[0].ofertaEspecial === true;
+            const precio = hasSpecialOffer ? data?.vehiculos[0]?.precio[0].precioOferta : data?.vehiculos[0]?.precio[0].por1DiaEuros;
+            let precioAlquilerCalculado = precio * numdiasReservados ?? null;
+            //console.log("precioAlquilerCalculadoooo: ", precioAlquilerCalculado)
+              // Zustand
+              setearValoresZustand_cardVehicleData(data , precioAlquilerCalculado); 
+              setearRentalData_datosReserva(precioAlquilerCalculado, numdiasReservados)
             } catch (error) {
               console.error('Error al obtener los datos:', error);
             }
           };
       
-          fetchData();
+          fetchData();                    
     }, [id]);
 
-    let precioAlquilerCalculado = results?.vehiculos[0]?.precio[0].por1DiaEuros ? results?.vehiculos[0]?.precio[0].por1DiaEuros * numdiasReservados : null;
-    console.log("precioAlquilerCalculado=", results?.vehiculos[0]?.precio[0].por1DiaEuros, '*',numdiasReservados, precioAlquilerCalculado)
+    const hasSpecialOffer = results?.vehiculos[0]?.precio[0].ofertaEspecial === true;
+    const precio = hasSpecialOffer ? results?.vehiculos[0]?.precio[0].precioOferta : results?.vehiculos[0]?.precio[0].por1DiaEuros;
+
+    // let precioAlquilerCalculado = results?.vehiculos[0]?.precio[0].por1DiaEuros ? results?.vehiculos[0]?.precio[0].por1DiaEuros * numdiasReservados : null;
+    // console.log("precioAlquilerCalculado=", results?.vehiculos[0]?.precio[0].por1DiaEuros, '*',numdiasReservados, precioAlquilerCalculado)
+    let precioAlquilerCalculado = precio * numdiasReservados ?? null;
+    console.log("precioAlquilerCalculado=", precio, '*',numdiasReservados, precioAlquilerCalculado)
+
+    //console.log("results-->", results) //map para el Array
+    const vehiculoElegido = results?.vehiculos?.map(coche => <Card2 key={coche.id} {...coche}></Card2>)
+
     return (
         // /cocheElegido
         // <main>
@@ -137,68 +160,9 @@ const CocheElegido = ({ /*results*/ }) => {
             </section> */}
             {/* {precio =results?.vehiculos[0]?.precio[0].por1DiaEuros} */}
             {/* TODO:  componetizar mas el de cards de search-results-carsEFast.jsx */}
-                        {/* {console.log({results})} */}
-            {results && results.vehiculos?.map((coche) => (
-                <section key={coche.id}     className="contenedor__caja__vehiculos__tesla" id="vehiculos">
-                    <div className="contenedor__caja__vehiculos__dinamico__tesla">
-                        <div className="caja__tesla">
-                            <a href="" className="caja__tesla__imagen">
-                                {/*<img src="/images/tesla3.png" className="imagenCoche" />*/}
-                                <img src={coche.imagen_url} className="imagenCoche" />
-                            </a>
-                        </div>
-                    </div>
-                    <section className="producto__tesla">
-                        <div className="producto__tesla__parrafo">    
-                                                                        {/* {coche.car} {coche.car_model} */}                         {/* BEV                                 Moto */}
-                            <h1 className="producto__tesla__parrafo">{coche.marcay_modelo_vehiculo}  </h1> <h5 style={{ color: 'gray' }}>{coche.caracteristicas[0].tipoVehiculo} {coche.tipo_vehiculo} </h5>
-                        </div>
-                        <section className="producto__tesla__caracteristicas">
-                            <div className="producto__tesla__parrafo__caracteristicas">
-                                <div className="producto__tesla__parrafo__plazos">
-                                    {/* <p className="producto__tesla__parrafo__plazas-p"><img src="/images/icono-user.svg" /> 5 plazas</p> */}
-                                    <PeopleAltOutlinedIcon /> <p className="producto__tesla__parrafo__plazas-p"> {coche.caracteristicas[0].numplazas} plazas</p> 
-                                </div>
-                                <div className="producto__tesla__parrafo__plazos">                                      {/* 649 litros   */}
-                                    <p className="producto__tesla__parrafo__litros-p"> {/*<img src="/images/equipaje.svg" />*/} <LocalDrinkIcon />  {coche.caracteristicas[0].litros} litros</p>
-                                </div>
-                                <div className="producto__tesla__parrafo__plazos">                                       {/* 547km autonomía   */}
-                                    <BatteryChargingFullRoundedIcon />  <p className="producto__tesla__parrafo__autonomia-p">{/*<img src="/images/bateria.svg" /> */} {coche.caracteristicas[0].autonomiaKm}km autonomía</p>
-                                </div>
-                                <div className="producto__tesla__parrafo__plazos">
-                                    <p className="producto__tesla__parrafo__autonomia-p">
-                                                                {/* Automatico/Manual . Mostrarla solo si {coche.tipo_vehiculo}=Coche*/}
-                                    <SettingsOutlinedIcon /> {coche.caracteristicas[0].cajaCambio}                                    
-                                    </p>
-                                </div>
-                            </div>
-                        </section>
-                    </section>
-                    <section className="barra__tesla">
-                        <div className="barra__tesla__precio">
-                            <div className="barra__tesla__precio__dia">
-                                <p className="precio__dia">Precio por 1 día</p>
-                                <h3 className="precio__dia__tesla-especifico">   {/*159€*/} {coche.precio[0].por1DiaEuros}€   {/*coche.price*/}</h3>
-                                {/* mostrar solo si {coche.precio[0].cancelacionGratis}=true */}
-                                {coche.precio[0].cancelacionGratis ? (
-                                <div>
-                                    {/* Si cancelacionGratis es true, se muestra el icono y el texto */}
-                                    {/* <img className="iconoCheck" src="/images/check.svg" /> */}
-                                    <CheckTwoToneIcon style={{ color: "rgb(31, 153, 39)" }} />
-                                    <p className="barra__precio-Cancelacion__gratuita">Cancelación gratuita</p>
-                                </div>
-                                ) : null}
-                            </div>
-                        </div>
-                        <div className="barra__oferta__tesla">
-                            {/* <img className="imagen__llave" /*src="images/entrega__llave.png"*/ /*src={imagen} src="images/Zero-SRF-360-9.png" /> */}
-                            <img className="imagen__llave" src="/images/entrega__llave.png" />                          
-                        </div>
-                    </section>
-                </section>
-
-            ))
-            }
+                    {/* {console.log('resultadoActivo:',{results})} */}
+            {vehiculoElegido}  {/* Mostrar la <Card2/>   */}
+            
             
             {/* <!--contenedor__caja de imagenes Coche--> */}
             {/* <!--luego de imagen Coche--> */}
@@ -325,8 +289,8 @@ const CocheElegido = ({ /*results*/ }) => {
             <section className={ styles["contenedor__desglose__total__final"] }>
                 <div className={ styles["contenedor__desglose__total__final__precio"] }>
                     <div className={ styles["contenedor__desglose__total__final__precio-parrafoDia"] }>Precio por <span>1</span> día:</div>
-                    {/* <div className={ styles["contenedor__desglose__total__final__precio-parrafo"] }><span>{precio}</span>€</div> */}
-                    <div className={ styles["contenedor__desglose__total__final__precio-parrafo"] }><span>{results?.vehiculos[0]?.precio[0].por1DiaEuros}</span>€</div>
+                    {/* <div className={ styles["contenedor__desglose__total__final__precio-parrafo"] }><span>{fetchedResults?.vehiculos[0]?.precio[0].por1DiaEuros}</span>€</div> */}
+                    <div className={ styles["contenedor__desglose__total__final__precio-parrafo"] }><span>{precio}</span>€</div>
                     {/* <span>159</span>€</div> */}
                 </div>
                 <div className={ styles["contenedor__boton__reserva"] }>
@@ -337,17 +301,14 @@ const CocheElegido = ({ /*results*/ }) => {
                             {/* para el color del <a><a/> del button poner: color: white; */}
                         <div className={ styles["contenedor__boton-forma"] }>
                             <Link
-                                to={
-                                    {
-                                        pathname: '/finalizarReserva',
-                                        state: {
-                                            numdiasReservados,
-                                            coche,
-                                            price: precio,
-                                            precioAlquilerCalculado
-                                        }
-                                    }
+                                to={ '/finalizarReserva' }
+                                state= {{
+                                    numdiasReservados,
+                                    coche,
+                                    price: precio,
+                                    precioAlquilerCalculado
                                 }
+                            }
                             >
                                 Continuar con la reserva
                             </Link>
@@ -361,5 +322,7 @@ const CocheElegido = ({ /*results*/ }) => {
         // /vehiculoElegido
     );
 };
+
+
 
 export default CocheElegido;

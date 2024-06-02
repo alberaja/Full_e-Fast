@@ -24,6 +24,8 @@ const LABELS = {
   tiposVehiculo: "Vehículos",
   maximoDeKms: "Kilómetros",
   maximoNumPlazas: "Nº de Plazas",
+
+  marcasVehiculo: "Marcas de vehiculos",
 };
 
 const NAMES = {
@@ -32,6 +34,8 @@ const NAMES = {
   tiposVehiculo: "tiposVehiculo",
   maximoDeKms: "maximoKmStr",
   maximoNumPlazas: "numPlazas",
+
+  marcasVehiculo: "marcasVehiculo",
 };
 
 
@@ -52,7 +56,7 @@ console.log("----queryParams", paramsToObject(location.search));
     // maximoKmStr: [],
     // numPlazas: [],
 
-    // aqui debo recibir todos los valores que setee(en 'params') desde el /index, por ej tb marcaVehiculo
+    // aqui debo recibir todos los valores que setee(en 'params') desde el /index, por ej tb marcasVehiculo
     //no usar getAll, get para evitar fallo . Hacer el split(',') solo para los que puedan llegar concatenados
     ciudadesVehiculo: queryParams.get('ciudadesVehiculo') || '',
     fechaHoraIni: queryParams.get('fechaHoraIni') || '',
@@ -64,7 +68,7 @@ console.log("----queryParams", paramsToObject(location.search));
     maximoKmStr: queryParams.get('maximoKmStr') || [],
     numPlazas: queryParams.get('numPlazas') || [],
     
-    marcaVehiculo: queryParams.get('marcaVehiculo')?.split(',') || [],
+    marcasVehiculo: queryParams.get('marcasVehiculo')?.split(',') || [],
   });
 
   const isChecked = (name, value) => {
@@ -126,7 +130,7 @@ console.log("----queryParams", paramsToObject(location.search));
     const { name, checked, value } = event.target;
     
     // Verifica si el nombre es uno de los grupos definidos
-    const isGroup = ['cajaCambio', 'tiposVehiculo', 'tiposElectrico', 'maximoKmStr', 'numPlazas'].includes(name);
+    const isGroup = ['cajaCambio', 'tiposVehiculo', 'tiposElectrico', 'maximoKmStr', 'numPlazas', 'marcasVehiculo'].includes(name);
     
     setQueryParamsState((prevState) => ({
       ...prevState,
@@ -224,7 +228,7 @@ console.log("----queryParams", paramsToObject(location.search));
 
 export default MenuFiltroscheckboxDinamicos;
 
-function paramsToObject(search) {
+export function paramsToObject(search) {
 
   const entries = new URLSearchParams(search)
 

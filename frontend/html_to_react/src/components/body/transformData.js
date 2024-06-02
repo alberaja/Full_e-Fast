@@ -18,6 +18,7 @@ export function transformdata(coche) {
         image: coche.imagen_url,
         coverImage: `${coche.marca_vehiculo}-${coche.id}.webp`,
         nombre: coche.marcay_modelo_vehiculo,
+        modelo: coche.car_model,
 
         limiteKm: caracteristicas.maximodeKm,
         descripcion: caracteristicas.descripcion,

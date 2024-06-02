@@ -21,6 +21,9 @@ import  DrawerMUI  from './drawer-mui.jsx';
 
 import axios from 'axios';
 import moment from 'moment';
+import { paramsToObject } from '../../components/filters/menufiltros-checkbox-dinamicos.jsx';
+import { useStoreVehiculo } from '../../zustand/store.js';
+
 
 export default function BuscarVehiculo() {
 
@@ -83,9 +86,12 @@ export default function BuscarVehiculo() {
       // Efecto para sincronizar los valores de búsqueda con el estado
       useEffect(() => {
         setParams(location.search);
-        //alert({params});
+        //alert(params.toString());
       }, [location.search]);
 
+
+    // Zustand
+    const {setearRentalData_rentalData} = useStoreVehiculo()
 
     // cargar contenido del Drawer dinamicamente:   <CarsResultados>(responde 'results') que debe usar este padre, y este padre enviarlo al hijo <DrawerMUI>
     // const [resultadosAggs, setResultadosAggs] = useState();
@@ -95,7 +101,12 @@ export default function BuscarVehiculo() {
     // }, [resultadosAggs]);
     const [results, setResults] = useState([]);
     useEffect(() => {     
-      searchEfastApi(params );     
+      searchEfastApi(params );  
+      
+     
+      const queryParams = paramsToObject(params)
+      console.log("queryParams: ", queryParams  )
+      setearRentalData_rentalData(queryParams)
     }, [params]);
 
     const searchEfastApi = async (query) => {

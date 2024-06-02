@@ -261,7 +261,7 @@ console.log({selectedVehicleTypes}, selectedVehicleTypes);
    // llamada del componente hijo(BrandType.jsx) al componete padre(form.jsx)   
    const callback = React.useCallback(
      (optionValue)=>{
-        handleURLParams(params, optionValue, setParams, "marcaVehiculo")    
+        handleURLParams(params, optionValue, setParams, "marcasVehiculo")  //marcaVehiculo  
      }
    )
 

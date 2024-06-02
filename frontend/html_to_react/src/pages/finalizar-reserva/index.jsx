@@ -16,23 +16,50 @@ import {
     Elements
 } from "@stripe/react-stripe-js";
 import CheckoutForm from './checkoutform';
+import { useStoreVehiculo } from '../../zustand/store';
+import Card2 from './../../components/body/card2.jsx'
+import { PostData } from './helpers/Postdata.js';
 
 const FinalizarReserva = ({ results }) => {
 
-
+    // Zustand
+    const carData = useStoreVehiculo( state => state.carData );
+    //const cardVehicleData = useStoreVehiculo( state => state.cardVehicleData );
+    const rentalData = useStoreVehiculo( state => state.rentalData );
 
     // ver que llega
     // console.log(results.Cars);
     const location = useLocation();   // visualizar los estados que llegan en una ruta de react router dom
     console.log(location.state);    //se muestra cada click en guardar datos
-    let numdiasReservados = location.state.numdiasReservados;
-    let coche = location.state.coche;
-    let precio = location.state.price;    // = precioDiaEur
-    let precioAlquilerCalculado = location.state.precioAlquilerCalculado;
-    let numPlazas = location.state.numPlazas;
-    let capLitros = location.state.capLitros;
-    let autonomiaKm = location.state.autonomiaKm;
+    // ok let numdiasReservados = location.state.numdiasReservados;
+    // ok let coche = location.state.coche;  =marcaModelo
+    // ok let precio = location.state.price;    // = precioDiaEur
+    // ok let precioAlquilerCalculado = location.state.precioAlquilerCalculado;
+    // ok let numPlazas = location.state.numPlazas;
+    // ok let capLitros = location.state.capLitros;
+    // ok let autonomiaKm = location.state.autonomiaKm;
 
+    // con Zustand
+    // let numdiasReservados = carData.numeroDiasReservados;
+    // let coche = carData;
+    // let precio = carData.precioPorDia;
+    // let precioAlquilerCalculado = carData.totalReserva;
+    let numdiasReservados = carData.numeroDiasReservados;//.toString();
+    let marcaModelo = carData.vehiculoMarcaModelo; //carData.toString();
+    // let precio = carData.precioPorDia;    
+
+    //let precioAlquilerCalculado = carData.totalReserva;
+    let precioAlquilerCalculado = rentalData.totalReserva;
+
+    // console.log("cardVehicleData", cardVehicleData)
+    console.log("rentalData", rentalData)
+    //const vehiculoElegido = results?.vehiculos?.map(coche => <Card2 key={coche.id} {...coche}></Card2>)
+    const datosvehiculoElegido = useStoreVehiculo(state => state.cocheReserva)
+    // console.log("datosvehiculoElegido", datosvehiculoElegido)    
+    const vehiculoElegido = <Card2 {...datosvehiculoElegido}></Card2>
+
+    const hasSpecialOffer = datosvehiculoElegido?.precio[0].ofertaEspecial === true;
+    const precio = hasSpecialOffer ? datosvehiculoElegido?.precio[0].precioOferta : datosvehiculoElegido?.precio[0].por1DiaEuros;
 
     const {
         register,
@@ -49,7 +76,7 @@ const FinalizarReserva = ({ results }) => {
 
     // console.log(watch("ejemplo")); // to watch individual input by pass the name of the input
     // watch para obtener el valor actual del checkbox
-    const aceptoTerminos = watch('terminos', 5);  //o inicializarlo a false. le pongo 5 para no muestre el texto por default
+    const aceptoTerminos = watch('terminos', false);  //o inicializarlo a false. le pongo 5 para no muestre el texto por default
 
     // para STRIPE
     const stripePromise = loadStripe("pk_test_51OLugQACmPQ0R4zJmCHu91pqTI1MzU23TskkU7Bn7fmiK5onZbnRhbSXgE32rJm2rL5wy3DMYJIEHYfLIlhau0gA000m3ggUpz");
@@ -70,15 +97,44 @@ const FinalizarReserva = ({ results }) => {
           [name]: value,
         });
       };
-    const handleSubmitForm = (e) => {
+
+     const handleSubmitForm = (e) => {
         e.preventDefault();
+        
+        console.log("precioPorDiaaaa: ", precio, 
+                    " numeroDiasReservados:", rentalData.numeroDiasReservados,
+                    " totalReserva:", rentalData.totalReserva,
+                    " vehiculoId:", datosvehiculoElegido?.id,
+                    " vehiculoMarcaModelo:", datosvehiculoElegido?.marcay_modelo_vehiculo,
+                    " fechaHoraIni:", rentalData.fechaHoraIni,
+                    " fechaHoraFin:", rentalData.fechaHoraFin,
+                    " ciudadesVehiculo:", rentalData.ciudadesVehiculo,
+                    " ciudadesDevolverVehiculo:", rentalData.ciudadesDevolverVehiculo,
+                    //+datos FORMULARIO  
+        )
         // Aquí puedes realizar las acciones necesarias con los datos del formulario
         console.log("aceptoTerminos: ", aceptoTerminos);
         console.log("Valores de la reserva en formData: ", formData);
         if(aceptoTerminos){
             // enviar POST
-            
-        }
+            const reserva = {precio, numeroDias: rentalData["numeroDiasReservados"],
+                totalReserva: rentalData["totalReserva"], vehiculoId: datosvehiculoElegido["id"],
+                vehiculoMarcaModelo: datosvehiculoElegido["marcay_modelo_vehiculo"], fechaHoraIni: rentalData["fechaHoraIni"],
+                fechaHoraFin: rentalData["fechaHoraFin"], ciudadesVehiculo: rentalData["ciudadesVehiculo"],
+                ciudadesDevolverVehiculo: rentalData["ciudadesDevolverVehiculo"],
+                comentarios: formData["comentarios"]
+             }
+             const conductorFormulario = {
+                nombre: formData.firstName, apellidos: formData.lastName,
+                dni: formData.dni, telefono: formData.telephone,
+                email: formData.email,
+             }
+            //console.log(reserva);
+            //console.log("conductorFormulario: ", conductorFormulario);
+            PostData(reserva, conductorFormulario);
+        } /*else {
+            alert("Debe aceptar la política de privacidad para poder guardar su reserva.");
+        }*/
         // onSubmit(formData);
       };
 
@@ -94,7 +150,7 @@ const FinalizarReserva = ({ results }) => {
                 </div>
             </section>
             {/* <!--Coche Tesla--> */}
-            <section className="contenedor__caja__vehiculos__tesla" id="vehiculos">
+            {/* <section className="contenedor__caja__vehiculos__tesla" id="vehiculos">
                 <div className="contenedor__caja__vehiculos__dinamico__tesla">
                     <div className="caja__tesla">
                         <a href="teslaCaracteristicas.html" className="caja__tesla__imagen">
@@ -104,7 +160,7 @@ const FinalizarReserva = ({ results }) => {
                 </div>
                 <section className="producto__tesla">
                     <div className="producto__tesla__parrafo">
-                        <h1 className="producto__tesla__parrafo">{coche}</h1>
+                        <h1 className="producto__tesla__parrafo">{marcaModelo}</h1>
                     </div>
                     <section className="producto__tesla__caracteristicas">
                         <div className="producto__tesla__parrafo__caracteristicas">
@@ -133,8 +189,21 @@ const FinalizarReserva = ({ results }) => {
                         <img className="imagen__llave" src="/images/entrega__llave.png" />
                     </div>
                 </section>
-            </section>
+            </section> */}
+            { vehiculoElegido }
             {/* <!--contenedor__caja de imagenes Coche--> */}
+
+            {/* Zustand */}
+            {/* {"TODO Zustand: "+ JSON.stringify(carData)}   carData.vehiculoId   */}
+            {"datosvehiculoElegido "+ JSON.stringify(datosvehiculoElegido)} 
+            {/* {"TODO Zustand: "+ JSON.stringify(cardVehicleData)}  */}
+            {/* {"Algunos: "+ JSON.stringify(cardVehicleData.vehiculoId) + JSON.stringify(cardVehicleData.vehiculoMarcaModelo)+ ", "+
+                          JSON.stringify(cardVehicleData.fechaHoraIni) + JSON.stringify(cardVehicleData.fechaHoraFin)+ ", "+
+                          JSON.stringify(cardVehicleData.ciudadesVehiculo) + JSON.stringify(cardVehicleData.ciudadesDevolverVehiculo)+", "+
+                          JSON.stringify(cardVehicleData.numeroDiasReservados) + JSON.stringify(cardVehicleData.precioPorDia)+", "+
+                          JSON.stringify(cardVehicleData.numPlazas) + JSON.stringify(cardVehicleData.totalReserva) }              */}
+            {" , rentalData Zustand: "+ JSON.stringify(rentalData)}
+
             {/* <!--FORMULARIO luego de imagen Coche--> */}
             <section className="contenedor-form">
                 <div className="contenedor__form">
@@ -334,9 +403,11 @@ const FinalizarReserva = ({ results }) => {
                         {/* extra aja:  saber valor del checkbox de acepto condiciones */}
                         {/* usar la variable "aceptoTerminos" para verificar si el checkbox está marcado */}
                         {/* {aceptoTerminos ? "" : <p>-----El checkbox no está marcado. Debes aceptar las condiciones.</p>} */}
-                        {!aceptoTerminos ? <p>-----El checkbox no está marcado. Debes aceptar las condiciones.</p> : ""}
-                        <button className="boton__enviar__formulario" /*onClick={onSubmit}*/>Guardar datos</button>
-
+                        {!aceptoTerminos ? <p style={{ color: "red", textAlign: "center" }}>El checkbox no está marcado. Debes aceptar las condiciones.</p> : ""}
+                        <button className="boton__enviar__formulario" /*onClick={onSubmit}*/ 
+                                style={{ backgroundColor: aceptoTerminos ? '' : 'gray' }}
+                                disabled={!aceptoTerminos}>Guardar datos</button> 
+                                                                                            {/* Deshabilita el botón si no se aceptan los términos */}
                     </form>
                 </div>
             </section>
@@ -457,7 +528,7 @@ const FinalizarReserva = ({ results }) => {
                         <section className="contenedor__desglose__total">
                             <div className="contenedor__desglose__total__precio">
                                 <div className="contenedor__desglose__total__precio-parrafo">Precio del alquiler</div>
-                                <div className="contenedor__desglose__total__precio-parrafo">{precioAlquilerCalculado}</div>
+                                <div className="contenedor__desglose__total__precio-parrafo">{precioAlquilerCalculado}€</div>
                             </div>
                         </section>
                         <section className="contenedor__desglose__total__final">

@@ -8,4 +8,6 @@ export * from './GearManual'
 export * from './Free'
 export * from './Optional'
 export * from './Limite'
-
+export * from './Electric'
+export * from './Fuel'
+export * from './FuelElectric'

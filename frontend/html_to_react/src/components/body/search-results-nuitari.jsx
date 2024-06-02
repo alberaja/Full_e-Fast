@@ -13,6 +13,7 @@ import CheckTwoToneIcon from "@mui/icons-material/CheckTwoTone";
 
 import Card from './Card'
 import { transformdata } from './transformData'
+import { Pagination } from '@mui/material';
 
 const SearchResultsCarsEFast = ({ results , numDiasRangoEntreFechas}) => {
 
@@ -26,12 +27,14 @@ const SearchResultsCarsEFast = ({ results , numDiasRangoEntreFechas}) => {
         //  Cards
         // <!--Coche Tesla-->
         <main>
-            
+            <Pagination count={10} color="primary"></Pagination>
+
             <div className=" px-5 py-24 mx-auto  flex flex-col gap-4" >
                 {results && results.vehiculos?.map((coche) => {
                     const props = transformdata(coche)
-                    const urlVar = { pathname: '/vehiculoElegido/'+coche.id, state: { diasReservados, coche: coche.car_model, price: coche.price } }
-                    return <Card {...props } url={urlVar} />
+                    const urlVar = { pathname: '/vehiculoElegido/'+coche.id, state: { diasReservados /*, coche: coche.car_model, price: coche.price*/ } }
+                    //const linkProps = {diasReservados}
+                    return <Card {...props } url={urlVar} idCar={coche.id}/*diasReservados={diasReservados}*/ />
                 })
                 }
             </div>
