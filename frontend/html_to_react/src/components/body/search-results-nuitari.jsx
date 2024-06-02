@@ -13,30 +13,39 @@ import CheckTwoToneIcon from "@mui/icons-material/CheckTwoTone";
 
 import Card from './Card'
 import { transformdata } from './transformData'
-import { Pagination } from '@mui/material';
+import Paginador from './Paginador';
+import { useLocation } from 'react-router-dom';
 
 const SearchResultsCarsEFast = ({ results , numDiasRangoEntreFechas}) => {
 
     // ver que llega
     // console.log(results.Cars);
     let diasReservados = numDiasRangoEntreFechas;//= 5;
-    //sessionStorage.getItem('diasReservados') ?? new Date(); 
-    return (
-        
+    //sessionStorage.getItem('diasReservados') ?? new Date();
+
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    
+    return (        
 
         //  Cards
         // <!--Coche Tesla-->
         <main>
-            <Pagination count={10} color="primary"></Pagination>
-
+            
             <div className=" px-5 py-24 mx-auto  flex flex-col gap-4" >
-                {results && results.vehiculos?.map((coche) => {
-                    const props = transformdata(coche)
-                    const urlVar = { pathname: '/vehiculoElegido/'+coche.id, state: { diasReservados /*, coche: coche.car_model, price: coche.price*/ } }
-                    //const linkProps = {diasReservados}
-                    return <Card {...props } url={urlVar} idCar={coche.id}/*diasReservados={diasReservados}*/ />
-                })
-                }
+           
+                { queryParams.get('ciudadesVehiculo') ?  <p className='flex justify-center'>Ciudad de origen: { queryParams.get('ciudadesVehiculo')}</p> : ""}
+                { queryParams.get('ciudadesDevolverVehiculo') ?  <p className='flex justify-center'>Ciudad destino: { queryParams.get('ciudadesDevolverVehiculo')}</p> : ""}
+                <p className='flex justify-center'>Resultados para esas fechas: {results.totalHits} </p>                
+                <Paginador results={results}></Paginador>
+                    {results && results.vehiculos?.map((coche) => {
+                        const props = transformdata(coche)
+                        const urlVar = { pathname: '/vehiculoElegido/'+coche.id, state: { diasReservados /*, coche: coche.car_model, price: coche.price*/ } }
+                        //const linkProps = {diasReservados}
+                        return <Card {...props } url={urlVar} idCar={coche.id}/*diasReservados={diasReservados}*/ />
+                    })
+                    }                
+                <Paginador results={results}></Paginador>
             </div>
            
 
