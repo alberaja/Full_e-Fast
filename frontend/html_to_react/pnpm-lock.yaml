@@ -98,6 +98,9 @@ dependencies:
   stripe:
     specifier: ^8.96.0
     version: 8.222.0
+  sweetalert2:
+    specifier: ^11.11.0
+    version: 11.11.0
   web-vitals:
     specifier: ^2.1.4
     version: 2.1.4
@@ -10665,6 +10668,10 @@ packages:
       csso: 4.2.0
       picocolors: 1.0.0
       stable: 0.1.8
+    dev: false
+
+  /sweetalert2@11.11.0:
+    resolution: {integrity: sha512-wKCTtoE6lQVDKaJ5FFq+znk/YykJmJlD8RnLZps8C7DyivctCoRlVeeOwnKfgwKS+QJYon7s++3dmNi3/am1tw==}
     dev: false
 
   /swiftype-app-search-javascript@2.4.0:

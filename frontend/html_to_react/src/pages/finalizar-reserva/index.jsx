@@ -19,6 +19,7 @@ import CheckoutForm from './checkoutform';
 import { useStoreVehiculo } from '../../zustand/store';
 import Card2 from './../../components/body/card2.jsx'
 import { PostData } from './helpers/Postdata.js';
+import Swal from 'sweetalert2';
 
 const FinalizarReserva = ({ results }) => {
 
@@ -98,6 +99,16 @@ const FinalizarReserva = ({ results }) => {
         });
       };
 
+      const showAlertKoForm = () => {
+         // reserva o conductorFormulario contiene valores nulos o campos vacios
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Rellena el formulario!",
+          footer: 'Gracias =)'
+        });
+      };
+
      const handleSubmitForm = (e) => {
         e.preventDefault();
         
@@ -129,14 +140,37 @@ const FinalizarReserva = ({ results }) => {
                 dni: formData.dni, telefono: formData.telephone,
                 email: formData.email,
              }
-            //console.log(reserva);
-            //console.log("conductorFormulario: ", conductorFormulario);
-            PostData(reserva, conductorFormulario);
+                console.log(reserva);
+                console.log("conductorFormulario: ", conductorFormulario);
+            //PostData(reserva, conductorFormulario);
+            // Función para verificar que un objeto no tenga propiedades nulas o vacías
+            if (isObjectValid(reserva) && isObjectValid(conductorFormulario)) {
+                console.log("objetos enviados Validos! Llamada a PostData()");
+                PostData(reserva, conductorFormulario);
+            } else {
+                showAlertKoForm();//console.error("reserva or conductorFormulario contains null or empty fields.");
+
+            }
         } /*else {
             alert("Debe aceptar la política de privacidad para poder guardar su reserva.");
         }*/
         // onSubmit(formData);
       };
+
+    const isObjectValid = (obj) => {
+        //return Object.values(obj).every(value => value !== null && value !== '');
+         // Excepciones específicas para ciertos campos
+        const exceptions = [ "comentarios", "email",   // campos del form no requeridos obligatorios
+                "ciudadesDevolverVehiculo", "ciudadesVehiculo", "fechaHoraFin", "fechaHoraIni", "numeroDias"];
+
+        // Verificar todas las propiedades, excepto las excepciones
+        return Object.entries(obj).every(([key, value]) => {
+            if (exceptions.includes(key)) {
+            return true; // Ignorar estas propiedades
+            }
+            return value !== null && value !== '';
+        });
+    };
 
     return (
         // /finalizarReserva
@@ -215,7 +249,7 @@ const FinalizarReserva = ({ results }) => {
                         {/* Nombre */}
                         <div className="form__grupo" id="grupo__nombre">
                             <label htmlFor="nombre" className="form__label">
-                                Nombre
+                                * Nombre
                             </label>
                             <div className="form__grupo-input">
                                 {/* <input
@@ -260,7 +294,7 @@ const FinalizarReserva = ({ results }) => {
                         {/* Apellidos */}
                         <div className="form__grupo" id="grupo__apellidos">
                             <label htmlFor="apellido" className="form__label">
-                                Apellidos
+                                * Apellidos
                             </label>
                             <div className="form__grupo-input">
                                 {/* <input
@@ -290,7 +324,7 @@ const FinalizarReserva = ({ results }) => {
                         {/* DNI */}
                         <div className="form__grupo" id="grupo__dni">
                             <label htmlFor="dni" className="form__label">
-                                DNI
+                                * DNI
                             </label>
                             <div className="form__grupo-input">
                                 {/* <input
@@ -319,7 +353,7 @@ const FinalizarReserva = ({ results }) => {
                         {/* Teléfono */}
                         <div className="form__grupo" id="grupo__telefono">
                             <label htmlFor="telefono" className="form__label">
-                                Teléfono
+                                * Teléfono
                             </label>
                             <div className="form__grupo-input">
                                 {/* <input
