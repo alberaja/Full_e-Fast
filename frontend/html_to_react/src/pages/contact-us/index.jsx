@@ -10,6 +10,8 @@ import CloseIcon from "@mui/icons-material/Close";
 // validar formularios
 import { useForm } from "react-hook-form";
 import ModalLayout from "../../components/modal-layout";
+import { PostdataContactForm } from "./helpers/PostdataContactForm";
+import { useEffect, useState } from "react";
 
 export default function Contactanos({ estilo , open, handleOpen, handleClose}) {
 
@@ -26,8 +28,33 @@ export default function Contactanos({ estilo , open, handleOpen, handleClose}) {
 
     // form submit function which will invoke after successful validation
     const onSubmit = (data) => {
-        alert(JSON.stringify(data));
+        if(data.terminos){
+                //ok alert(JSON.stringify(data));
+                //PostdataContactForm(data);
+            PostdataContactForm(data).then(result => {
+                //alert(result);
+                if(result === "exito"){
+                    //activar para mostrar 
+                    setResponseOkPostdataContactForm(true);                    
+                }
+              })
+              .catch(error => {
+                console.error("Error:", error);
+                alert("Hubo un error al enviar el formulario");
+              });
+            //alert(result);
+        }
     };
+
+    const aceptoTerminos = watch('terminos', false);  //o inicializarlo a false.
+    const [responseOkPostdataContactForm, setResponseOkPostdataContactForm] = useState(false);
+   
+    // Ocultar texto al cerrar y re-abrir la modal
+    useEffect(() => {
+        if (!open) {
+          setResponseOkPostdataContactForm(false);
+        }
+      }, [open]); // El efecto se ejecuta cada vez que la prop `open` cambia
 
     return (
 
@@ -70,23 +97,24 @@ export default function Contactanos({ estilo , open, handleOpen, handleClose}) {
                         <form action="" id="form" className="form" onSubmit={handleSubmit(onSubmit)}>
                             {/* <!-- Nombre --> */}
                             <div className="form__grupo" id="grupo__nombre">
-                                <label htmlFor="nombre" className="form__label">Nombre</label>
+                            {responseOkPostdataContactForm && <p style={{ color: "darkturquoise", textAlign: "center", fontSize: "xx-large" }}>Hemos recibido tu consulta. Gracias por contactarnos!</p> }
+                                <label htmlFor="nombre" className="form__label">* Nombre</label>
                                 <div className="form__grupo-input">
                                     <input type="text" className="form__input" name="nombre" id="nombre" placeholder="felipe"
                                         // validacion
-                                        {...register("firstName", {
+                                        {...register("nombre", {
                                             required: true,
                                             maxLength: 40,
                                             pattern: /^[A-Za-z]+$/i,
                                         })}
                                     />
-                                    {errors?.firstName?.type === "required" && (
+                                    {errors?.nombre?.type === "required" && (
                                         <p>El nombre no puede estar vacio</p>
                                     )}
-                                    {errors?.firstName?.type === "maxLength" && (
+                                    {errors?.nombre?.type === "maxLength" && (
                                         <p>Nombre hasta 40 carácteres</p>
                                     )}
-                                    {errors?.firstName?.type === "pattern" && (
+                                    {errors?.nombre?.type === "pattern" && (
                                         <p>Caracteres alfabéticos sólo</p>
                                     )}
                                     <img className="form__validacion-estado" />
@@ -95,7 +123,7 @@ export default function Contactanos({ estilo , open, handleOpen, handleClose}) {
                             </div>
                             {/* <!-- Email --> */}
                             <div className="form__grupo" id="grupo__email">
-                                <label htmlFor="email" className="form__label">Email</label>
+                                <label htmlFor="email" className="form__label">* Email</label>
                                 <div className="form__grupo-input">
                                     <input type="email" className="form__input" name="email" id="email" placeholder="felipe@gma.com"
                                         // validacion
@@ -112,16 +140,16 @@ export default function Contactanos({ estilo , open, handleOpen, handleClose}) {
                             </div>
                             {/* <!-- Teléfono --> */}
                             <div className="form__grupo" id="grupo__telefono">
-                                <label htmlFor="telefono" className="form__label">Teléfono</label>
+                                <label htmlFor="telefono" className="form__label">* Teléfono</label>
                                 <div className="form__grupo-input">
                                     <input type="number" className="form__input" name="telefono" id="telefono" placeholder="665842987"
                                         // validacion
-                                        {...register("telephone", {
+                                        {...register("telefono", {
                                             required: true,
                                             pattern: /^\d{9}$/i,
                                         })}
                                     />
-                                    {errors?.telephone?.type === "pattern" && <p>Debe de haber 9 dígitos</p>}
+                                    {errors?.telefono?.type === "pattern" && <p>Debe de haber 9 dígitos</p>}
                                     <img className="form__validacion-estado" />
                                 </div>
                                 <p className="form__input-error">Debe de haber 9 dígitos</p>
@@ -146,6 +174,7 @@ export default function Contactanos({ estilo , open, handleOpen, handleClose}) {
                                         envío de comunicaciones informativas</p>
                                 </label>
                             </div>
+                            {!aceptoTerminos ? <p style={{ color: "red", textAlign: "center" }}>El checkbox no está marcado. Debes aceptar las condiciones.</p> : ""}
                             <button className="boton__enviar__formulario">ENVIAR</button>
                         </form>
                     </section>
