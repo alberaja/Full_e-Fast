@@ -16,7 +16,7 @@ import { transformdata } from './transformData'
 import Paginador from './Paginador';
 import { useLocation } from 'react-router-dom';
 
-const SearchResultsCarsEFast = ({ results , numDiasRangoEntreFechas}) => {
+const SearchResultsCarsEFast = ({ params, results , numDiasRangoEntreFechas}) => {
 
     // ver que llega
     // console.log(results.Cars);
@@ -26,6 +26,13 @@ const SearchResultsCarsEFast = ({ results , numDiasRangoEntreFechas}) => {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     
+    // Verifica si los parámetros tienen valor
+    const isFechaHoraFinValid = queryParams.get('fechaHoraFin');
+    const isFechaHoraIniValid = queryParams.get('fechaHoraIni');
+    const isCiudadesVehiculo = queryParams.get('ciudadesVehiculo');
+
+    // Si alguno de los parámetros no tiene valor, deshabilita el link    
+    const isDisabled=(!isFechaHoraFinValid || !isFechaHoraIniValid || !isCiudadesVehiculo) ?true:false;
     return (        
 
         //  Cards
@@ -42,7 +49,7 @@ const SearchResultsCarsEFast = ({ results , numDiasRangoEntreFechas}) => {
                         const props = transformdata(coche)
                         const urlVar = { pathname: '/vehiculoElegido/'+coche.id, state: { diasReservados /*, coche: coche.car_model, price: coche.price*/ } }
                         //const linkProps = {diasReservados}
-                        return <Card {...props } url={urlVar} idCar={coche.id}/*diasReservados={diasReservados}*/ />
+                        return <Card {...props } isDisabled={isDisabled} url={urlVar} idCar={coche.id}/*diasReservados={diasReservados}*/ />
                     })
                     }                
                 <Paginador results={results}></Paginador>

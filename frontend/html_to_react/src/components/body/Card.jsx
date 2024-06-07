@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import * as Icons from './Icons'
 import { Chip, Tooltip } from '@mui/material'
 import { Link } from 'react-router-dom'
-
+import {cn} from '../../lib'
 
 
 
@@ -10,7 +10,7 @@ export default function Card(props) {
     const [selected, setSelected] = useState(0)
 
     const { id, tipo, nombre, ECO, maletero, tipoMotor, autonomia, limiteKm, descripcion, cajaCambios, cancelacion, precioDia, ofertaEspecial, precioOferta, extras, coverImage, plazas,
-        año, comfort, prestaciones, conservacion, todoRiesgo, image, url, idCar
+        año, comfort, prestaciones, conservacion, todoRiesgo, image, url, idCar, isDisabled
 
     } = props
     const IconSide = [{ icon: "Information", value: 0 }, { icon: "Car", value: 1, props: { tipo } }, { icon: "Engine", value: 2 }]
@@ -28,9 +28,11 @@ export default function Card(props) {
     const MotorProps = { tipoMotor, autonomia, prestaciones }
     const Sections = [<MainContent {...MainProps} />, <VehicleContent {...VehiculoProps} />, <EngineContent {...MotorProps} />]
 
-
+    const disableClassName=isDisabled?"bg-slate-300 hover:bg-slate-300 text-slate-500 border border-slate-400 select-none cursor-not-allowed":""
     const precioComponent = ofertaEspecial ? <div className='text-xl'>Precio: <span className=" line-through text-gray-500">{precioDia}</span>€<span className="ml-3 font-bold text-green-700 ">{precioOferta} €</span> <span className='ml-2'> &#47; dia</span></div> :
         <div className='text-2xl'> <span className="font-bold">{precioDia} €</span> <span className='ml-2'> &#47; dia</span></div>
+    const onClick=isDisabled?(e)=>e.preventDefault:()=>{}
+    const Component=isDisabled?"div":Link;
     return (
 
         <div className="lg:h-80 mx-auto flex flex-wrap bg-slate-200 rounded-lg rounded-bl-none lg:rounded-lg lg:rounded-tr-none  shadow-2xl relative mb-9 lg:mb-0">
@@ -48,10 +50,12 @@ export default function Card(props) {
                 </h1>
                 <div className="flex flex-col w-full flex-1">
                     {Sections[selected]}
-                </div>
+                    </div>
                 <div className="flex flex-row  justify-between w-full items-center">
                     {precioComponent}
-                     <Link to={url.pathname} state={{ diasReservados: url.state.diasReservados }} className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"> Ver oferta </Link>
+                    <Tooltip title={isDisabled?"Seleccione un origen y un periodo de alquiler":"Proceder con el alquiler"}  className='flex'>
+                        <Component onClick={onClick} to={url.pathname} state={{ diasReservados: url.state.diasReservados }} className={cn(`flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded`,disableClassName)}>Ver oferta </Component>
+                     </Tooltip>
 
                 </div>
 
