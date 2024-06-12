@@ -15,3 +15,26 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/***aja para card2.jsx****/
+.chollo{
+  /* background-color: beige;
+  color: #0247FE;
+  font-weight: bold;
+  padding: 10px;
+  border: 2px solid #d32f2f;
+  border-radius: 5px;
+  text-align: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+  font-size: 1.2em; */
+  background-color: #4CAF50; /* Verde claro */
+  color: #FFFFFF; /* Blanco */
+  font-weight: bold; /* Negrita */
+  padding: 10px 20px; /* Espaciado interno */
+  border: 2px solid #388E3C; /* Verde más oscuro para el borde */
+  border-radius: 8px; /* Bordes redondeados */
+  text-align: center; /* Centrar el texto */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para darle profundidad */
+  font-size: 1em; 
+}
