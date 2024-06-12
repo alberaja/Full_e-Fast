@@ -52,6 +52,7 @@ export default function VehiculosNoEncontrados({results}){
               </div> */}
               <p className="text-gray-500 text-center mt-2">
                 Lo sentimos, no pudimos encontrar ningún vehículo que coincida con tu búsqueda.
+                Pulsa INICIO para comenzar la búsqueda de nuevo.
               </p>
             </section>
           </section>

@@ -3,6 +3,7 @@ import * as Icons from "./Icons";
 import { Chip, Tooltip } from "@mui/material";
 import { Link, Route } from "react-router-dom";
 import { useStoreVehiculo } from "../../zustand/store";
+// import PropTypes from 'prop-types'
 
 
 // iconos
@@ -32,7 +33,38 @@ export default function Card2 ( coche ) {
       // const hasSpecialOffer = coche?.precio[0].ofertaEspecial === true;
       // const precio = hasSpecialOffer ? coche?.precio[0].precioOferta : coche?.precio[0].por1DiaEuros;
   //const cardVehicleData = useStoreVehiculo( state => state.cardVehicleData );
-  return (
+  const loadIcon = (tipoVehiculo) => {
+    if ( tipoVehiculo === "HEV" ) {
+      return {
+        icon: <Icons.Fuel className="w-6 h-6"/>,
+        text: "Híbrido No enchufable",
+      };
+    } else if (tipoVehiculo === "MHEV") {
+      return {
+        icon: <Icons.Fuel className="w-6 h-6"/>,
+        text: "Híbrido ligero",
+      };
+    } else if (tipoVehiculo === "SHEV") {
+      return {
+        icon: <Icons.Fuel className="w-6 h-6"/>,
+        text: "Híbrido puro",
+      };
+    } else if (tipoVehiculo === "BEV") {
+      return {
+        icon: <Icons.Electric className="w-6 h-6"/>,
+        text: "100% eléctrico",
+      };
+    } else if (tipoVehiculo === "PHEV") {
+      return {
+        icon: <Icons.FuelElectric className="w-6 h-6"/>,
+        text: "Híbrido enchufable",
+      };
+    }
+  };
+const { icon, text } = loadIcon(coche.caracteristicas[0].tipoVehiculo);
+
+  return (    
+    (coche ?  
     <main>
       {/* Solo se recibe 1 vehiculo aqui */}
       <section
@@ -54,22 +86,22 @@ export default function Card2 ( coche ) {
             {/* {coche.car} {coche.car_model} */}{" "}
             {/* BEV                                 Moto */}
             <h1 className="producto__tesla__parrafo">
-              {coche.marcay_modelo_vehiculo}{" "}
+              {coche?.marcay_modelo_vehiculo}{" "}
             </h1>{" "}
-            <h5 style={{ color: "gray" }}>
-              {coche.caracteristicas[0].tipoVehiculo} {coche.tipo_vehiculo}{" "}
-            </h5>
+            {/* <h5 style={{ color: "gray" }}>
+              {coche?.caracteristicas[0].tipoVehiculo} {coche?.tipo_vehiculo}{" "}
+            </h5> */}
             {/* <div className="text-sm text-gray-500">{coche.caracteristicas[0].tipoVehiculo} - Híbrido xx</div> */}
           </div>
           <section className="producto__tesla__caracteristicas">
             <div className="producto__tesla__parrafo__caracteristicas">             
-                  {coche.caracteristicas[0].altasPrestaciones ? (  <p>{coche.tipo_vehiculo} con altas prestaciones</p>) : null}
+                  {coche.caracteristicas[0].altasPrestaciones ? (  <p className="chollo" >{coche.tipo_vehiculo} con altas prestaciones</p>) : null}
               <div className="producto__tesla__parrafo__plazos">
                 {/* <p className="producto__tesla__parrafo__plazas-p"><img src="/images/icono-user.svg" /> 5 plazas</p> */}
                 <PeopleAltOutlinedIcon />{" "}
                 <p className="producto__tesla__parrafo__plazas-p">
                   {" "}
-                  {coche.caracteristicas[0].numplazas} plazas
+                  {coche.caracteristicas[0].numPlazas} plazas
                 </p>
               </div>
               <div className="producto__tesla__parrafo__plazos">
@@ -98,10 +130,11 @@ export default function Card2 ( coche ) {
                   <SettingsOutlinedIcon /> {coche.caracteristicas[0].cajaCambio}
                 </p>
               </div>
-              <div className="producto__tesla__parrafo__plazos">
-                <p className="producto__tesla__parrafo__autonomia-p">
+              <div className="producto__tesla__parrafo__plazos" style={{ display: 'flex' }}>
+                  {icon} 
+                <p className="producto__tesla__parrafo__autonomia-p" style={{ marginLeft: '5px' }}>
                   {/* Automatico/Manual . Mostrarla solo si {coche.tipo_vehiculo}=Coche*/}
-                  <SettingsOutlinedIcon /> {coche.caracteristicas[0].tipoVehiculo} {" "}
+                  {/* <SettingsOutlinedIcon />*/}  {text}   {/*{coche.caracteristicas[0].tipoVehiculo}*/}    {" "}
                 </p>
               </div>              
             </div>
@@ -140,6 +173,11 @@ export default function Card2 ( coche ) {
       </section>
 
       {/* <!--contenedor__caja de imagenes Coche-->  */}
-    </main>
+    </main>    
+    : "")
   );
 };
+
+// Card2.PropTypes ={
+//   coche: PropTypes.any
+// }
