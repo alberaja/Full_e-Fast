@@ -24,7 +24,7 @@ export function transformdata(coche) {
         descripcion: caracteristicas.descripcion,
 
         ECO: caracteristicas.etiquetaECO === true,
-        plazas: caracteristicas.numplazas,
+        plazas: caracteristicas.numPlazas,
         cajaCambios: caracteristicas.cajaCambio,
         maletero: caracteristicas.numeroBolsasmaletero,
         precioDia: precio.por1DiaEuros,
