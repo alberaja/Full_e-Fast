@@ -83,10 +83,10 @@ export default function Card(props) {
 function MainContent({ cajaCambios, cancelacion, descripcion, maletero, plazas, limiteKm, tipoMotor }) {
     const iconEngines = {
         BEV: { icon: Icons.Electric, text: "100% Eléctrico" , value: "BEV"},
-        HEV: { icon: Icons.Electric, text: "Híbrido no enchufable" , value: "HEV" },
+        HEV: { icon: Icons.Fuel, text: "Híbrido no enchufable" , value: "HEV" },
         MHEV: { icon: Icons.Fuel, text: "Hibrido ligero" , value: "MHEV"},
-        PHEV: { icon: Icons.Fuel, text: "Híbrido Enchufable" , value: "PHEV"},  // text es el tooltip=hover
-        SHEV: { icon: Icons.FuelElectric, text: "Híbrido Puro" , value: "SHEV"},
+        PHEV: { icon: Icons.FuelElectric, text: "Híbrido Enchufable" , value: "PHEV"},  // text es el tooltip=hover
+        SHEV: { icon: Icons.Fuel, text: "Híbrido Puro" , value: "SHEV"},
 
 
 
@@ -95,7 +95,7 @@ function MainContent({ cajaCambios, cancelacion, descripcion, maletero, plazas, 
         { text: `Caja de cambios de tipo ${cajaCambios} `, Icon: cajaCambios === "Manual" ? Icons.GearManual : Icons.GearAutomatic, value: cajaCambios[0] },
         { text: "Capacidad del maletero", Icon: Icons.Luggage, value: maletero },
         { text: "Plazas del Vehiculo", Icon: Icons.Seat, value: plazas },
-        { text: limiteKm < 10000 ? `limite de ${limiteKm} kilometros` : "kilometraje ilimitado", Icon: Icons.Limite, value: limiteKm < 10000 ? `${limiteKm} km` : "Ilimitado" },
+        { text: limiteKm < 100 ? `limite de ${limiteKm} kilometros` : "kilometraje ilimitado", Icon: Icons.Limite, value: limiteKm < 100 ? `${limiteKm}km` : "Ilimitado" },
         { text: iconEngines[tipoMotor].text, Icon: iconEngines[tipoMotor].icon, value: iconEngines[tipoMotor].value }
     ]
 
@@ -151,25 +151,57 @@ function EngineContent({ tipoMotor, autonomia, prestaciones }) {
 }
 
 
+// function Extras(listExtras) {
+//     const extrasString = {
+//         gps: { text: "GPS", tooltip: "Navegación GPS" },
+//         sillaBebe: { text: "Bebe", tooltip: "Silla para Bebes" },
+//         proteccionenCarretera: { text: "Prot. Carretera", tooltip: "Proteccion en carretera" },
+//         opcionSeguroTodoRiesgo: { text: "Opcion Todo riesgo", tooltip: "Seguro todo riesgo opcional" }
+//     }
+//     const extrasObject = {
+//         exenciondeFranquicia: {
+//             // TODO: valores estan estatioos solo...   deben ser aleatorios
+//             120: { text: "Exencion 120", tooltip: "Excencion Franquicia 120" },
+//             180: { text: "Excencion 180", tooltip: "Excencion Franquicia 180" },
+//             182: { text: "Excencion 182", tooltip: "Excencion Franquicia 182 y variable randommm" },
+//         }
+
+//     }
+
+//     console.log("listaTags: ", listExtras)
+//     const listaTags = listExtras.map((extra) => typeof extra === "string" ?
+//         <Tooltip title={extrasString[extra].tooltip} key={extra} placement="top"> <Badge label={extrasString[extra].text} variant="outlined" /> </Tooltip> :
+//         <Tooltip title={extrasObject[extra.nombre][extra.value].tooltip} key={`${extra.nombre}-${extra.value}`} placement="top"> <Badge label={`${extrasObject[extra.nombre][extra.value].text}`} variant="outlined" /></Tooltip>
+//     )    
+
+//     return (<div className="flex  flex-wrap gap-3">
+
+//         {listaTags}
+//     </div>
+//     )
+
+// }
 function Extras(listExtras) {
+
+
     const extrasString = {
         gps: { text: "GPS", tooltip: "Navegación GPS" },
         sillaBebe: { text: "Bebe", tooltip: "Silla para Bebes" },
         proteccionenCarretera: { text: "Prot. Carretera", tooltip: "Proteccion en carretera" },
         opcionSeguroTodoRiesgo: { text: "Opcion Todo riesgo", tooltip: "Seguro todo riesgo opcional" }
     }
-    const extrasObject = {
-        exenciondeFranquicia: {
-            120: { text: "Exencion 120", tooltip: "Excencion Franquicia 120" },
-            180: { text: "Excencion 180", tooltip: "Excencion Franquicia 180" },
-        }
+    const extrasBadge = (nombre, value) => {
+        if (nombre === "exenciondeFranquicia")
+            return { text: `Exencion ${value}`, tooltip: `Exencion Franquicia ${value}` }
+        return { "text": "añadir", "tooltip": "añadir" }
 
     }
 
     const listaTags = listExtras.map((extra) => typeof extra === "string" ?
         <Tooltip title={extrasString[extra].tooltip} key={extra} placement="top"> <Badge label={extrasString[extra].text} variant="outlined" /> </Tooltip> :
-        <Tooltip title={extrasObject[extra.nombre][extra.value].tooltip} key={`${extra.nombre}-${extra.value}`} placement="top"> <Badge label={`${extrasObject[extra.nombre][extra.value].text}`} variant="outlined" /></Tooltip>
+        <Tooltip  title={`${extrasBadge(extra.nombre, extra.value).tooltip}`} key={`${extra.nombre}-${extra.value}`} placement="top">             <Badge label={`${extrasBadge(extra.nombre, extra.value).text}`} variant="outlined" />         </Tooltip>
     )
+
 
     return (<div className="flex  flex-wrap gap-3">
 
