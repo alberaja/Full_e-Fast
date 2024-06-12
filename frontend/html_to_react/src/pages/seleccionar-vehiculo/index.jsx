@@ -98,7 +98,7 @@ const CocheElegido = ({ /*results*/ }) => {
     let precioAlquilerCalculado = precio * numdiasReservados ?? null;
     console.log("precioAlquilerCalculado=", precio, '*',numdiasReservados, precioAlquilerCalculado)
 
-    //console.log("results-->", results) //map para el Array
+    //console.log("results-->", results) //map para el Array     
     const vehiculoElegido = results?.vehiculos?.map(coche => <Card2 key={coche.id} {...coche}></Card2>)
 
     return (
@@ -160,9 +160,9 @@ const CocheElegido = ({ /*results*/ }) => {
             </section> */}
             {/* {precio =results?.vehiculos[0]?.precio[0].por1DiaEuros} */}
             {/* TODO:  componetizar mas el de cards de search-results-carsEFast.jsx */}
-                    {/* {console.log('resultadoActivo:',{results})} */}
+                    {/* {console.log('resultadoActivo:',{results})} */}        
             {vehiculoElegido}  {/* Mostrar la <Card2/>   */}
-            
+           
             
             {/* <!--contenedor__caja de imagenes Coche--> */}
             {/* <!--luego de imagen Coche--> */}
@@ -216,7 +216,7 @@ const CocheElegido = ({ /*results*/ }) => {
                     </li>
                     <li className={styles["contenedor__inluido__cancelacion__precio-parrafo"]}>
                         {/* 10000000000	"=Ilimitado , sino es Limitado*/}
-                        {results?.vehiculos[0]?.caracteristicas[0]?.maximodeKm === 10000000000 ? (
+                        {results?.vehiculos[0]?.caracteristicas[0]?.maximodeKm >= 100 ? (
                             <div>                                
                                 <CheckTwoToneIcon style={{ color: "rgb(31, 153, 39)" }} />
                                 &nbsp; Kilometraje ilimitado
@@ -299,7 +299,7 @@ const CocheElegido = ({ /*results*/ }) => {
                         {/* <!--calendar link--> */}
                         {/* aplicarlo asi a todos los botones!! */}
                             {/* para el color del <a><a/> del button poner: color: white; */}
-                        <div className={ styles["contenedor__boton-forma"] }>
+                        <div className={ styles["contenedor__boton-forma"] }>                            
                             <Link
                                 to={ '/finalizarReserva' }
                                 state= {{
@@ -315,8 +315,7 @@ const CocheElegido = ({ /*results*/ }) => {
                         </div>
                     </a>
                 </div>
-            </section>
-
+            </section>                                 
             {/* </main> */}
         </>
         // /vehiculoElegido
