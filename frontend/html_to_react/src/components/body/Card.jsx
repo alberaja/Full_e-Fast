@@ -95,7 +95,7 @@ function MainContent({ cajaCambios, cancelacion, descripcion, maletero, plazas, 
         { text: `Caja de cambios de tipo ${cajaCambios} `, Icon: cajaCambios === "Manual" ? Icons.GearManual : Icons.GearAutomatic, value: cajaCambios[0] },
         { text: "Capacidad del maletero", Icon: Icons.Luggage, value: maletero },
         { text: "Plazas del Vehiculo", Icon: Icons.Seat, value: plazas },
-        { text: limiteKm < 100 ? `limite de ${limiteKm} kilometros` : "kilometraje ilimitado", Icon: Icons.Limite, value: limiteKm < 100 ? `${limiteKm}km` : "Ilimitado" },
+        { text: limiteKm < 100 ? `limite de ${limiteKm} kilometros` : "kilometraje ilimitado", Icon: Icons.Limite, value: limiteKm <= 100 ? `${limiteKm}km` : "Ilimitado" },
         { text: iconEngines[tipoMotor].text, Icon: iconEngines[tipoMotor].icon, value: iconEngines[tipoMotor].value }
     ]
 
