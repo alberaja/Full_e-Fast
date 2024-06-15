@@ -1,9 +1,13 @@
 import  { useState } from 'react';
-import data from './data';
+//ok fichero import data from './data';
+import GetBrands from './helpers/GetBrands';
 
 export function BrandType({callback}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedBrands, setSelectedBrands] =  useState([])
+
+  // get del API para GetBrands
+  const [data, setData] = useState(null);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -60,7 +64,8 @@ export function BrandType({callback}) {
   ))} */}
 </div>
 <ul className="w-1/4 my-auto bg-gray-300 p-7 border border-gray-600 rounded-lg divide-y divide-gray-400 relative">
-  {data.brandTypes.map((brand, index) => (
+  <GetBrands onDataFetch={setData} />
+  {/* {data.brandTypes.map((brand, index) => (
     <li
       className={`cursor-pointer hover:bg-gray-400 ${
         selectedBrands.includes(brand.value) ? 'bg-blue-500 text-white' : ''
@@ -77,9 +82,38 @@ export function BrandType({callback}) {
         });
       }}
     >
-      {brand.value}
+      {brand.value} {brand.quantity}
     </li>
-  ))}
+  ))} */} 
+   {data ? (
+        data?.map((item, index) => (
+          <div key={index}>
+            {item?.tiposMarcas?.map((brand, idx) => (
+              <li 
+              className={`cursor-pointer hover:bg-gray-400 ${
+                selectedBrands.includes(brand.valor) ? 'bg-blue-500 text-white' : ''
+              }`}
+              key={idx}
+              onClick={() => {
+                callback(brand.valor)
+                setSelectedBrands((prevSelectedBrands) => {
+                  if (prevSelectedBrands.includes(brand.valor)) {
+                    return prevSelectedBrands.filter((b) => b !== brand.valor);
+                  } else {
+                    return [...prevSelectedBrands, brand.valor];
+                  }
+                });
+              }}
+              > 
+                            
+                {brand.valor}    {brand.numVehiculos}
+              </li>
+            ))}
+          </div>
+        ))
+      ) : (
+        <p>Loading...</p>
+      )}
   <li className="hover:bg-gray-400" onClick={closeModal}>
     Close
   </li>
