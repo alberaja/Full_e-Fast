@@ -188,38 +188,40 @@ console.log("----queryParams", paramsToObject(location.search));
                 </AccordionSummary>
                 <AccordionDetails>
                   <ul>
-                  {key === "maximoNumPlazas" ? ( <span> asientos (mínimo)</span>  ) : ( "" )}
+                  {key === "maximoNumPlazas" ? ( <span> asientos (máximo)</span>  ) : ( "" )}
                     {values.map((item) => (                                     
                       <li key={item.valor}>
                            {/* <p>{item.valor}</p> */}
                            {/* {key !== "marcasVehiculo" ?  // para filtros no input checkbox */}
-                                <FormControlLabel
-                                  key={item.valor}
-                                  value={item.valor}
-                                  name={NAMES[key]}
-                                  control={<Checkbox />}
-                                  checked={isChecked(NAMES[key], item.valor)}                          
-                                onChange={handleCheckboxChangeModoJS}
-                                  // onChange={(event) => handleCheckboxChangeModoJS(event, label === 'Eléctricos' ? item.valorHumano : "")} // onChange={handleCheckboxChangeModoJS}
-                                  //onChange={(event) => handleCheckboxChangeModoJS(event, key === 'tiposElectrico' ? item.valorHumano : undefined, item.valor)}
-                                  label={
-                                    <>
-                                    {/* {console.log({key})} */}
-                                      {/*  mostrará {item.valor} en todos los casos excepto cuando label sea igual a "tiposElectrico", en cuyo caso mostrará {item.valorHumano}     */}
-                                                    {/* {label === "Eléctricos" ? item.valorHumano : item.valor} */}
-                                                {/* {item.valor} */}                                 
-                                                    {/* {console.log(item.valor, item)} */}
-                                      {key === "tiposElectrico" ? item.valorHumano /* valor */ : item.valor}                              
-                                      {/* {key === "marcasVehiculo" ? item.valorHumano : item.valor} */}                                      
-                                      {/* {JSON.stringify(item)} */}                           
-                                      <Typography variant="body3" marginLeft={"10px"}>
-                                                                              {/* 90px */}
-                                        {item.numVehiculos && `(${item.numVehiculos})`}
-                                      </Typography>
-                                    </>
-                                  }
-                                  disabled={item.numVehiculos === 0 /*|| (NAMES[key] === "marcasVehiculo" && item.numVehiculos === 1 && item.valor=== )*/ /*no deshabilitarlo en tiposElectrico: && NAMES[key] !== "tiposElectrico"*/ } //disabled={item.numVehicles === 0}
-                                />
+                                {item.numVehiculos !== 0 &&   //no mostrar si tienen valor 0
+                                      <FormControlLabel
+                                        key={item.valor}
+                                        value={item.valor}
+                                        name={NAMES[key]}
+                                        control={<Checkbox />}
+                                        checked={isChecked(NAMES[key], item.valor)}                          
+                                      onChange={handleCheckboxChangeModoJS}
+                                        // onChange={(event) => handleCheckboxChangeModoJS(event, label === 'Eléctricos' ? item.valorHumano : "")} // onChange={handleCheckboxChangeModoJS}
+                                        //onChange={(event) => handleCheckboxChangeModoJS(event, key === 'tiposElectrico' ? item.valorHumano : undefined, item.valor)}
+                                        label={
+                                          <>
+                                          {/* {console.log({key})} */}
+                                            {/*  mostrará {item.valor} en todos los casos excepto cuando label sea igual a "tiposElectrico", en cuyo caso mostrará {item.valorHumano}     */}
+                                                          {/* {label === "Eléctricos" ? item.valorHumano : item.valor} */}
+                                                      {/* {item.valor} */}                                 
+                                                          {/* {console.log(item.valor, item)} */}
+                                            {key === "tiposElectrico" ? item.valorHumano /* valor */ : item.valor}                              
+                                            {/* {key === "marcasVehiculo" ? item.valorHumano : item.valor} */}                                      
+                                            {/* {JSON.stringify(item)} */}                           
+                                            <Typography variant="body3" marginLeft={"10px"}>
+                                                                                    {/* 90px */}
+                                              {item.numVehiculos && `(${item.numVehiculos})`}
+                                            </Typography>
+                                          </>
+                                        }
+                                        disabled={item.numVehiculos === 0 /*|| (NAMES[key] === "marcasVehiculo" && item.numVehiculos === 1 && item.valor=== )*/ /*no deshabilitarlo en tiposElectrico: && NAMES[key] !== "tiposElectrico"*/ } //disabled={item.numVehicles === 0}
+                                      />
+                                }
                            {/* : "" } */}
                       </li>
                     ))}                                        
