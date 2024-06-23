@@ -44,6 +44,7 @@ public class ReservaController {
     
     @PostMapping
     public ResponseEntity<ReservaDTO> /*Reserva*/ crearReserva(@RequestBody ReservaRequest reservaDTO) {
+    	System.out.println("NEW BOOKING : "+ reservaDTO.toString() );
     	return ResponseEntity.status(HttpStatus.CREATED).body(reservaService.crearReserva1(reservaDTO)); 
     }
     
