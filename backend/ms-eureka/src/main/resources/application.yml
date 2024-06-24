@@ -1,0 +1,14 @@
+server:
+  port: 8761
+
+## Eureka Server Configuration
+eureka:
+  client:
+    # no registrarse si mismo
+    registerWithEureka: false
+    # al conectarse clientes, que no descarguen lista de ubicaciones del resto de micros
+    fetchRegistry: false
+  instance:
+    hostname: ${EUREKA_HOST:localhost}
+  server:
+    renewal-percent-threshold: 0.90
