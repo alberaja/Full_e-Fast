@@ -1,0 +1,27 @@
+POST http://localhost:8762/mysql-efast/api/reservas
+
+{   
+    "reserva": {
+            
+        "vehiculoId": 3,            
+        "vehiculoMarcaModelo": "Tesla de PRUEBAS",
+        
+        "comentarios": "comentario largo de la reserva",
+        "fechaHoraIni": "15-04-2024T07:00",
+        "fechaHoraFin": "19-04-2024T07:00",
+        "ciudadesVehiculo": "Madrid",
+        "ciudadesDevolverVehiculo": "Barcelona",
+        "numeroDias": 4,
+        "precioPorDia": 150,
+        "totalReserva": 600
+    },
+    "conductor": {
+        
+        "nombre": "Alberto",
+        "apellidos": "Jimenez",
+        "dni": "12345678F",         
+        "telefono": 60024463,
+        "email": "pr@gmail.com"
+        
+    }
+}
