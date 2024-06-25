@@ -30,8 +30,11 @@ public class EmailService {
 	public String ServiceMail(EmailyReservaRequest emailRequest) {
 		String responseMessage;
         try {
+        	String subject = "Contacto recibido desde el formulario de contacto de eFast.";
+        	if(emailRequest.isEsReserva()){ subject = "¡¡¡Te confirmamos que hemos recibo tu reserva!!!";}
+        	
             // Construir el correo
-            Mail mail = buildMail(emailRequest);
+            Mail mail = buildMail(emailRequest, subject);
 
             // Enviar el correo
             sendHTMLEmail(mail);
@@ -43,24 +46,33 @@ public class EmailService {
         return responseMessage;
 	}
 	
-	  private Mail buildMail(EmailyReservaRequest emailRequest) {
+	  private Mail buildMail(EmailyReservaRequest emailRequest, String subject) {
+		  //if(emailRequest.isEsReserva()){ mailTo = emailRequest.getEmail(); }
+		  
 	        // Construir el correo
 	        Mail mail = new MailBuilder()
 	                .From("alberto.aja13@gmail.com")
-	                .To(mailTo)
-	                .Template("mail-template.html")
+	                .To( emailRequest.isEsReserva() ? emailRequest.getEmail() : mailTo)
+	                .Template(emailRequest.isEsReserva() ? "mail-confirmarreserva.html"  : "mail-cotactus.html")
 	                //añadir todos contenidos a reemplazar dentro del HTML por $clave.  ej: $content
 //	                .AddContext(clave, valor)
 //	                .AddContext("content", "Hola!")
-	                .Subject("Contacto recibido desde el formulario de contacto de eFast.")
+	                .Subject(subject) //"Contacto recibido desde el formulario de contacto de eFast."
 	                .createMail();
 
+	        String htmlContent = "";
+	        if(emailRequest.getNombre() != null) {
+	        	// form de contacto
 	        // Reemplazar las variables en el contenido del correo
-	        String htmlContent = mail.getMailContent()
+	        htmlContent = mail.getMailContent()
 	                .replace("{{nombre}}", emailRequest.getNombre())
 	                .replace("{{email}}", emailRequest.getEmail())
 	                .replace("{{telefono}}", String.valueOf(emailRequest.getTelefono()))
 	                .replace("{{comentarios}}", emailRequest.getComentarios());
+	        } else {
+	        	//confirmar reservas
+	        	htmlContent = mail.getMailContent();
+	        }
 
 	        // Establecer el contenido HTML modificado en el objeto Mail
 	        mail.setMailContent(htmlContent);
