@@ -132,7 +132,7 @@ export default function CarsResultados({params /*,callback*/, resultados, numDia
       {/* <button className="boton__contáctanos" onClick={handleOpen}>Filtrar Resultados</button> 
       <FilterModal isOpen={open} handleClose={handleClose} onFilter={filtrarCampos} /> */}
 
-      <h3>Resultados</h3>        
+      {/* <h3>Resultados</h3>         */}
       {/* <SearchBar onSearch={searchApi} /> */}      
      
       {/* ok   <SearchResultsCars  results={results} /> */}

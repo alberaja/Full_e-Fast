@@ -20,7 +20,8 @@ import { useStoreVehiculo } from '../../zustand/store';
 import Card2 from './../../components/body/card2.jsx'
 import { PostData } from './helpers/Postdata.js';
 import Swal from 'sweetalert2';
-import StripeForm from './StripeForm.jsx';
+import StripeForm from './StripeFormOld.jsx';
+import Payment from './Payment.jsx';
 
 const FinalizarReserva = ({ results }) => {
 
@@ -130,7 +131,7 @@ const FinalizarReserva = ({ results }) => {
         console.log("Valores de la reserva en formData: ", formData);
         if(aceptoTerminos){
             // enviar POST
-            const reserva = {precio, numeroDias: rentalData["numeroDiasReservados"],
+            const reserva = {precioPorDia: precio, numeroDias: rentalData["numeroDiasReservados"],
                 totalReserva: rentalData["totalReserva"], vehiculoId: datosvehiculoElegido["id"],
                 vehiculoMarcaModelo: datosvehiculoElegido["marcay_modelo_vehiculo"], fechaHoraIni: rentalData["fechaHoraIni"],
                 fechaHoraFin: rentalData["fechaHoraFin"], ciudadesVehiculo: rentalData["ciudadesVehiculo"],
@@ -148,9 +149,9 @@ const FinalizarReserva = ({ results }) => {
             // Función para verificar que un objeto no tenga propiedades nulas o vacías
             if (isObjectValid(reserva) && isObjectValid(conductorFormulario)) {
                 console.log("objetos enviados Validos! Llamada a PostData()");
-                PostData(reserva, conductorFormulario);
-                setStage(1);
-            } else {
+                 PostData(reserva, conductorFormulario, setStage);
+                //setStage(1);
+            } else {              
                 showAlertKoForm();//console.error("reserva or conductorFormulario contains null or empty fields.");
 
             }
@@ -176,18 +177,20 @@ const FinalizarReserva = ({ results }) => {
     };
 
     return (
-        // /finalizarReserva
-        // <main>
-        <>
-            {/* <!--Elección--> */}
-            {/* <!--Elección--> */}
-            <section className="contenedor__eleccion">
-                <div className="contenedor__eleccion__tu">
-                    <h3 className="contenedor__eleccion-parrafo">Finalización de la reserva</h3>
-                </div>
-            </section>
-            {/* <!--Coche Tesla--> */}
-            {/* <section className="contenedor__caja__vehiculos__tesla" id="vehiculos">
+      // /finalizarReserva
+      // <main>
+      <>
+        {/* <!--Elección--> */}
+        {/* <!--Elección--> */}
+        <section className="contenedor__eleccion">
+          <div className="contenedor__eleccion__tu">
+            <h3 className="contenedor__eleccion-parrafo">
+              Finalización de la reserva
+            </h3>
+          </div>
+        </section>
+        {/* <!--Coche Tesla--> */}
+        {/* <section className="contenedor__caja__vehiculos__tesla" id="vehiculos">
                 <div className="contenedor__caja__vehiculos__dinamico__tesla">
                     <div className="caja__tesla">
                         <a href="teslaCaracteristicas.html" className="caja__tesla__imagen">
@@ -227,327 +230,375 @@ const FinalizarReserva = ({ results }) => {
                     </div>
                 </section>
             </section> */}
-            { vehiculoElegido }
-            {/* <!--contenedor__caja de imagenes Coche--> */}
+        {vehiculoElegido}
+        {/* <!--contenedor__caja de imagenes Coche--> */}
 
-            {/* Zustand */}
-            {/* {"TODO Zustand: "+ JSON.stringify(carData)}   carData.vehiculoId   */}
-            {"datosvehiculoElegido "+ JSON.stringify(datosvehiculoElegido)} 
-            {/* {"TODO Zustand: "+ JSON.stringify(cardVehicleData)}  */}
-            {/* {"Algunos: "+ JSON.stringify(cardVehicleData.vehiculoId) + JSON.stringify(cardVehicleData.vehiculoMarcaModelo)+ ", "+
+        {/* Zustand */}
+        {/* {"TODO Zustand: "+ JSON.stringify(carData)}   carData.vehiculoId   */}
+        {/* {"datosvehiculoElegido " + JSON.stringify(datosvehiculoElegido)} */}
+        {/* {"TODO Zustand: "+ JSON.stringify(cardVehicleData)}  */}
+        {/* {"Algunos: "+ JSON.stringify(cardVehicleData.vehiculoId) + JSON.stringify(cardVehicleData.vehiculoMarcaModelo)+ ", "+
                           JSON.stringify(cardVehicleData.fechaHoraIni) + JSON.stringify(cardVehicleData.fechaHoraFin)+ ", "+
                           JSON.stringify(cardVehicleData.ciudadesVehiculo) + JSON.stringify(cardVehicleData.ciudadesDevolverVehiculo)+", "+
                           JSON.stringify(cardVehicleData.numeroDiasReservados) + JSON.stringify(cardVehicleData.precioPorDia)+", "+
                           JSON.stringify(cardVehicleData.numPlazas) + JSON.stringify(cardVehicleData.totalReserva) }              */}
-            {" , rentalData Zustand: "+ JSON.stringify(rentalData)}
+        {/* {" , rentalData Zustand: " + JSON.stringify(rentalData)} */}
 
-            {/* <!--FORMULARIO luego de imagen Coche--> */}
-            <section className="contenedor-form" style={{display: stage===0 ? 'flex' : 'none'}}>
-                <div className="contenedor__form">
-                    <div className="contenedor__form__cabeza">
-                        <h2>Datos del conductor principal</h2>
-                    </div>
-                    {/* seguir https://codesandbox.io/p/sandbox/form-reservar-wr54px?file=%2Fsrc%2FApp.js%3A22%2C31-22%2C39 */}
-                    <form /*action=""*/ id="form" className="form" /*onSubmit={handleSubmit(onSubmit)}*/ onSubmit={handleSubmit(handleSubmitForm)}>
-                        {/* Nombre */}
-                        <div className="form__grupo" id="grupo__nombre">
-                            <label htmlFor="nombre" className="form__label">
-                                * Nombre
-                            </label>
-                            <div className="form__grupo-input">
-                                {/* <input
+        {/* <!--FORMULARIO luego de imagen Coche--> */}
+        <section
+          className="contenedor-form"
+          style={{ display: stage === 0 ? "flex" : "none" }}
+        >
+          <div className="contenedor__form">
+            <div className="contenedor__form__cabeza">
+              <h2>Datos del conductor principal</h2>
+            </div>
+            {/* seguir https://codesandbox.io/p/sandbox/form-reservar-wr54px?file=%2Fsrc%2FApp.js%3A22%2C31-22%2C39 */}
+            <form
+              /*action=""*/ id="form"
+              className="form"
+              /*onSubmit={handleSubmit(onSubmit)}*/ onSubmit={handleSubmit(
+                handleSubmitForm
+              )}
+            >
+              {/* Nombre */}
+              <div className="form__grupo" id="grupo__nombre">
+                <label htmlFor="nombre" className="form__label">
+                  * Nombre
+                </label>
+                <div className="form__grupo-input">
+                  {/* <input
                                     type="text"
                                     className="form__input"
                                     name="nombre"
                                     id="nombre"
                                     placeholder="felipe"
                                 /> */}
-                                <input
-                                    className="form__input"
-                                    name="nombre"
-                                    //id="nombre"
-                                    placeholder="felipe"
-                                    /*defaultValue="Alberto"*/
-                                    {...register("firstName", {
-                                        required: true,
-                                        maxLength: 40,
-                                        pattern: /^[A-Za-z]+$/i,
-                                    })}
-                                    //value={formData.nombre}
-                                    onChange={handleInputChange}
-                                />
-                                {/* {
+                  <input
+                    className="form__input"
+                    name="nombre"
+                    //id="nombre"
+                    placeholder="felipe"
+                    /*defaultValue="Alberto"*/
+                    {...register("firstName", {
+                      required: true,
+                      maxLength: 40,
+                      pattern: /^[A-Za-z]+$/i,
+                    })}
+                    //value={formData.nombre}
+                    onChange={handleInputChange}
+                  />
+                  {/* {
                                     ErrorsMap.firstName[errors?.firstName?.type] !== undefined && (
                                         <p>{ErrorsMap.firstName[errors?.firstName?.type]}</p>
                                     )
                                 } */}
-                                {errors?.firstName?.type === "required" && (
-                                    <p>El nombre no puede estar vacio</p>
-                                )}
-                                {errors?.firstName?.type === "maxLength" && (
-                                    <p>Nombre hasta 40 carácteres</p>
-                                )}
-                                {errors?.firstName?.type === "pattern" && (
-                                    <p>Caracteres alfabéticos sólo</p>
-                                )}
-                                <img className="form__validacion-estado" alt="Validación de estado" />
-                            </div>
-                            {/* <p className="form__input-error">El nombre no puede estar vacío</p> */}
-                        </div>
-                        {/* Apellidos */}
-                        <div className="form__grupo" id="grupo__apellidos">
-                            <label htmlFor="apellido" className="form__label">
-                                * Apellidos
-                            </label>
-                            <div className="form__grupo-input">
-                                {/* <input
-                                    type="text"
-                                    className="form__input"
-                                    name="apellidos"
-                                    id="apellidos"
-                                    placeholder="garcia lorca"
-                                /> */}
-                                <input
-                                    className="form__input"
-                                    name="apellidos"
-                                    id="apellidos"
-                                    placeholder="garcia lorca"
-                                    {...register("lastName", {
-                                        required: true,
-                                        pattern: /^[A-Za-z]{3,50} [A-Za-z]{3,70}$/i,
-                                    })}
-                                    onChange={handleInputChange}
-                                />
-                                {errors?.lastName?.type === "required" && <p>Introduce tus apellidos</p>}
-                                {errors?.lastName?.type === "pattern" && <p>Deben ser dos apellidos</p>}
-                                <img className="form__validacion-estado" alt="Validación de estado" />
-                            </div>
-                            {/* <p className="form__input-error">Deben ser dos apellidos</p> */}
-                        </div>
-                        {/* DNI */}
-                        <div className="form__grupo" id="grupo__dni">
-                            <label htmlFor="dni" className="form__label">
-                                * DNI
-                            </label>
-                            <div className="form__grupo-input">
-                                {/* <input
-                                    type="text"
-                                    className="form__input"
-                                    name="dni"
-                                    id="dni"
-                                    placeholder="46361585W"
-                                /> */}
-                                <input
-                                    className="form__input"
-                                    name="dni"
-                                    id="dni"
-                                    placeholder="46361585W"
-                                    {...register("dni", {
-                                        required: true,
-                                        pattern: /^\d{8}[a-zA-Z]$/i,
-                                    })}
-                                    onChange={handleInputChange}
-                                />
-                                 {errors?.lastName?.type === "required" && <p>Introduce tu documento</p>}
-                                {errors?.dni?.type === "pattern" && <p>Completa el DNI y no pongas - </p>}
-                                <img className="form__validacion-estado" alt="Validación de estado" />
-                            </div>
-                            {/* <p className="form__input-error">Completa el DNI y no pongas -</p> */}
-                        </div>
-                        {/* Teléfono */}
-                        <div className="form__grupo" id="grupo__telefono">
-                            <label htmlFor="telefono" className="form__label">
-                                * Teléfono
-                            </label>
-                            <div className="form__grupo-input">
-                                {/* <input
-                                    type="number"
-                                    className="form__input"
-                                    name="telefono"
-                                    id="telefono"
-                                    placeholder="665842987"
-                                /> */}
-                                <input
-                                    type="number"
-                                    className="form__input"
-                                    name="telefono"
-                                    id="telefono"
-                                    placeholder="665842987"
-                                    {...register("telephone", {
-                                        required: true,
-                                        pattern: /^\d{9}$/i,
-                                    })}
-                                    onChange={handleInputChange}
-                                />
-                                {errors?.telephone?.type === "pattern" && <p>Debe de haber 9 dígitos</p>}
-                                <img className="form__validacion-estado" alt="Validación de estado" />
-                            </div>
-                            {/* <p className="form__input-error">Debe haber 9 dígitos</p> */}
-                        </div>
-                        {/* Email */}
-                        <div className="form__grupo" id="grupo__email">
-                            <label htmlFor="email" className="form__label">
-                                Email
-                            </label>
-                            <div className="form__grupo-input">
-                                {/* <input
-                                    type="email"
-                                    className="form__input"
-                                    name="email"
-                                    id="email"
-                                    placeholder="felipe@gma.com"
-                                /> */}
-                                <input
-                                    type="email"
-                                    className="form__input"
-                                    name="email"
-                                    id="email"
-                                    placeholder="felipe@gma.com"
-                                    {...register("email", {
-                                        required: true,
-                                        pattern:
-                                            /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i,
-                                    })}
-                                    onChange={handleInputChange}
-                                />
-                                {errors?.email?.type === "pattern" && <p>Completa el email</p>}
-                                <img className="form__validacion-estado" alt="Validación de estado" />
-                            </div>
-                            {/* <p className="form__input-error">Completa el email</p> */}
-                        </div>
-                        {/* Comentarios */}
-                        <div className="comentario__texto">
-                            <label htmlFor="comentario">Comentarios</label>
-                            {/* aja  rows="3" cols="65"  */}
-                            <textarea onChange={handleInputChange} name="comentarios"></textarea>
-                        </div>
-                        {/* Términos */}
-                        <div className="" id="grupo__terminos">
-                            <label className="">
-                                <p>
-                                    <input
-                                        type="checkbox"
-                                        className="cajaBox form__checkbox"
-                                        name="terminos"
-                                        id="terminos"
-                                        {...register('terminos')}  //  saber valor del checkbox de acepto condiciones
-                                    />
-                                    Acepto la{' '}
-                                    <span style={{ color: 'blue' }}>política de privacidad</span> y el
-                                    envío de comunicaciones informativas
-                                </p>
-                            </label>
-                        </div>
-                        {/* extra aja:  saber valor del checkbox de acepto condiciones */}
-                        {/* usar la variable "aceptoTerminos" para verificar si el checkbox está marcado */}
-                        {/* {aceptoTerminos ? "" : <p>-----El checkbox no está marcado. Debes aceptar las condiciones.</p>} */}
-                        {!aceptoTerminos ? <p style={{ color: "red", textAlign: "center" }}>El checkbox no está marcado. Debes aceptar las condiciones.</p> : ""}
-                        <button className="boton__enviar__formulario" /*onClick={onSubmit}*/ 
-                                style={{ backgroundColor: aceptoTerminos ? '' : 'gray' }}
-                                disabled={!aceptoTerminos}>Guardar datos</button> 
-                                                                                            {/* Deshabilita el botón si no se aceptan los términos */}
-                    </form>
+                  {errors?.firstName?.type === "required" && (
+                    <p>El nombre no puede estar vacio</p>
+                  )}
+                  {errors?.firstName?.type === "maxLength" && (
+                    <p>Nombre hasta 40 carácteres</p>
+                  )}
+                  {errors?.firstName?.type === "pattern" && (
+                    <p>Caracteres alfabéticos sólo</p>
+                  )}
+                  <img
+                    className="form__validacion-estado"
+                    alt="Validación de estado"
+                  />
                 </div>
-            </section>
+                {/* <p className="form__input-error">El nombre no puede estar vacío</p> */}
+              </div>
+              {/* Apellidos */}
+              <div className="form__grupo" id="grupo__apellidos">
+                <label htmlFor="apellido" className="form__label">
+                  * Apellidos
+                </label>
+                <div className="form__grupo-input">
+                  {/* <input
+                                    type="text"
+                                    className="form__input"
+                                    name="apellidos"
+                                    id="apellidos"
+                                    placeholder="garcia lorca"
+                                /> */}
+                  <input
+                    className="form__input"
+                    name="apellidos"
+                    id="apellidos"
+                    placeholder="garcia lorca"
+                    {...register("lastName", {
+                      required: true,
+                      pattern: /^[A-Za-z]{3,50} [A-Za-z]{3,70}$/i,
+                    })}
+                    onChange={handleInputChange}
+                  />
+                  {errors?.lastName?.type === "required" && (
+                    <p>Introduce tus apellidos</p>
+                  )}
+                  {errors?.lastName?.type === "pattern" && (
+                    <p>Deben ser dos apellidos</p>
+                  )}
+                  <img
+                    className="form__validacion-estado"
+                    alt="Validación de estado"
+                  />
+                </div>
+                {/* <p className="form__input-error">Deben ser dos apellidos</p> */}
+              </div>
+              {/* DNI */}
+              <div className="form__grupo" id="grupo__dni">
+                <label htmlFor="dni" className="form__label">
+                  * DNI
+                </label>
+                <div className="form__grupo-input">
+                  {/* <input
+                                    type="text"
+                                    className="form__input"
+                                    name="dni"
+                                    id="dni"
+                                    placeholder="46361585W"
+                                /> */}
+                  <input
+                    className="form__input"
+                    name="dni"
+                    id="dni"
+                    placeholder="46361585W"
+                    {...register("dni", {
+                      required: true,
+                      pattern: /^\d{8}[a-zA-Z]$/i,
+                    })}
+                    onChange={handleInputChange}
+                  />
+                  {errors?.lastName?.type === "required" && (
+                    <p>Introduce tu documento</p>
+                  )}
+                  {errors?.dni?.type === "pattern" && (
+                    <p>Completa el DNI y no pongas - </p>
+                  )}
+                  <img
+                    className="form__validacion-estado"
+                    alt="Validación de estado"
+                  />
+                </div>
+                {/* <p className="form__input-error">Completa el DNI y no pongas -</p> */}
+              </div>
+              {/* Teléfono */}
+              <div className="form__grupo" id="grupo__telefono">
+                <label htmlFor="telefono" className="form__label">
+                  * Teléfono
+                </label>
+                <div className="form__grupo-input">
+                  {/* <input
+                                    type="number"
+                                    className="form__input"
+                                    name="telefono"
+                                    id="telefono"
+                                    placeholder="665842987"
+                                /> */}
+                  <input
+                    type="number"
+                    className="form__input"
+                    name="telefono"
+                    id="telefono"
+                    placeholder="665842987"
+                    {...register("telephone", {
+                      required: true,
+                      pattern: /^\d{9}$/i,
+                    })}
+                    onChange={handleInputChange}
+                  />
+                  {errors?.telephone?.type === "pattern" && (
+                    <p>Debe de haber 9 dígitos</p>
+                  )}
+                  <img
+                    className="form__validacion-estado"
+                    alt="Validación de estado"
+                  />
+                </div>
+                {/* <p className="form__input-error">Debe haber 9 dígitos</p> */}
+              </div>
+              {/* Email */}
+              <div className="form__grupo" id="grupo__email">
+                <label htmlFor="email" className="form__label">
+                  Email
+                </label>
+                <div className="form__grupo-input">
+                  {/* <input
+                                    type="email"
+                                    className="form__input"
+                                    name="email"
+                                    id="email"
+                                    placeholder="felipe@gma.com"
+                                /> */}
+                  <input
+                    type="email"
+                    className="form__input"
+                    name="email"
+                    id="email"
+                    placeholder="felipe@gma.com"
+                    {...register("email", {
+                      required: true,
+                      pattern:
+                        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i,
+                    })}
+                    onChange={handleInputChange}
+                  />
+                  {errors?.email?.type === "pattern" && (
+                    <p>Completa el email</p>
+                  )}
+                  <img
+                    className="form__validacion-estado"
+                    alt="Validación de estado"
+                  />
+                </div>
+                {/* <p className="form__input-error">Completa el email</p> */}
+              </div>
+              {/* Comentarios */}
+              <div className="comentario__texto">
+                <label htmlFor="comentario">Comentarios</label>
+                {/* aja  rows="3" cols="65"  */}
+                <textarea
+                  onChange={handleInputChange}
+                  name="comentarios"
+                ></textarea>
+              </div>
+              {/* Términos */}
+              <div className="" id="grupo__terminos">
+                <label className="">
+                  <p>
+                    <input
+                      type="checkbox"
+                      className="cajaBox form__checkbox"
+                      name="terminos"
+                      id="terminos"
+                      {...register("terminos")} //  saber valor del checkbox de acepto condiciones
+                    />
+                    Acepto la{" "}
+                    <span style={{ color: "blue" }}>
+                      política de privacidad
+                    </span>{" "}
+                    y el envío de comunicaciones informativas
+                  </p>
+                </label>
+              </div>
+              {/* extra aja:  saber valor del checkbox de acepto condiciones */}
+              {/* usar la variable "aceptoTerminos" para verificar si el checkbox está marcado */}
+              {/* {aceptoTerminos ? "" : <p>-----El checkbox no está marcado. Debes aceptar las condiciones.</p>} */}
+              {!aceptoTerminos ? (
+                <p style={{ color: "red", textAlign: "center" }}>
+                  El checkbox no está marcado. Debes aceptar las condiciones.
+                </p>
+              ) : (
+                ""
+              )}
+              <button
+                className="boton__enviar__formulario" /*onClick={onSubmit}*/
+                style={{ backgroundColor: aceptoTerminos ? "" : "gray" }}
+                disabled={!aceptoTerminos}
+              >
+                Guardar datos
+              </button>
+              {/* Deshabilita el botón si no se aceptan los términos */}
+            </form>
+          </div>
+        </section>
 
-            {/* <!--FORMULARIO TARJETA DE PAGO--> */}
-            <StripeForm />
-            
+        {/* <!--FORMULARIO TARJETA DE PAGO--> */}
+        {/* <StripeForm /> */}         
+            <Payment email={formData.email} hidden={stage===0}/>
+        
 
+        {/* </main> */}
+      </>
+      /* <!--FORMULARIO TARJETA DE PAGO--> */
+      // <section class="contenedor-form-tarjeta">
+      //     <div class="contenedor__form__tarjeta">
+      //         <div class="contenedor__form__cabeza__tarjeta">
+      //             <h2>Forma de pago</h2>
+      //         </div>
+      //         <form action="" class="formulario" id="formulario">
+      //             {/* <!--Nombre del titular de la tarjeta --> */}
+      //             <div class="formulario__grupo" id="grupo__nombreTarjeta">
+      //                 <label for="nombreTarjeta" class="formulario__label">Nombre del titular de la tarjeta <span style="color: red;">*</span></label>
+      //                 <div class="formulario__grupo-input">
+      //                     <input type="text" class="formulario__input" name="nombreTarjeta" id="nombreTarjeta" placeholder="Felipe Garcia Lorca">
+      //                     <img  class="formulario__validacion-estado">
+      //                 </div>
+      //                 <p class="formulario__input-error">El nombre de la tarjeta no puede estar vacio</p>
+      //             </div>
 
+      //             {/* <!--Número de la tarjeta --> */}
+      //             <div class="formulario__grupo" id="grupo__numeroTarjeta">
+      //                 <label for="numeroTarjeta" class="formulario__label">Número de la tarjeta <span style="color: red;">*</span></label>
+      //                 <div class="formulario__grupo-input">
+      //                     <input type="text" class="formulario__input" name="numeroTarjeta" id="numeroTarjeta" placeholder="5458 6359 2586 4236">
+      //                     <img  class="formulario__validacion-estado">
+      //                 </div>
+      //                 <p class="formulario__input-error">Completa el número de tarjeta, utiliza espacios xxxx xxxx xxxx xxxx</p>
+      //             </div>
 
+      //             {/* <!--Fecha de caducidad --> */}
+      //             <div class="formulario__grupo" id="grupo__fechaCaducidad">
+      //                 <label for="fechaCaducidad" class="formulario__label">Fecha de caducidad <span style="color: red;">*</span></label>
+      //                 <div class="formulario__grupo-input">
+      //                     <input type="text" class="formulario__input" name="fechaCaducidad" id="fechaCaducidad" placeholder="MM / AA">
+      //                     <img  class="formulario__validacion-estado">
+      //                 </div>
+      //                 <p class="formulario__input-error">Completa el número de tarjeta, utiliza barra sin espacio MM/AA</p>
+      //             </div>
 
-            {/* </main> */}
-        </>
-        /* <!--FORMULARIO TARJETA DE PAGO--> */
-        // <section class="contenedor-form-tarjeta">
-        //     <div class="contenedor__form__tarjeta">
-        //         <div class="contenedor__form__cabeza__tarjeta">
-        //             <h2>Forma de pago</h2>
-        //         </div>
-        //         <form action="" class="formulario" id="formulario">
-        //             {/* <!--Nombre del titular de la tarjeta --> */}
-        //             <div class="formulario__grupo" id="grupo__nombreTarjeta">
-        //                 <label for="nombreTarjeta" class="formulario__label">Nombre del titular de la tarjeta <span style="color: red;">*</span></label>
-        //                 <div class="formulario__grupo-input">
-        //                     <input type="text" class="formulario__input" name="nombreTarjeta" id="nombreTarjeta" placeholder="Felipe Garcia Lorca">
-        //                     <img  class="formulario__validacion-estado">
-        //                 </div>
-        //                 <p class="formulario__input-error">El nombre de la tarjeta no puede estar vacio</p>
-        //             </div>
+      //             {/* <!--CVC --> */}
+      //             <div class="formulario__grupo" id="grupo__cvc">
+      //                 <label for="cvc" class="formulario__label">CVC <span style="color: red;">*</span></label>
+      //                 <div class="formulario__grupo-input">
+      //                     <input type="number" class="formulario__input" name="cvc" id="cvc" placeholder="123">
+      //                     <img  class="formulario__validacion-estado">
+      //                 </div>
+      //                 <p class="formulario__input-error">Completa el cvc de la tarjeta con 3 dígitos</p>
+      //             </div>
 
-        //             {/* <!--Número de la tarjeta --> */}
-        //             <div class="formulario__grupo" id="grupo__numeroTarjeta">
-        //                 <label for="numeroTarjeta" class="formulario__label">Número de la tarjeta <span style="color: red;">*</span></label>
-        //                 <div class="formulario__grupo-input">
-        //                     <input type="text" class="formulario__input" name="numeroTarjeta" id="numeroTarjeta" placeholder="5458 6359 2586 4236">
-        //                     <img  class="formulario__validacion-estado">
-        //                 </div>
-        //                 <p class="formulario__input-error">Completa el número de tarjeta, utiliza espacios xxxx xxxx xxxx xxxx</p>
-        //             </div>
+      //              {/* <!--Desglose del precio del moto--> */}
+      //             <section class="contenedor__desglose">
+      //             <div class="contenedor__desglose__precioCoche">
+      //                 <h3 class="contenedor__desglose__precioCoche-parrafo">Desglose del precio del coche</h3>
+      //             </div>
+      //             </section>
+      //             <section class="contenedor__desglose__total">
+      //                 <div class="contenedor__desglose__total__precio">
+      //                     <div class="contenedor__desglose__total__precio-parrafo">Precio del alquiler</div>
+      //                     <div class="contenedor__desglose__total__precio-parrafo">159€</div>
+      //                 </div>
+      //             </section>
+      //             <section class="contenedor__desglose__total__final">
+      //                 <div class="contenedor__desglose__total__final__precio">
+      //                     <div class="contenedor__desglose__total__final__precio-parrafoDia">Precio por <span>1</span> día:</div>
+      //                     <div class="contenedor__desglose__total__final__precio-parrafo"><span>159</span>€</div>
+      //                 </div>
+      //             </section>
+      //             {/* <!--Términos y condiciones--> */}
+      //             <section class="contenedor__terminos">
+      //                 <div class="contenedor__terminos__condiciones">
+      //                     <div class="contenedor__terminos__condiciones__cabeza">
+      //                         <h2>Términos y condiciones</h2>
+      //                         <div>
+      //                             <p class="contenedor__terminos__condiciones-p">Al hacer clic en "Reservar", confirmas que has leído y que comprendes y aceptas nuestros <span style="color: blue;">Términos generales</span>, las <span style="color: blue;">Condiciones de la póliza</span> y las <span style="color: blue;">Condiciones del alquiler de e-Fast</span>.</p>
+      //                             </div>
+      //                     </div>
+      //             </section>
+      //                 {/* <!--Boton Reservar--> */}
+      //             <section class="contenedor__boton__reserva">
+      //                 <div class="contenedor__boton__reserva__final">
+      //                     <a href="" class="contenedor__boton"><!-- link-->
+      //                         <button type="submit" formaction="teslaReservaFinalizada.html" class="contenedor__boton-forma">Confirmar pago</div>
+      //                     </a>
+      //                 </div>
+      //             </section>
+      //         </form>
+      //     </div>
+      // </section>
 
-        //             {/* <!--Fecha de caducidad --> */}
-        //             <div class="formulario__grupo" id="grupo__fechaCaducidad">
-        //                 <label for="fechaCaducidad" class="formulario__label">Fecha de caducidad <span style="color: red;">*</span></label>
-        //                 <div class="formulario__grupo-input">
-        //                     <input type="text" class="formulario__input" name="fechaCaducidad" id="fechaCaducidad" placeholder="MM / AA">
-        //                     <img  class="formulario__validacion-estado">
-        //                 </div>
-        //                 <p class="formulario__input-error">Completa el número de tarjeta, utiliza barra sin espacio MM/AA</p>
-        //             </div>
-
-        //             {/* <!--CVC --> */}
-        //             <div class="formulario__grupo" id="grupo__cvc">
-        //                 <label for="cvc" class="formulario__label">CVC <span style="color: red;">*</span></label>
-        //                 <div class="formulario__grupo-input">
-        //                     <input type="number" class="formulario__input" name="cvc" id="cvc" placeholder="123">
-        //                     <img  class="formulario__validacion-estado">
-        //                 </div>
-        //                 <p class="formulario__input-error">Completa el cvc de la tarjeta con 3 dígitos</p>
-        //             </div>
-
-        //              {/* <!--Desglose del precio del moto--> */}
-        //             <section class="contenedor__desglose">
-        //             <div class="contenedor__desglose__precioCoche">
-        //                 <h3 class="contenedor__desglose__precioCoche-parrafo">Desglose del precio del coche</h3>
-        //             </div> 
-        //             </section>
-        //             <section class="contenedor__desglose__total">
-        //                 <div class="contenedor__desglose__total__precio">
-        //                     <div class="contenedor__desglose__total__precio-parrafo">Precio del alquiler</div>
-        //                     <div class="contenedor__desglose__total__precio-parrafo">159€</div>
-        //                 </div> 
-        //             </section>
-        //             <section class="contenedor__desglose__total__final">
-        //                 <div class="contenedor__desglose__total__final__precio">
-        //                     <div class="contenedor__desglose__total__final__precio-parrafoDia">Precio por <span>1</span> día:</div>
-        //                     <div class="contenedor__desglose__total__final__precio-parrafo"><span>159</span>€</div>
-        //                 </div> 
-        //             </section>
-        //             {/* <!--Términos y condiciones--> */}
-        //             <section class="contenedor__terminos">
-        //                 <div class="contenedor__terminos__condiciones">
-        //                     <div class="contenedor__terminos__condiciones__cabeza">
-        //                         <h2>Términos y condiciones</h2>
-        //                         <div>
-        //                             <p class="contenedor__terminos__condiciones-p">Al hacer clic en "Reservar", confirmas que has leído y que comprendes y aceptas nuestros <span style="color: blue;">Términos generales</span>, las <span style="color: blue;">Condiciones de la póliza</span> y las <span style="color: blue;">Condiciones del alquiler de e-Fast</span>.</p>
-        //                             </div>
-        //                     </div>
-        //             </section>
-        //                 {/* <!--Boton Reservar--> */}
-        //             <section class="contenedor__boton__reserva">
-        //                 <div class="contenedor__boton__reserva__final">
-        //                     <a href="" class="contenedor__boton"><!-- link-->
-        //                         <button type="submit" formaction="teslaReservaFinalizada.html" class="contenedor__boton-forma">Confirmar pago</div>
-        //                     </a>
-        //                 </div>
-        //             </section>
-        //         </form>
-        //     </div>
-        // </section>     
-
-        // </main>
-
+      // </main>
     );
 };
 

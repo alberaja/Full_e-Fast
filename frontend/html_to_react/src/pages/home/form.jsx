@@ -328,9 +328,9 @@ console.log({selectedVehicleTypes}, selectedVehicleTypes);
 
    // forma2 de enviar valores de fecha-hora a /busquedaVehiculos
    const [forms, setForms] = useState({
-    timeStart: '00:07',
+    timeStart: '07:00',
     dateStart: '',
-    timeEnd: '00:00',
+    timeEnd: '20:00',
     dateEnd: ''
    })
 
@@ -374,11 +374,11 @@ console.log({selectedVehicleTypes}, selectedVehicleTypes);
    const [date, setDate] = useState();
 
   return (   
-  <form
+  <div //form
       action=""
       className="w-[90%] sm:w-[70%] flex p-5 border border-gray-800 m-4 rounded-xl bg-gray-300 justify-between mx-auto flex-col xl:flex-row"
-    >      
-      <h5>URL compuesta: {parseURL(params.toString())}</h5>{" "}
+      onSubmit={(e)=> e.preventDefault()}>      
+      {/* <h5>URL compuesta: {parseURL(params.toString())}</h5>{" "} */}
       {/* <h5>URL newParams: {parseURL(newParams.toString())}</h5>{" "} */}
       {/* aja: .sin_position : quitar la position: absolute; de .jobs_parrafo */}
        <h1 className="jobs_parrafo sin_position">Tu vehículo eléctrico de alquiler</h1>
@@ -511,7 +511,7 @@ console.log({selectedVehicleTypes}, selectedVehicleTypes);
           Buscar Vehiculos
           </button> 
       </div> */}
-    </form>     
+    </div>  //form>     
     
   );
 }
