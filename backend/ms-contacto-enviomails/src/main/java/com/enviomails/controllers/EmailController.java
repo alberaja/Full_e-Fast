@@ -15,7 +15,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 //@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/efast/v1")
-@Tag(name = "send email", description = "API Documentation for sending HTML template contact form using Google SMTP service in eFast web app")
+@Tag(name = "send email", description = "API Documentation for sending HTML template contact form using Google SMTP service in eFast web app. Also for confirming the received order to the customer")
 public class EmailController {
 
 	@Autowired
