@@ -20,7 +20,7 @@ import com.efast.backend.model.Reserva;
 import com.efast.backend.services.ReservaService;
 
 @RestController
-@RequestMapping("/api/reservas")
+@RequestMapping("/api/efast/v1/reservas")
 @CrossOrigin(origins = "*" )
 public class ReservaController {
     @Autowired
