@@ -4,7 +4,7 @@ const GetBrands = ({ onDataFetch }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:8762/elastic-efast/api/efast/v1/propiedades', {
+        const response = await fetch('http://localhost:8762/elastic-efast/api/efast/v1/tiposMarcas', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

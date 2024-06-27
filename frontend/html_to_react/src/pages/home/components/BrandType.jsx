@@ -85,7 +85,8 @@ export function BrandType({callback}) {
       {brand.value} {brand.quantity}
     </li>
   ))} */} 
-   {data ? (
+   {/*ok para /tiposMarcasconAggregates
+     {data ? (
         data?.map((item, index) => (
           <div key={index}>
             {item?.tiposMarcas?.map((brand, idx) => (
@@ -106,7 +107,35 @@ export function BrandType({callback}) {
               }}
               > 
                             
-                {brand.valor}    {brand.numVehiculos}
+                {brand.valor}    
+              </li>
+            ))}
+          </div>
+        ))
+      ) : (
+        <p>Loading...</p>
+      )} */}
+      {data ? (
+        data?.map((item, index) => (
+          <div key={index}>
+            {item?.tiposMarcas?.map((brand, idx) => (
+              <li
+                className={`cursor-pointer hover:bg-gray-400 ${
+                  selectedBrands.includes(brand) ? 'bg-blue-500 text-white' : ''
+                }`}
+                key={idx}
+                onClick={() => {
+                  callback(brand);
+                  setSelectedBrands((prevSelectedBrands) => {
+                    if (prevSelectedBrands.includes(brand)) {
+                      return prevSelectedBrands.filter((b) => b !== brand);
+                    } else {
+                      return [...prevSelectedBrands, brand];
+                    }
+                  });
+                }}
+              >
+                {brand}
               </li>
             ))}
           </div>
