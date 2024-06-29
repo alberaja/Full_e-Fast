@@ -3,6 +3,9 @@ package com.efast.backend.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -44,11 +47,13 @@ public class Reserva implements Serializable {
 	 	@ManyToOne
 	 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	    @JoinColumn(name = "vehiculo_id" /*, nullable = false*/)
-	    private Vehiculo  vehiculoId;  //Set<Vehiculo>. necesario set para poder usarlo luego al hacer .save(entidad)
+	 	@JsonIgnore 	 	// necesario para GET
+	 	private Vehiculo  vehiculoId;  //Set<Vehiculo>. necesario set para poder usarlo luego al hacer .save(entidad)
 
 	    @ManyToOne
 	    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-	    @JoinColumn(name = "conductor_id" /*, nullable = false*/)
+	    @JoinColumn(name = "conductor_id" , nullable = false /**/)
+	    @JsonIgnore			// necesario para GET
 	    private Conductor conductorId; // Set<Conductor>
 	    
 	    @Column(name = "Comentarios")

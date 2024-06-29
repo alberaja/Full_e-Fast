@@ -2,6 +2,7 @@ package com.efast.backend.services;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,12 +111,20 @@ public class ReservaServiceImpl implements ReservaService {
 //    }
 
 	public ReservaDTO crearReserva1(ReservaRequest reservaRequest) {
-		// 1. Crear o recuperar el conductor
+		if(reservaRequest.getReserva().getFechaHoraIni() == null
+				|| reservaRequest.getReserva().getFechaHoraFin() == null
+				|| reservaRequest.getReserva().getCiudadesVehiculo() == null
+				|| reservaRequest.getReserva().getTotalReserva() == null
+		) {
+			throw new VehiculoNoAlquilableException("Rango de fechas, ciudad origen, totalReserva  deben ser NO nulos!", HttpStatus.METHOD_NOT_ALLOWED);
+		}
+		
+		// 1. Crear o recuperar el vehículo
+		Vehiculo vehiculo = obtenerVehiculo( reservaRequest );
+		
+		// 2. Crear o recuperar el conductor
 //		ConductorDTO conductReserva = modelMapper.map(reservaRequest.getReserva().getConductorId(), ConductorDTO.class);
 		Conductor conductor = obtenerOCrearConductor(reservaRequest.getConductor());
-
-		// 2. Crear o recuperar el vehículo
-		Vehiculo vehiculo = obtenerVehiculo( reservaRequest );
 
 		// 3. Crear la reserva
 		Reserva reserva = new Reserva();
@@ -174,13 +183,22 @@ public class ReservaServiceImpl implements ReservaService {
 //            vehiculo.setPrice(reservaRequest.getReserva().getPrecioPorDia());
 //            vehiculo.setQuantity(1);
 //            vehiculoRepository.save(vehiculo);
-        	throw new VehiculoNoAlquilableException("No existe el Vehiculo para alquilar solicitado!", HttpStatus.CONFLICT);
+        	throw new VehiculoNoAlquilableException("No está cargado en MySQL el Vehiculo para alquilar solicitado!", HttpStatus.CONFLICT);
         } else if(!vehiculo.isAlquilable()) {
-        	throw new VehiculoNoAlquilableException("Vehiculo no disponible para alquilar! (Alquilable=false)", HttpStatus.METHOD_NOT_ALLOWED);
+        	throw new VehiculoNoAlquilableException("Vehiculo NO DISPONIBLE para alquilar! (Alquilable=false)", HttpStatus.METHOD_NOT_ALLOWED);
         }
         
         vehiculo.setAlquilable(false);
         return vehiculo;
     }
 
+//	public Reserva guardarReservaValidandoVehiculoEstaAlquilable(Reserva reserva) throws Exception {
+//		Long vehiculoId = reserva.getVehiculoId().getVehiculo_id();
+//		if (vehiculoRepository.existsById(vehiculoId)) {
+//			if (reservaRepository.findByVehiculoId(vehiculoId) != null) {
+//				throw new Exception("El vehículo ya está asignado a otra reserva.");
+//			}
+//		}
+//		return reservaRepository.save(reserva);
+//	}
 }

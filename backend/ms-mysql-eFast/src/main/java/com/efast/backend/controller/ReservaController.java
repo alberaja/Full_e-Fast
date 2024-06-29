@@ -19,9 +19,12 @@ import com.efast.backend.model.Conductor;
 import com.efast.backend.model.Reserva;
 import com.efast.backend.services.ReservaService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
 @RequestMapping("/api/efast/v1/reservas")
 @CrossOrigin(origins = "*" )
+@Slf4j
 public class ReservaController {
     @Autowired
     private ReservaService reservaService;
@@ -44,7 +47,7 @@ public class ReservaController {
     
     @PostMapping
     public ResponseEntity<ReservaDTO> /*Reserva*/ crearReserva(@RequestBody ReservaRequest reservaDTO) {
-    	System.out.println("NEW BOOKING : "+ reservaDTO.toString() );
+    	log.info("NEW BOOKING : "+ reservaDTO.toString() );
     	return ResponseEntity.status(HttpStatus.CREATED).body(reservaService.crearReserva1(reservaDTO)); 
     }
     

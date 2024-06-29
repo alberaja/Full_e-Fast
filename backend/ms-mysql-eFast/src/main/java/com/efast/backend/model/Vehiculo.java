@@ -29,7 +29,7 @@ import lombok.NoArgsConstructor;
 
 public class Vehiculo implements Serializable {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	//Descomentar para añadir tabla de VehiculosFavoritos   @OneToMany(mappedBy = "vehicleFavId")
 	//@Column(name = "vehicle_id", nullable = false, columnDefinition = "BIGINT default 0")
 	private Long vehiculo_id;//vehiculo_id; vehicle_id
