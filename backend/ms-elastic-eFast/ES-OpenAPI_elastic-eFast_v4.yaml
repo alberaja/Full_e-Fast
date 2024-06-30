@@ -1,0 +1,404 @@
+openapi: 3.0.1
+info:
+  title: Documentation for eFast API
+  description: Documentation for eFast API
+  version: v0
+servers:
+  - url: http://localhost:8088
+    description: Generated server url
+tags:  
+  - name: Aggregations API. UC-02+UC-03
+    description: Documentation for Searching+Filtering menu eFast API
+  - name: Car API
+    description: Documentation for generate random Cars
+  - name: Index API. UC-01
+    description: /index. Documentation for Index endpoints eFast API
+paths:
+  /api/efast/v1/vehiculos:
+    get:
+      tags:
+        - Aggregations API. UC-02+UC-03
+      operationId: findVehiculosAggregates
+      parameters:
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 1
+        - name: tiposElectrico
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: tiposVehiculo
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: cajaCambio
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: numPlazas
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: integer
+              format: int32
+        - name: maximoKm
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: maximoKmStr
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: idVehiculo
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: marcasVehiculo
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: ciudadesVehiculo
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: fechaHoraIni
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: fechaHoraFin
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: ciudadesDevolverVehiculo
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehiculosQueryResponse'
+  
+  /api/efast/v1/tiposVehiculos:
+    get:
+      tags:
+        - Index API. UC-01
+      summary: 'Recuperar las tipos de vehiculos alquilables '
+      description: ' Recuperar las tipos de vehiculos alquilables desde las propiedades de Springboot. '
+      operationId: getTiposVehiculos
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehiculosQueryResponse'
+  /api/efast/v1/tiposMarcas:
+    get:
+      tags:
+        - Index API. UC-01
+      summary: 'Recuperar las marcas de vehiculos alquilables '
+      description: ' Recuperar las marcas de vehiculos alquilables. '
+      operationId: getTiposMarcas
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehiculosQueryResponse'
+
+  
+  /api/efast/v1/ciudadesVehiculo:
+    get:
+      tags:
+        - Index API. UC-01
+      summary: >-
+        UC-01: Recupera todas las ciudades Únicas y posibles de origen (de
+        CiudadesVehiculo) + Alquilable=S
+      description: ' Recuperar las ciudadesDevolverVehiculos a partir del ciudadesVehiculo'
+      operationId: getCiudadesVehiculo
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCitiesDTO'
+  /api/efast/v1/ciudadesDevolverVehiculos:
+    get:
+      tags:
+        - Index API. UC-01
+      summary: >-
+        UC-01: Dado 1  una  CiudadesVehiculo (ej 'Madrid' ) recupere todas las
+        posibles ciudades Únicas y de CiudadesDevolverVehiculos. que CONTENGA la
+        ciudad(ej 'Madrid' aparece en 'CiudadesVehiculo': 'Santa Cruz de
+        Tenerife,Madrid' )   + Alquilable=S   
+      description: ' Recuperar las ciudadesDevolverVehiculos a partir del ciudadesVehiculo'
+      operationId: getCiudadesDevolverVehiculos
+      parameters:
+        - name: nombreCiudadesVehiculo
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseCitiesDTO'
+  /api/efast/v1/random-collection-efast:
+    get:
+      tags:
+        - Car API
+      operationId: randomCarArrayEfast
+      summary: " Generador de vehiculos aleatorios. "
+      description:  " Genera tantos vehiculos como se detalle(en el for)  para el índice detallado(indexName)"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+components:
+  schemas:
+    Caracteristicas:
+      type: object
+      properties:
+        autonomiaKm:
+          type: integer
+          format: int64
+        año:
+          type: integer
+          format: int32
+        cajaCambio:
+          type: string
+        descripcion:
+          type: string
+        etiquetaECO:
+          type: boolean
+        litros:
+          type: integer
+          format: int32
+        maximodeKm:
+          type: integer
+          format: int64
+        numeroBolsasmaletero:
+          type: integer
+          format: int32
+        numPlazas:
+          type: integer
+          format: int32
+        tipoVehiculo:
+          type: string
+        altoConfort:
+          type: boolean
+        altasPrestaciones:
+          type: boolean
+        perfectoEstado:
+          type: boolean
+    Coordinates:
+      type: object
+      properties:
+        lat:
+          type: number
+          format: double
+        lon:
+          type: number
+          format: double
+    Extras:
+      type: object
+      properties:
+        gps:
+          type: boolean
+        sillaBebe:
+          type: boolean
+        proteccionenCarretera:
+          type: boolean
+        exenciondeFranquicia:
+          type: integer
+          format: int32
+        opcionSeguroTodoRiesgo:
+          type: boolean
+    GeoOficina:
+      type: object
+      properties:
+        coordinates:
+          $ref: '#/components/schemas/Coordinates'
+    Precio:
+      type: object
+      properties:
+        por1DiaEuros:
+          type: integer
+          format: int32
+        cancelacionGratis:
+          type: boolean
+        ofertaEspecial:
+          type: boolean
+        precioOferta:
+          type: integer
+          format: int32
+    ResponseVehiculosDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        alquilable:
+          type: string
+        caracteristicas:
+          type: array
+          items:
+            $ref: '#/components/schemas/Caracteristicas'
+        ciudades_vehiculo:
+          type: array
+          items:
+            type: string
+        extras:
+          type: array
+          items:
+            $ref: '#/components/schemas/Extras'
+        fecha_fin:
+          type: string
+        fecha_ini:
+          type: string
+        geo_oficina:
+          $ref: '#/components/schemas/GeoOficina'
+        imagen_url:
+          type: string
+        marca_vehiculo:
+          type: string
+        modelo_vehiculo:
+          type: string
+        marcay_modelo_vehiculo:
+          type: string
+        precio:
+          type: array
+          items:
+            $ref: '#/components/schemas/Precio'
+        tipo_vehiculo:
+          type: string
+        seguro:
+          type: array
+          items:
+            $ref: '#/components/schemas/Seguro'
+    Seguro:
+      type: object
+      properties:
+        CoberturaParcialcolisionFranquiciaQty:
+          type: integer
+          format: int32
+        CoberturaParcialcolisionFranquicia:
+          type: boolean
+        CoberturaRobo:
+          type: boolean
+        CoberturaRobocolisionFranquiciaQty:
+          type: integer
+          format: int32
+    VehiculosQueryResponse:
+      type: object
+      properties:
+        vehiculos:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseVehiculosDTO'
+        aggs:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              additionalProperties:
+                type: object
+        totalHits:
+          type: number
+          format: double
+        totalPages:
+          type: number
+          format: double
+    Car:
+      type: object
+      properties:
+        additional_features:
+          type: array
+          items:
+            type: string
+        available:
+          type: boolean
+        brand:
+          type: string
+        color:
+          type: string
+        fuelType:
+          type: string
+        horsePower:
+          type: integer
+          format: int32
+        serialNum:
+          type: string
+        first_release_date:
+          type: string
+          format: date
+        id:
+          type: string
+        price:
+          type: integer
+          format: int32
+        secret_feature:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        tires:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tire'
+        type:
+          type: string
+    Tire:
+      type: object
+      properties:
+        manufacturer:
+          type: string
+        diameter:
+          type: integer
+          format: int32
+    ResponseCitiesDTO:
+      type: object
+      properties:
+        ciudadesUnicas:
+          uniqueItems: true
+          type: array
+          items:
+            type: string

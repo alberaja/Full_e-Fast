@@ -1,0 +1,415 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: http://localhost:8088
+    description: Generated server url
+tags:
+  - name: Aggregations API. UC-02+UC-03
+    description: Documentation for Searching+Filtering menu eFast API
+  - name: Index API. UC-01
+    description: /index. Documentation for Index endpoints eFast API
+paths:
+  /api/efast/v1/props:
+    get:
+      tags:
+        - Index API. UC-01
+      summary: 'UC-01 ruta correcta: /api/efast/v1/props'
+      description: ' Recuperar las propiedades dinamicas del index'
+      operationId: buscarTiposElectrico
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+  /api/efast/v1/findAggregates:
+    get:
+      tags:
+        - Aggregations API. UC-02+UC-03
+      summary: ' para TESTING(SIN required fields)'
+      description: ' Buscar(UC-02) y filtrar(UC-03) vehiculos disponibles en alquiler. '
+      operationId: findAggregates
+      parameters:
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: tiposElectrico
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: tiposVehiculo
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: cajaCambio
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: numPlazas
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: maximoKm
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: maximoKmStr
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: idVehiculo
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: marcaVehiculo
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: ciudadesVehiculo
+          in: query
+          required: false
+          schema:
+            type: string
+            default: Madrid
+        - name: fechaHoraIni
+          in: query
+          required: true
+          schema:
+            type: string
+            default: 05-03-2024T07:00
+        - name: fechaHoraFin
+          in: query
+          required: true
+          schema:
+            type: string
+            default: 08-03-2024T18:00
+        - name: ciudadesDevolverVehiculo
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+  /api/efast/v1/filter-modal-2:
+    get:
+      tags:
+        - Elastic efast API
+      summary: UC-02 y UC-03
+      description: ' Buscar(UC-02) y filtrar(UC-03) vehiculos disponibles en alquiler.  (filter-modal-2= RF3.1 buscarVehiculos())+ UC-02'
+      operationId: buscarVehiculos
+      parameters:
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: cajaCambio
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: numPlazas
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: tiposElectrico
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: maximoKm
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: maximoKmStr
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: tiposVehiculo
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: marcaVehiculo
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: ciudadesVehiculo
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: fechaHoraIni
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: fechaHoraFin
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: ciudadesDevolverVehiculo
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: aggregate
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+ 
+  /api/efast/v1/cities:
+    get:
+      tags:
+        - Index API. UC-01
+      summary: 'UC-01: RF1.1(1A2b!) y RF1.2(1AA!) ruta correcta: /api/efast/v1/cities?name=?0(&dropOff=true)'
+      description: ' Recuperar las CiudadesVehiculo con findCityCars'
+      operationId: findCityCars
+      parameters:
+        - name: name
+          in: query
+          required: true
+          schema:
+            maxLength: 10
+            minLength: 0
+            type: string
+        - name: dropOff
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+  /api/efast/v1/aggregates:
+    get:
+      tags:
+        - Aggregations API. UC-02+UC-03
+      summary: ' endpoint FINAL'
+      description: ' Buscar(UC-02) y filtrar(UC-03) vehiculos disponibles en alquiler. '
+      operationId: aggregates
+      parameters:
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: tiposElectrico
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: tiposVehiculo
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: cajaCambio
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: numPlazas
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: maximoKm
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: maximoKmStr
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: idVehiculo
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: marcaVehiculo
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: ciudadesVehiculo
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: fechaHoraIni
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: fechaHoraFin
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: ciudadesDevolverVehiculo
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: aggregate
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+  
+components:
+  schemas:
+    Car:
+      type: object
+      properties:
+        additional_features:
+          type: array
+          items:
+            type: string
+        available:
+          type: boolean
+        brand:
+          type: string
+        color:
+          type: string
+        fuelType:
+          type: string
+        horsePower:
+          type: integer
+          format: int32
+        serialNum:
+          type: string
+        first_release_date:
+          type: string
+          format: date
+        id:
+          type: string
+        price:
+          type: integer
+          format: int32
+        secret_feature:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        tires:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tire'
+        type:
+          type: string
+    Tire:
+      type: object
+      properties:
+        manufacturer:
+          type: string
+        diameter:
+          type: integer
+          format: int32

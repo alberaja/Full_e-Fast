@@ -1,0 +1,48 @@
+
+	- Segun opciones seleccionadas:
+{                   
+    "query": {
+        "bool": {
+          "must": [
+            { "term": { "Alquilable": "S" }    },
+            { "terms": {"Caracteristicas.CajaCambio": ["Manual", "Automatico"] } },
+             {"terms": { "Caracteristicas.TipoVehiculo.keyword": ["BEV", "SHEV", "PHEV", "HEV", "MHEV"] } },
+            { "terms": { "TipoVehiculo.keyword":  ["Moto","Coche", "Furgoneta"] }  },
+            {"range": {  "Caracteristicas.Numplazas": { "gte": 5   }  }    },                              
+            {"range": {  "Caracteristicas.MaximodeKm": { "lte": 10000000000   }  }    } 
+            
+          ]
+        }
+      },
+    "fields": [                   // opcional, para seleccionar solo X campos en la respuesta
+        "Caracteristicas.*",       
+        "TipoVehiculo",
+        "Alquilable"
+    ],
+    "_source": false            // opcional, para seleccionar solo X campos en la respuesta   
+    ,"size"   : 0  //agregates solo 
+     ,"aggs": {
+            "tipoVehiculoElectrico": {
+            "terms": { "field": "Caracteristicas.TipoVehiculo.keyword" }
+            },
+            "transmissionTypes": {
+            "terms": { "field": "Caracteristicas.CajaCambio" }
+            },
+            "carTypes": {
+            "terms": { "field": "TipoVehiculo.keyword" }
+            },            
+            "Rangos de Kilómetros Máximos": {
+                    "range": {
+                        "field": "Caracteristicas.MaximodeKm",
+                        "ranges": [
+                            {"key": "Ilimitado", "from": 10000000000},
+                            {"key": "Limitado", "to": 9999999}
+                        ]
+                    }
+            },
+            "maximoNumplazas": {
+            "terms": { "field": "Caracteristicas.Numplazas" }
+            }
+      }
+}
+
