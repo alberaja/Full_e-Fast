@@ -47,99 +47,11 @@ export function BrandType({callback}) {
           onKeyDown={handleEscapeKey}
           onClick={handleOutsideClick}
         >
-        <div>
-  {/* {selectedBrands.map((brand, index) => (
-    <span
-      key={index}
-      className="bg-gray-200 text-gray-700 rounded-md px-2 py-1 mr-2 mb-2 inline-flex items-center cursor-pointer"
-      onClick={() => {
-        setSelectedBrands((prevSelectedBrands) =>
-          prevSelectedBrands.filter((b) => b !== brand)
-        )
-      }
-      }
-    >
-      {brand}
-    </span>
-  ))} */}
+        <div>  
 </div>
 <ul className="w-1/4 my-auto bg-gray-300 p-7 border border-gray-600 rounded-lg divide-y divide-gray-400 relative">  
-  <GetBrands onDataFetch={setData}/>
-  {/* {data.brandTypes.map((brand, index) => (
-    <li
-      className={`cursor-pointer hover:bg-gray-400 ${
-        selectedBrands.includes(brand.value) ? 'bg-blue-500 text-white' : ''
-      }`}
-      key={index}
-      onClick={() => {
-        callback(brand.value)
-        setSelectedBrands((prevSelectedBrands) => {
-          if (prevSelectedBrands.includes(brand.value)) {
-            return prevSelectedBrands.filter((b) => b !== brand.value);
-          } else {
-            return [...prevSelectedBrands, brand.value];
-          }
-        });
-      }}
-    >
-      {brand.value} {brand.quantity}
-    </li>
-  ))} */} 
-   {/*ok para /tiposMarcasconAggregates
-     {data ? (
-        data?.map((item, index) => (
-          <div key={index}>
-            {item?.tiposMarcas?.map((brand, idx) => (
-              <li 
-              className={`cursor-pointer hover:bg-gray-400 ${
-                selectedBrands.includes(brand.valor) ? 'bg-blue-500 text-white' : ''
-              }`}
-              key={idx}
-              onClick={() => {
-                callback(brand.valor)
-                setSelectedBrands((prevSelectedBrands) => {
-                  if (prevSelectedBrands.includes(brand.valor)) {
-                    return prevSelectedBrands.filter((b) => b !== brand.valor);
-                  } else {
-                    return [...prevSelectedBrands, brand.valor];
-                  }
-                });
-              }}
-              > 
-                            
-                {brand.valor}    
-              </li>
-            ))}
-          </div>
-        ))
-      ) : (
-        <p>Loading...</p>
-      )} */}
-      {data ? (
-        // data?.map((item, index) => (
-        //   <div key={index}>
-        //     {item?.tiposMarcas?.map((brand, idx) => (
-        //       <li
-        //         className={`cursor-pointer hover:bg-gray-400 ${
-        //           selectedBrands.includes(brand) ? 'bg-blue-500 text-white' : ''
-        //         }`}
-        //         key={idx}
-        //         onClick={() => {
-        //           callback(brand);
-        //           setSelectedBrands((prevSelectedBrands) => {
-        //             if (prevSelectedBrands.includes(brand)) {
-        //               return prevSelectedBrands.filter((b) => b !== brand);
-        //             } else {
-        //               return [...prevSelectedBrands, brand];
-        //             }
-        //           });
-        //         }}
-        //       >
-        //         {brand}
-        //       </li>
-        //     ))}
-        //   </div>
-        // ))       
+  <GetBrands onDataFetch={setData}/>  
+      {data ? (               
         data?.tiposMarcas?.map((brand, idx) => (
           <div key={idx}>            
               <li

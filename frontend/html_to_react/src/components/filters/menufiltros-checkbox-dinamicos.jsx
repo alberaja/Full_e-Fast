@@ -155,12 +155,7 @@ console.log("----queryParams", paramsToObject(location.search));
       && searchParams.append(key, value)
     )
       //r-router-dom v5 history.push(`/busquedaVehiculos?${searchParams.toString()}`);
-      navigate(`/busquedaVehiculos?${searchParams.toString()}`);
-    console.log("aquiii----->>> ", searchParams);
-    // nuitari
-    // const val = createQueryUrl(queryParamsState);
-    // console.log("val:  ", val);
-    // history.push(`/busquedaVehiculos?${val.toString()}`);
+      navigate(`/busquedaVehiculos?${searchParams.toString()}`);   
   }, [queryParamsState]);
 
   //const [contador, setcontador] = useState(0);
