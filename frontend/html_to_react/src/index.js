@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';   //incluye tailwind   //TODO: dejar solo CSS y/o solo tailwind
- //import './Payment.css';  //Stripe
 import App from './app';
 import reportWebVitals from './reportWebVitals';
 
