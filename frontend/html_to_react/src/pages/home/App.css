@@ -1,0 +1,5 @@
+
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.7); /* Adjust the value between 0 and 1 to control the color intensity */
+}
