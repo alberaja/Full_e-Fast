@@ -17,6 +17,7 @@ import EvStationTwoToneIcon from "@mui/icons-material/EvStationTwoTone";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import BatteryChargingFullRoundedIcon from "@mui/icons-material/BatteryChargingFullRounded";
+import SearchIcon from '@mui/icons-material/Search';
 import { BrandSelect } from "./BrandSelect";
 
 const LABELS = {
@@ -165,6 +166,7 @@ console.log("----queryParams", paramsToObject(location.search));
   //const [contador, setcontador] = useState(0);
   return (
     <div>
+      <span className=" w-full mx-auto pb-4 flex justify-center font-medium text-lg">Configure su Vehiculo</span>
       <ul>
         {results?.aggs?.aggregates?.map((aggregate) => {
           const key = Object.keys(aggregate)[0];
@@ -179,8 +181,9 @@ console.log("----queryParams", paramsToObject(location.search));
                         {label === "Caja de cambio" && <SettingsOutlinedIcon />}
                         {label === "Eléctricos" && <EvStationTwoToneIcon />}
                         {label === "Vehículos" && <DirectionsCarIcon />}
+                            {label === "Marcas de vehiculos" && <SearchIcon />}
                         {label === "Kilómetros" && <BatteryChargingFullRoundedIcon />}
-                        {label === "Nº de Plazas" && <PeopleAltOutlinedIcon />}                        
+                            {label === "Nº de Plazas" && <PeopleAltOutlinedIcon />}                        
                         {/* Agregar condiciones adicionales según sea necesario */}
                     </>
                   {/* Nombre del grupo de filtros */}

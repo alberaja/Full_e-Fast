@@ -18,6 +18,7 @@ import BatteryChargingFullRoundedIcon from "@mui/icons-material/BatteryChargingF
 import LocalDrinkIcon from '@mui/icons-material/LocalDrink';
 import CheckTwoToneIcon from "@mui/icons-material/CheckTwoTone";
 import { useStoreVehiculo } from '../../zustand/store.js';
+import { Divider, Typography } from '@mui/material';
 
 
 //import imagen from 'images/Zero-SRF-360-9.png'; // Ruta relativa   ../../../public/images/entrega__llave.png
@@ -130,7 +131,7 @@ const CocheElegido = ({ /*results*/ }) => {
             nombreFicherodelModulo_nombreClase_hashdelCSS */}
             <section className={ styles["contenedor__eleccion"] } >
                 <div className="contenedor__eleccion__tu">
-                    <h3 className="contenedor__eleccion-parrafo">Tu elección</h3>
+                    <h4 className="contenedor__eleccion-parrafo">Tu elección</h4>
                 </div>
             </section>
             {/* <!--Coche Tesla--> */}
@@ -181,15 +182,18 @@ const CocheElegido = ({ /*results*/ }) => {
             {vehiculoElegido}  {/* Mostrar la <Card2/>   */}
            
             
+            <Divider />
+            <Typography variant='h3' fontWeight={"bold"} p={1} ml={5} mt={6}>Incluye en el precio</Typography>
             {/* <!--contenedor__caja de imagenes Coche--> */}
             {/* <!--luego de imagen Coche--> */}
-            <section className={ styles["contenedor__inluido"] }>
+            {/* <section className={ styles["contenedor__inluido"] }>
                 <div className={ styles["contenedor__inluido_precio"]}>
-                    <h3 className={ styles["contenedor__inluido_precio-parrafo"] }>Incluye en el precio</h3>
+                    <h3 className={ styles["contenedor__inluido_precio-parrafo"] } >Incluye en el precio</h3>
                 </div>
-            </section>
+            </section> */}
+            
             <section className={ styles["contenedor__inluido__cancelacion"] }>
-                <ul className={ styles["contenedor__inluido__cancelacion__precio"] }>                    
+                <ul /*className={ styles["contenedor__inluido__cancelacion__precio"] }*/>                    
                 {/* {JSON.stringify(results.vehiculos[0]?.precio[0]?.cancelacionGratis)} */}
                                 {/* {results?.vehiculos[0]?.precio[0]?.cancelacionGratis ? (
                                     <div>
@@ -200,23 +204,23 @@ const CocheElegido = ({ /*results*/ }) => {
                                     </div>
                                 ) : null} */}
                     {/* <li className={ styles["contenedor__inluido__cancelacion__precio-parrafo"] }><img className={ styles["iconoCheck1"] } src="images/check.svg" />Cancelación gratuita hasta 48 horas antes de la recogida</li> */}
-                    <li className={styles["contenedor__inluido__cancelacion__precio-parrafo"]}>
+                    <Typography component='li' variant='h5' /*className={styles["contenedor__inluido__cancelacion__precio-parrafo"]}*/>
                         {results?.vehiculos[0]?.precio[0]?.cancelacionGratis ? (
                             <div>
                                 {/* Si cancelacionGratis es true, se muestra el icono y el texto */}
                                 {/* <img className={styles["iconoCheck1"]} src="/images/check.svg" /> */}
-                                <CheckTwoToneIcon style={{ color: "rgb(31, 153, 39)" }} />
+                                <CheckTwoToneIcon style={{ color: "rgb(31, 153, 39)" /*, marginLeft:"5%"*/}} />
                                 &nbsp; Cancelación gratuita hasta 48 horas antes de la recogida
                             </div>
                         ) : null}
-                    </li>
+                    </Typography >
                     {/* <li className={ styles["contenedor__inluido__cancelacion__precio-parrafo"] }><img className={ styles["iconoCheck1"] } src="images/check.svg"/>Cobertura parcial por colisión con franquicia de 1450€</li>
                     <li className={ styles["contenedor__inluido__cancelacion__precio-parrafo"] }><img className={ styles["iconoCheck1"] } src="images/check.svg"/>Cobertura en caso de robo con franquicia de 1450€</li>
                     <li className={ styles["contenedor__inluido__cancelacion__precio-parrafo"] }><img className={ styles["iconoCheck1"] } src="images/check.svg"/>Kilometraje ilimitado</li> */}
                     <li className={styles["contenedor__inluido__cancelacion__precio-parrafo"]}>
                         {results?.vehiculos[0]?.seguro[0]?.coberturaParcialcolisionFranquicia ? (
                             <div>                                
-                                <CheckTwoToneIcon style={{ color: "rgb(31, 153, 39)" }} />
+                                <CheckTwoToneIcon style={{ color: "rgb(31, 153, 39)"}} />
                                  {/* 1450€ */}
                                  &nbsp; Cobertura parcial por colisión con franquicia de {results?.vehiculos[0]?.seguro[0]?.coberturaParcialcolisionFranquiciaQty}€
                             </div>
@@ -231,7 +235,7 @@ const CocheElegido = ({ /*results*/ }) => {
                             </div>
                         ) : null}
                     </li>
-                    <li className={styles["contenedor__inluido__cancelacion__precio-parrafo"]}>
+                    <Typography component='li' variant='h5'/*className={styles["contenedor__inluido__cancelacion__precio-parrafo"]}*/>
                         {/* 10000000000	"=Ilimitado , sino es Limitado*/}
                         {results?.vehiculos[0]?.caracteristicas[0]?.maximodeKm >= 100 ? (
                             <div>                                
@@ -243,7 +247,7 @@ const CocheElegido = ({ /*results*/ }) => {
                                 &nbsp; Kilometraje hasta {results?.vehiculos[0]?.caracteristicas[0]?.maximodeKm} kms </div>
                         )
                         }
-                    </li>
+                    </Typography>
                 </ul>
             </section>
             <section className={ styles["contenedor__inluido__muy"] }>

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import * as Icons from "./Icons";
 import { Chip, Tooltip } from "@mui/material";
 import { Link, Route } from "react-router-dom";
@@ -12,6 +12,7 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import BatteryChargingFullRoundedIcon from "@mui/icons-material/BatteryChargingFullRounded";
 import LocalDrinkIcon from '@mui/icons-material/LocalDrink';
 import CheckTwoToneIcon from "@mui/icons-material/CheckTwoTone";
+import { useNavigate } from "react-router-dom";
 
 const IconSide = [
   { icon: "Information", value: 0 },
@@ -19,10 +20,33 @@ const IconSide = [
   { icon: "Engine", value: 2 },
 ];
 
-export default function Card2 ( coche ) {
+export default function Card2 ( coche  ) {
+  
   //const {carData} = useStoreVehiculo();
   //let numdiasReservados = carData.numeroDiasReservados ?? 0;
-  console.log("resultado: ", coche);
+
+  // redireccion si el obj de esta vacío
+  const isObjectEmpty = (obj) => {
+    return Object.keys(obj).length === 0;
+  };
+  
+  const rentalData = useStoreVehiculo( state => state.rentalData );
+  // console.log("resultado: ", coche);
+  //control de buscar 1 id e vehiculo q no responde vehiculos
+      //if(coche) return //control error
+      //if(isObjectEmpty(coche)) navigate('/'); //return 
+  let navigate = useNavigate()  
+  useEffect(() => {    
+    //console.log("cocheeeeeeee", coche)
+    if (isObjectEmpty(coche) 
+          || isObjectEmpty(rentalData.ciudadesVehiculo) 
+          || isObjectEmpty(rentalData.fechaHoraIni)
+          || isObjectEmpty(rentalData.fechaHoraFin) 
+        ) {
+      navigate('/');
+    }
+  }, [coche, ]);
+ 
 
   const datosvehiculoElegido = useStoreVehiculo(state => state.cocheReserva)
     console.log("datosvehiculoElegido-->", datosvehiculoElegido)
@@ -33,38 +57,21 @@ export default function Card2 ( coche ) {
       // const hasSpecialOffer = coche?.precio[0].ofertaEspecial === true;
       // const precio = hasSpecialOffer ? coche?.precio[0].precioOferta : coche?.precio[0].por1DiaEuros;
   //const cardVehicleData = useStoreVehiculo( state => state.cardVehicleData );
-  const loadIcon = (tipoVehiculo) => {
-    if ( tipoVehiculo === "HEV" ) {
-      return {
-        icon: <Icons.Fuel className="w-6 h-6"/>,
-        text: "Híbrido No enchufable",
-      };
-    } else if (tipoVehiculo === "MHEV") {
-      return {
-        icon: <Icons.Fuel className="w-6 h-6"/>,
-        text: "Híbrido ligero",
-      };
-    } else if (tipoVehiculo === "SHEV") {
-      return {
-        icon: <Icons.Fuel className="w-6 h-6"/>,
-        text: "Híbrido puro",
-      };
-    } else if (tipoVehiculo === "BEV") {
-      return {
-        icon: <Icons.Electric className="w-6 h-6"/>,
-        text: "100% eléctrico",
-      };
-    } else if (tipoVehiculo === "PHEV") {
-      return {
-        icon: <Icons.FuelElectric className="w-6 h-6"/>,
-        text: "Híbrido enchufable",
-      };
-    }
-  };
-const { icon, text } = loadIcon(coche.caracteristicas[0].tipoVehiculo);
+  
 
+    const iconEngines = {
+        BEV: { icon: Icons.Electric, text: "100% Eléctrico", value: "BEV" },
+        HEV: { icon: Icons.Fuel, text: "Híbrido no enchufable", value: "HEV" },
+        MHEV: { icon: Icons.Fuel, text: "Hibrido ligero", value: "MHEV" },
+        PHEV: { icon: Icons.FuelElectric, text: "Híbrido Enchufable", value: "PHEV" },  // text es el tooltip=hover
+        SHEV: { icon: Icons.Fuel, text: "Híbrido Puro", value: "SHEV" },
+    } 
+        const tipo= !isObjectEmpty(coche) ? coche?.caracteristicas[0]?.tipoVehiculo : "BEV"
+        const { icon : Icon, text } = iconEngines[tipo] ?? {icon:null,text:""}
+
+    
   return (    
-    (coche ?  
+    ( !isObjectEmpty(coche) ?  
     <main>
       {/* Solo se recibe 1 vehiculo aqui */}
       <section
@@ -83,58 +90,58 @@ const { icon, text } = loadIcon(coche.caracteristicas[0].tipoVehiculo);
         </div>
         <section className="producto__tesla">
           <div className="producto__tesla__parrafo">
-            {/* {coche.car} {coche.car_model} */}{" "}
+            {/* {coche.car} {coche.car_model} */}
             {/* BEV                                 Moto */}
             <h1 className="producto__tesla__parrafo">
-              {coche?.marcay_modelo_vehiculo}{" "}
-            </h1>{" "}
+              {coche?.marcay_modelo_vehiculo}
+            </h1>
             {/* <h5 style={{ color: "gray" }}>
-              {coche?.caracteristicas[0].tipoVehiculo} {coche?.tipo_vehiculo}{" "}
+              {coche?.caracteristicas[0].tipoVehiculo} {coche?.tipo_vehiculo}
             </h5> */}
             {/* <div className="text-sm text-gray-500">{coche.caracteristicas[0].tipoVehiculo} - Híbrido xx</div> */}
           </div>
           <section className="producto__tesla__caracteristicas">
             <div className="producto__tesla__parrafo__caracteristicas">             
                   {coche.caracteristicas[0].altasPrestaciones ? (  <p className="chollo" >{coche.tipo_vehiculo} con altas prestaciones</p>) : null}
-              <div className="producto__tesla__parrafo__plazos">
+              <div className="producto__tesla__parrafo__plazos flex items-center">
                 {/* <p className="producto__tesla__parrafo__plazas-p"><img src="/images/icono-user.svg" /> 5 plazas</p> */}
-                <PeopleAltOutlinedIcon />{" "}
+                <PeopleAltOutlinedIcon  className="w-6 h-6 mr-2"/>
                 <p className="producto__tesla__parrafo__plazas-p">
-                  {" "}
+                  
                   {coche.caracteristicas[0].numPlazas} plazas
                 </p>
               </div>
-              <div className="producto__tesla__parrafo__plazos">
-                {" "}
+              <div className="producto__tesla__parrafo__plazos flex items-center">
+                
                 {/* 649 litros   */}
-                <p className="producto__tesla__parrafo__litros-p">
-                  {" "}
-                  {/*<img src="/images/equipaje.svg" />*/} <LocalDrinkIcon />{" "}
+                <p className="producto__tesla__parrafo__litros-p flex items-center">
+                  
+                  {/*<img src="/images/equipaje.svg" />*/} <LocalDrinkIcon className="mr-2" />
                   {coche.caracteristicas[0].litros} litros
                 </p>
               </div>
-              <div className="producto__tesla__parrafo__plazos">
-                {" "}
+              <div className="producto__tesla__parrafo__plazos flex items-center">
+                
                 {/* 547km autonomía   */}
-                <BatteryChargingFullRoundedIcon />{" "}
+                <BatteryChargingFullRoundedIcon className="w-6 h-6 mr-2"/>
                 <p className="producto__tesla__parrafo__autonomia-p">
-                  {/*<img src="/images/bateria.svg" /> */}{" "}
+                  {/*<img src="/images/bateria.svg" /> */}
                   {coche.caracteristicas[0].autonomiaKm}km autonomía
                 </p>
               </div>
-              <div className="producto__tesla__parrafo__plazos">
+              <div className="producto__tesla__parrafo__plazos flex items-center">
                 <p className="producto__tesla__parrafo__autonomia-p">
                   {/* Automatico/Manual . Mostrarla solo si {coche.tipo_vehiculo}=Coche*/}
                   {/* <Icons.GearManual />   : */}
                    {/* <Icons.GearAutomatic/ > */}
-                  <SettingsOutlinedIcon /> {coche.caracteristicas[0].cajaCambio}
+                  <SettingsOutlinedIcon  className="w-6 h-6 mr-2"/>{coche.caracteristicas[0].cajaCambio}
                 </p>
               </div>
-              <div className="producto__tesla__parrafo__plazos" style={{ display: 'flex' }}>
-                  {icon} 
-                <p className="producto__tesla__parrafo__autonomia-p" style={{ marginLeft: '5px' }}>
+              <div className="producto__tesla__parrafo__plazos flex items-center" style={{ display: 'flex' }}>
+                  <Icon  className="w-6 h-6 mr-2"/>
+                <p className="producto__tesla__parrafo__autonomia-p">
                   {/* Automatico/Manual . Mostrarla solo si {coche.tipo_vehiculo}=Coche*/}
-                  {/* <SettingsOutlinedIcon />*/}  {text}   {/*{coche.caracteristicas[0].tipoVehiculo}*/}    {" "}
+                  {/* <SettingsOutlinedIcon />*/}  {text}   {/*{coche.caracteristicas[0].tipoVehiculo}*/}    
                 </p>
               </div>              
             </div>
@@ -145,7 +152,7 @@ const { icon, text } = loadIcon(coche.caracteristicas[0].tipoVehiculo);
             <div className="barra__tesla__precio__dia">
               <p className="precio__dia">Precio por 1 día</p>
               <h3 className="precio__dia__tesla-especifico">
-                {" "}
+                
                 {/*159€*/}  {/*{coche.precio[0].por1DiaEuros}€*/} {/*coche.price*/}
                 {/* {precio}€     */}
                 {/* {JSON.stringify(cardVehicleData.precioPorDia)}€            */}
@@ -174,7 +181,7 @@ const { icon, text } = loadIcon(coche.caracteristicas[0].tipoVehiculo);
 
       {/* <!--contenedor__caja de imagenes Coche-->  */}
     </main>    
-    : "")
+    : "" )
   );
 };
 

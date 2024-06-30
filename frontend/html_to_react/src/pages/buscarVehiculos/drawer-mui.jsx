@@ -31,6 +31,10 @@ import EvStationTwoToneIcon from "@mui/icons-material/EvStationTwoTone";
 import Buscador1 from "./cars-resultados";
 import MenuFiltros from "../../components/filters";
 import MenuFiltroscheckboxDinamicos from "../../components/filters/menufiltros-checkbox-dinamicos";
+import { InputLabel, MenuItem, OutlinedInput, Select } from "@mui/material";
+import { BrandSelect } from "../../components/filters/BrandSelect";
+import { HandleCheckboxChangeModoJS } from "../../components/filters/helpers/HandleCheckboxChangeModoJS";
+import { useLocation } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -180,6 +184,34 @@ export default function PersistentDrawerLeft({ params, updateSearchParams , resu
   };
 
  
+  // Filtrar Marcas
+  // const location = useLocation();
+  // const queryParams = new URLSearchParams(location.search);
+  // const [queryParamsState, setQueryParamsState] = useState({
+  //   // evitar recibir params en vacio
+  //   // ciudadesVehiculo: "",
+  //   // fechaHoraIni: "",
+  //   // fechaHoraFin: "",
+  //   // tiposVehiculo: [],
+  //   // tiposElectrico: [],
+  //   // cajaCambio: [],    
+  //   // maximoKmStr: [],
+  //   // numPlazas: [],
+
+  //   // aqui debo recibir todos los valores que setee(en 'params') desde el /index, por ej tb marcasVehiculo
+  //   //no usar getAll, get para evitar fallo . Hacer el split(',') solo para los que puedan llegar concatenados
+  //   ciudadesVehiculo: queryParams.get('ciudadesVehiculo') || '',
+  //   fechaHoraIni: queryParams.get('fechaHoraIni') || '',
+  //   fechaHoraFin: queryParams.get('fechaHoraFin') || '',
+  //   tiposVehiculo: queryParams.get('tiposVehiculo')?.split(',') || [],
+  //   tiposElectrico: queryParams.get('tiposElectrico')?.split(',') || [],
+  //   cajaCambio: queryParams.get('cajaCambio') || [],
+
+  //   maximoKmStr: queryParams.get('maximoKmStr') || [],
+  //   numPlazas: queryParams.get('numPlazas') || [],
+    
+  //   marcasVehiculo: queryParams.get('marcasVehiculo')?.split(',') || [],
+  // });
 
   return (
     // <Box sx={{ display: "flex" }}>
@@ -215,13 +247,16 @@ export default function PersistentDrawerLeft({ params, updateSearchParams , resu
           // },          
           position: "sticky",
           mt: "3",
-          display: { xs: "none", md: "block" }  // mostrar menu de filtros solo a partir de pantalla mediana
+          display: { /*xs: "none",*/ md: "block" }  // mostrar menu de filtros solo a partir de pantalla mediana
+          
+
         }}        
-        variant="persistent"   //comentar para ver fondo en negro/black, y Drawer por encima de todo
+        variant="persistent" //</Box>"temporary"//"persistent"   //comentar para ver fondo en negro/black, y Drawer por encima de todo
         // anchor="left"
+        classes="bg-red-400"
         open={open}
       >
-        <DrawerHeader>
+        <DrawerHeader>          
           <IconButton onClick={handleDrawerClose} sx={{marginTop: "40%"}} >
             {theme.direction === "ltr" ? (
               <ChevronLeftIcon />
@@ -289,6 +324,13 @@ export default function PersistentDrawerLeft({ params, updateSearchParams , resu
             </ListItem>
           ))}
         </List> */}
+
+            {/* Filtrador de Marcas */}
+            {/* <BrandSelect results={results} onChange={(e) => HandleCheckboxChangeModoJS(e, setQueryParamsState)}  /> */}
+        
+        {/* aplicar Menu de filtros sea responsive */}
+        <div className="bg-red-400 w-screen md:w-auto ">
+        </div>
       </Drawer>
       {/* aja: style del boton */}
       <Main open={open} style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "10vh" }}>

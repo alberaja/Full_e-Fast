@@ -33,7 +33,8 @@ const SearchResultsCarsEFast = ({ params, results , numDiasRangoEntreFechas}) =>
     const isCiudadesVehiculo = queryParams.get('ciudadesVehiculo');
 
     // Si alguno de los parámetros no tiene valor, deshabilita el link    
-    const isDisabled=true;//ok SOLO TESTING (!isFechaHoraFinValid || !isFechaHoraIniValid || !isCiudadesVehiculo) ?true:false;
+    //const isDisabled=true;//ok SOLO TESTING
+    const isDisabled= (!isFechaHoraFinValid || !isFechaHoraIniValid || !isCiudadesVehiculo) ?true:false;
     return (        
 
         //  Cards
@@ -42,8 +43,10 @@ const SearchResultsCarsEFast = ({ params, results , numDiasRangoEntreFechas}) =>
             
             <div className=" px-5 py-24 mx-auto  flex flex-col gap-4" >
            
-                { queryParams.get('ciudadesVehiculo') ?  <p className='flex justify-center'>Ciudad de origen: { queryParams.get('ciudadesVehiculo')}</p> : ""}
-                { queryParams.get('ciudadesDevolverVehiculo') ?  <p className='flex justify-center'>Ciudad destino: { queryParams.get('ciudadesDevolverVehiculo')}</p> : ""}
+                { queryParams.get('ciudadesVehiculo') && queryParams.get('ciudadesDevolverVehiculo') !== null && queryParams.get('ciudadesDevolverVehiculo') !== queryParams.get('ciudadesVehiculo') ?  <p className='flex justify-center'>Oficina de recogida: { queryParams.get('ciudadesVehiculo')}</p> : ""}
+                { queryParams.get('ciudadesDevolverVehiculo')==null && queryParams.get('ciudadesVehiculo') ?  <p className='flex justify-center'>Oficina de recogida y devolución: { queryParams.get('ciudadesVehiculo')}</p> : ""}
+                { queryParams.get('ciudadesDevolverVehiculo') && queryParams.get('ciudadesVehiculo') && (queryParams.get('ciudadesDevolverVehiculo') === queryParams.get('ciudadesVehiculo') )  ?  <p className='flex justify-center'>Oficina de recogida y devolución: { queryParams.get('ciudadesDevolverVehiculo')}</p> : ""}
+                { queryParams.get('ciudadesDevolverVehiculo') && queryParams.get('ciudadesDevolverVehiculo') !== queryParams.get('ciudadesVehiculo')  ?  <p className='flex justify-center'>Oficina de devolución: { queryParams.get('ciudadesDevolverVehiculo')}</p> : ""}
                 <p className='flex justify-center' style={{ fontSize: '1.25rem' }}>Resultados para esas fechas y filtros seleccionados: {results.totalHits} </p>                
                 <Paginador results={results}></Paginador>
                     {results && results.vehiculos?.map((coche) => {

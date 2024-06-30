@@ -37,7 +37,7 @@ export function BrandType({callback}) {
           className="border border-gray-400 rounded-md p-1 text-lg text-gray-700 bg-gray-100"
           onClick={openModal}
         >
-          Select your brands ⤵
+          Selecciona tus marcas ⤵
           </span>{/* </button> falla*/}
       </div>
       {isModalOpen && (
@@ -63,8 +63,8 @@ export function BrandType({callback}) {
     </span>
   ))} */}
 </div>
-<ul className="w-1/4 my-auto bg-gray-300 p-7 border border-gray-600 rounded-lg divide-y divide-gray-400 relative">
-  <GetBrands onDataFetch={setData} />
+<ul className="w-1/4 my-auto bg-gray-300 p-7 border border-gray-600 rounded-lg divide-y divide-gray-400 relative">  
+  <GetBrands onDataFetch={setData}/>
   {/* {data.brandTypes.map((brand, index) => (
     <li
       className={`cursor-pointer hover:bg-gray-400 ${
@@ -116,9 +116,32 @@ export function BrandType({callback}) {
         <p>Loading...</p>
       )} */}
       {data ? (
-        data?.map((item, index) => (
-          <div key={index}>
-            {item?.tiposMarcas?.map((brand, idx) => (
+        // data?.map((item, index) => (
+        //   <div key={index}>
+        //     {item?.tiposMarcas?.map((brand, idx) => (
+        //       <li
+        //         className={`cursor-pointer hover:bg-gray-400 ${
+        //           selectedBrands.includes(brand) ? 'bg-blue-500 text-white' : ''
+        //         }`}
+        //         key={idx}
+        //         onClick={() => {
+        //           callback(brand);
+        //           setSelectedBrands((prevSelectedBrands) => {
+        //             if (prevSelectedBrands.includes(brand)) {
+        //               return prevSelectedBrands.filter((b) => b !== brand);
+        //             } else {
+        //               return [...prevSelectedBrands, brand];
+        //             }
+        //           });
+        //         }}
+        //       >
+        //         {brand}
+        //       </li>
+        //     ))}
+        //   </div>
+        // ))       
+        data?.tiposMarcas?.map((brand, idx) => (
+          <div key={idx}>            
               <li
                 className={`cursor-pointer hover:bg-gray-400 ${
                   selectedBrands.includes(brand) ? 'bg-blue-500 text-white' : ''
@@ -136,8 +159,7 @@ export function BrandType({callback}) {
                 }}
               >
                 {brand}
-              </li>
-            ))}
+              </li>            
           </div>
         ))
       ) : (

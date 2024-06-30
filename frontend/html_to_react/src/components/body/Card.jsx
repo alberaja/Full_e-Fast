@@ -10,7 +10,7 @@ export default function Card(props) {
     const [selected, setSelected] = useState(0)
 
     const { id, tipo, nombre, ECO, maletero, tipoMotor, autonomia, limiteKm, descripcion, cajaCambios, cancelacion, precioDia, ofertaEspecial, precioOferta, extras, coverImage, plazas,
-        año, comfort, prestaciones, conservacion, todoRiesgo, image, url, idCar, isDisabled
+        año, comfort, prestaciones, conservacion, todoRiesgo, image, url, idCar, isDisabled, numCiudadesVehicl
 
     } = props
     const IconSide = [{ icon: "Information", value: 0 }, { icon: "Car", value: 1, props: { tipo } }, { icon: "Engine", value: 2 }]
@@ -23,7 +23,7 @@ export default function Card(props) {
         return (<div className={`flex-1 p-2 pl-2 transition-all	${selected === value ? "bg-slate-300" : "bg-slate-200"} `} onClick={() => setSelected(value)} ><Icono selected={selected === value} {...props} className="w-6 h-6 text-black transition-all	" /></div>)
 
     }), [selected, IconSide])
-    const MainProps = { cancelacion, maletero, plazas, descripcion, cajaCambios, limiteKm, tipoMotor }
+    const MainProps = { numCiudadesVehicl, cancelacion, maletero, plazas, descripcion, cajaCambios, limiteKm, tipoMotor }
     const VehiculoProps = { comfort, conservacion, todoRiesgo, extras }
     const MotorProps = { tipoMotor, autonomia, prestaciones }
     const Sections = [<MainContent {...MainProps} />, <VehicleContent {...VehiculoProps} />, <EngineContent {...MotorProps} />]
@@ -56,7 +56,7 @@ export default function Card(props) {
                     <Tooltip title={isDisabled?"Seleccione un origen y un periodo de alquiler":"Proceder con el alquiler"}  className='flex'>
                         <Component onClick={onClick} to={url.pathname} state={{ diasReservados: url.state.diasReservados }} className={cn(`flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded`,disableClassName)}>Ver oferta </Component>
                      </Tooltip>
-
+                     {/* <Tooltip title={numCiudadesVehicl.toString()}><div className="text-slate-800 flex gap-1 mt-1" >Disponible en</div></Tooltip> */}
                 </div>
 
             </div>
@@ -80,7 +80,7 @@ export default function Card(props) {
     )
 }
 
-function MainContent({ cajaCambios, cancelacion, descripcion, maletero, plazas, limiteKm, tipoMotor }) {
+function MainContent({ numCiudadesVehicl, cajaCambios, cancelacion, descripcion, maletero, plazas, limiteKm, tipoMotor }) {
     const iconEngines = {
         BEV: { icon: Icons.Electric, text: "100% Eléctrico" , value: "BEV"},
         HEV: { icon: Icons.Fuel, text: "Híbrido no enchufable" , value: "HEV" },
@@ -101,13 +101,14 @@ function MainContent({ cajaCambios, cancelacion, descripcion, maletero, plazas, 
 
     const InfoIcons = IconsValues.map(({ text, Icon, value }) => <Tooltip title={text} key={text} className='flex'><Icon className=" w-5 h-5" style={{ verticalSlign: "text-bottom" }} /> <span className='ml-2 mr-4 text-base font-semibold '>{value}</span></Tooltip>)
     const cancelacionDiv = cancelacion ? <div className="text-green-600 flex gap-2 mt-2" > <Icons.Free className=" w-5 h-5" /> Cancelacion Gratuita  </div> : <Tooltip title="Añada el seguro de cancelación durante el proceso de pago"><div className="text-slate-800 flex gap-2 mt-2" > <Icons.Optional className=" w-5 h-5" /> Cancelacion opcional  </div></Tooltip>
+    const disponibleDiv = <Tooltip title={numCiudadesVehicl.toString()}><div className="text-blue-600 flex gap-2 mt-2" > {/*<Icons.Free className=" w-5 h-5" />*/}Disponible en</div></Tooltip>
     return (
         <div className={`flex flex-col w-full flex-1 `}>
             <div className=" flex items-center  mt-1">
                 {InfoIcons}
             </div>
             {cancelacionDiv}
-
+            {disponibleDiv}
 
             <div className="flex-1 mt-3">
                 {descripcion}

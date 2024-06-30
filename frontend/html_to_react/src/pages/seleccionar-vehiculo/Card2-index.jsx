@@ -13,7 +13,7 @@ import CheckTwoToneIcon from "@mui/icons-material/CheckTwoTone";
 
 
 
-import Card from '../../components/body/card';
+
 import { transformdata } from '../../components/body/transformData';
 
 import { useEffect , useState} from 'react';
