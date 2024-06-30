@@ -63,6 +63,8 @@ public class AggregationsServiceImpl implements AggregationsService{
 	private final ElasticsearchOperations elasticClient;
 	
 	private final ModelMapper modelMapper = new ModelMapper();
+	
+	private static final String S = "S";
 
 	@Override
 	public Object findVehiculosAggregates(Integer idVehiculo, List<String> cajasCambio, List<String> tiposElectrico,
@@ -71,81 +73,9 @@ public class AggregationsServiceImpl implements AggregationsService{
 			String fechaHoraFin, int page) {
 		// Construir la query Postman: ! NOnested +aggregates: sin comentarios
 				// Postman endpoint: UC03 filter-modal-2
-				BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
-				
-				//TODO: añadir required params + quitar aggregates con flag boolean
-				if (idVehiculo != null) {
-					//Los filtros son más eficientes que must, porque no requieren el cálculo de puntuación.
-					queryBuilder.filter(QueryBuilders.termQuery("_id", idVehiculo));
-//		            nativeSearchQueryBuilder.withQuery(QueryBuilders.idsQuery().addIds("4"));
-		        }  		
-				
-				// seleccion multiple: tiposElectrico, numPlazas
-				// seleccion a/b: cajaCambio, tiposVehiculo, maximoKmStr
-
-				if (cajasCambio != null && !cajasCambio.isEmpty()) {
-					queryBuilder.must(QueryBuilders.termsQuery("Caracteristicas.CajaCambio", cajasCambio));
-				}
-				
-				if (tiposElectrico != null && !tiposElectrico.isEmpty() ) { // && tiposElectrico.size() != 1  && !tiposElectrico.get(0).equals("*")) {
-		            		// must: devolver resultados SOLO en el que coincida con el param tiposElectrico
-					//queryBuilder.must(QueryBuilders.termsQuery("Caracteristicas.TipoVehiculo.keyword", tiposElectrico));
-							// should: devolver todos resultados sin recuperar resultados (que si tienen resultados) con valor a 0
-					// si selecciona alguno(s) de seleccion multiple (como tiposElectrico)--> should para devolver todos resultados sin recuperar resultados con valor a 0 (que si tienen resultados) 
-										//// si selecciona varios de seleccion multiple (como tiposElectrico)--> must para devolver todos resultados cumplan AMBAS/todas condiciones. Ojo al recuperar resultados con valor a 0
-					// si selecciona alguno de seleccion multiple (como tiposElectrico) + filtro de otra seccion --> must para devolver todos resultados cumplan AMBAS/todas condiciones. Ojo al recuperar resultados con valor a 0
-					// tiposElectrico.size() == 1 &&
-//					if(  ((tiposVehiculo == null || tiposVehiculo.isEmpty()) && (cajasCambio == null || cajasCambio.isEmpty()) && (numPlazasMin == null || numPlazasMin==0) && (maximoKm == null || maximoKmStr == null) )) {
-//						queryBuilder.should(QueryBuilders.termsQuery("Caracteristicas.TipoVehiculo.keyword", tiposElectrico));
-//						
-//					} else {
-						queryBuilder.must(QueryBuilders.termsQuery("Caracteristicas.TipoVehiculo.keyword", tiposElectrico));
-//					}
-//					queryBuilder.must(QueryBuilders.termsQuery("Caracteristicas.TipoVehiculo.keyword", filtrosProp.getFuelTypes()));
-		        }
-				
-				if (tiposVehiculo != null && !tiposVehiculo.isEmpty()) {
-		            queryBuilder.must(QueryBuilders.termsQuery("TipoVehiculo.keyword", tiposVehiculo));
-		        }
-				
-				if (numPlazasMin != null && !numPlazasMin.isEmpty() ) {
-		           // queryBuilder.must(QueryBuilders.rangeQuery("Caracteristicas.NumPlazas").lte(numPlazasMin)); //gte
-					 queryBuilder.must(QueryBuilders.termsQuery("Caracteristicas.NumPlazas", numPlazasMin)); 
-		        }  /*else if(tiposVehiculo != null && tiposVehiculo.get(0).equals("Moto")) {
-		        	 queryBuilder.must(QueryBuilders.rangeQuery("Caracteristicas.NumPlazas").gte(0).lte(2));
-		        }     */
-
-		        if (maximoKm != null || maximoKmStr != null) {
-					if (maximoKmStr!= null && !maximoKmStr.isEmpty() ) {
-						if (maximoKmStr.equalsIgnoreCase("Limitado")) {
-							maximoKm = 100L; //9999999L; (ok en vehiculos-efast) //Limitado: 0 hasta 9.999.999 			//1000L;
-						} else { // Ilimitado
-							// maximoKm = 10000000000L;
-							queryBuilder.must(QueryBuilders.rangeQuery("Caracteristicas.MaximodeKm").gte(101L)); //10000000000L   1001L
-						}
-					}
-		            queryBuilder.must(QueryBuilders.rangeQuery("Caracteristicas.MaximodeKm").lte(maximoKm));
-		        }  
-
-//				Los filtros son más eficientes que must, porque no requieren el cálculo de puntuación.
-				queryBuilder.filter(QueryBuilders.termQuery("Alquilable", "S"));
-//				 queryBuilder.must(QueryBuilders.termQuery("Alquilable", "S"));
-				 
-					if (marcasVehiculo != null && !marcasVehiculo.isEmpty()) {
-						queryBuilder.must(QueryBuilders.termsQuery("MarcaVehiculo.keyword", marcasVehiculo));
-					}       
-		    		if (ciudadVehiculo != null && !ciudadVehiculo.isEmpty()) {
-		    			queryBuilder.must(QueryBuilders.matchQuery("CiudadesVehiculo", ciudadVehiculo));
-		        	}
-			        if (ciudadDevolverVehiculo != null && !ciudadDevolverVehiculo.isEmpty()) {
-			            queryBuilder.must(QueryBuilders.matchQuery("CiudadesDevolverVehiculos", ciudadDevolverVehiculo));
-			        }
-			        if (fechaHoraIni != null) {
-			        	queryBuilder.must(QueryBuilders.rangeQuery("FechaIni").lte(fechaHoraIni)); //LocalDateTime.parse(fechaHoraIni)
-			        }
-			        if (fechaHoraFin != null) {
-			        	queryBuilder.must(QueryBuilders.rangeQuery("FechaFin").gte(fechaHoraFin));
-			        }
+		BoolQueryBuilder queryBuilder = createQueryBuilder(idVehiculo, cajasCambio, tiposElectrico, tiposVehiculo, numPlazasMin,
+				maximoKmStr, maximoKm, marcasVehiculo, ciudadVehiculo, ciudadDevolverVehiculo, fechaHoraIni,
+				fechaHoraFin);
 
 				NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder().withQuery(queryBuilder);
 				//nativeSearchQueryBuilder.withPageable(PageRequest.of(page, size));
@@ -377,6 +307,92 @@ public class AggregationsServiceImpl implements AggregationsService{
 		return dto;
 	}
 	
+	private BoolQueryBuilder createQueryBuilder(Integer idVehiculo, List<String> cajasCambio, List<String> tiposElectrico,
+			List<String> tiposVehiculo, List<Integer> numPlazasMin, String maximoKmStr, Long maximoKm,
+			List<String> marcasVehiculo, String ciudadVehiculo, String ciudadDevolverVehiculo, String fechaHoraIni,
+			String fechaHoraFin) {
+		BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
+		
+		//TODO: añadir required params + quitar aggregates con flag boolean
+		if (idVehiculo != null) {
+			//Los filtros son más eficientes que must, porque no requieren el cálculo de puntuación.
+			queryBuilder.filter(QueryBuilders.termQuery("_id", idVehiculo));
+//            nativeSearchQueryBuilder.withQuery(QueryBuilders.idsQuery().addIds("4"));
+        }  		
+		
+		// seleccion multiple: tiposElectrico, numPlazas
+		// seleccion a/b: cajaCambio, tiposVehiculo, maximoKmStr
+
+		if (cajasCambio != null && !cajasCambio.isEmpty()) {
+			queryBuilder.must(QueryBuilders.termsQuery("Caracteristicas.CajaCambio", cajasCambio));
+		}
+		
+		if (tiposElectrico != null && !tiposElectrico.isEmpty() ) { // && tiposElectrico.size() != 1  && !tiposElectrico.get(0).equals("*")) {
+            		// must: devolver resultados SOLO en el que coincida con el param tiposElectrico
+			//queryBuilder.must(QueryBuilders.termsQuery("Caracteristicas.TipoVehiculo.keyword", tiposElectrico));
+					// should: devolver todos resultados sin recuperar resultados (que si tienen resultados) con valor a 0
+			// si selecciona alguno(s) de seleccion multiple (como tiposElectrico)--> should para devolver todos resultados sin recuperar resultados con valor a 0 (que si tienen resultados) 
+								//// si selecciona varios de seleccion multiple (como tiposElectrico)--> must para devolver todos resultados cumplan AMBAS/todas condiciones. Ojo al recuperar resultados con valor a 0
+			// si selecciona alguno de seleccion multiple (como tiposElectrico) + filtro de otra seccion --> must para devolver todos resultados cumplan AMBAS/todas condiciones. Ojo al recuperar resultados con valor a 0
+			// tiposElectrico.size() == 1 &&
+//			if(  ((tiposVehiculo == null || tiposVehiculo.isEmpty()) && (cajasCambio == null || cajasCambio.isEmpty()) && (numPlazasMin == null || numPlazasMin==0) && (maximoKm == null || maximoKmStr == null) )) {
+//				queryBuilder.should(QueryBuilders.termsQuery("Caracteristicas.TipoVehiculo.keyword", tiposElectrico));
+//				
+//			} else {
+				queryBuilder.must(QueryBuilders.termsQuery("Caracteristicas.TipoVehiculo.keyword", tiposElectrico));
+//			}
+//			queryBuilder.must(QueryBuilders.termsQuery("Caracteristicas.TipoVehiculo.keyword", filtrosProp.getFuelTypes()));
+        }
+
+		if (tiposVehiculo != null && !tiposVehiculo.isEmpty()) {
+			queryBuilder.must(QueryBuilders.termsQuery("TipoVehiculo.keyword", tiposVehiculo));
+		}
+
+		if (numPlazasMin != null && !numPlazasMin.isEmpty()) {
+			// queryBuilder.must(QueryBuilders.rangeQuery("Caracteristicas.NumPlazas").lte(numPlazasMin));
+			// //gte
+			queryBuilder.must(QueryBuilders.termsQuery("Caracteristicas.NumPlazas", numPlazasMin));
+		} /*
+			 * else if(tiposVehiculo != null && tiposVehiculo.get(0).equals("Moto")) {
+			 * queryBuilder.must(QueryBuilders.rangeQuery("Caracteristicas.NumPlazas").gte(0
+			 * ).lte(2)); }
+			 */
+
+		if (maximoKm != null || maximoKmStr != null) {
+			if (maximoKmStr != null && !maximoKmStr.isEmpty()) {
+				if (maximoKmStr.equalsIgnoreCase("Limitado")) {
+					maximoKm = 100L; // 9999999L; (ok en vehiculos-efast) //Limitado: 0 hasta 9.999.999 //1000L;
+				} else { // Ilimitado
+					// maximoKm = 10000000000L;
+					queryBuilder.must(QueryBuilders.rangeQuery("Caracteristicas.MaximodeKm").gte(101L)); // 10000000000L
+																											// 1001L
+				}
+			}
+			queryBuilder.must(QueryBuilders.rangeQuery("Caracteristicas.MaximodeKm").lte(maximoKm));
+		}
+
+//		Los filtros son más eficientes que must, porque no requieren el cálculo de puntuación.
+		queryBuilder.filter(QueryBuilders.termQuery("Alquilable", S));
+//		 queryBuilder.must(QueryBuilders.termQuery("Alquilable", S));
+
+		if (marcasVehiculo != null && !marcasVehiculo.isEmpty()) {
+			queryBuilder.must(QueryBuilders.termsQuery("MarcaVehiculo.keyword", marcasVehiculo));
+		}
+		if (ciudadVehiculo != null && !ciudadVehiculo.isEmpty()) {
+			queryBuilder.must(QueryBuilders.matchQuery("CiudadesVehiculo", ciudadVehiculo));
+		}
+		if (ciudadDevolverVehiculo != null && !ciudadDevolverVehiculo.isEmpty()) {
+			queryBuilder.must(QueryBuilders.matchQuery("CiudadesDevolverVehiculos", ciudadDevolverVehiculo));
+		}
+		if (fechaHoraIni != null) {
+			queryBuilder.must(QueryBuilders.rangeQuery("FechaIni").lte(fechaHoraIni)); // LocalDateTime.parse(fechaHoraIni)
+		}
+		if (fechaHoraFin != null) {
+			queryBuilder.must(QueryBuilders.rangeQuery("FechaFin").gte(fechaHoraFin));
+		}
+		return queryBuilder;
+	}
+	
 	// solo para los aggs de tipo ParsedStringTerms
 		private List<Map<String, Object>> StringAggs(ParsedStringTerms stringTerms, String [] transmRequiredFilt, boolean valueHuman, boolean NoResetearValoresa0) {
 			List<Map<String, Object>> aggsTypes = new ArrayList<>();
@@ -496,7 +512,7 @@ public class AggregationsServiceImpl implements AggregationsService{
 		// ejecuta aggregates solo para el query alquilale=S sin mas filtros
 		public Map<String, Aggregation> soloAggregations() {
 			BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
-			queryBuilder.must(QueryBuilders.termQuery("Alquilable", "S"));
+			queryBuilder.must(QueryBuilders.termQuery("Alquilable", S));
 			// Recomendando para que vayan mas rapidas las querys:  "_source": false ,"size"   : 0 
 //			SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 //	        searchSourceBuilder.query(queryBuilder);
@@ -530,7 +546,7 @@ public class AggregationsServiceImpl implements AggregationsService{
 		
 		public Map<String, Aggregation> soloAggregationsKmsyPlazas() {
 			BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
-			queryBuilder.must(QueryBuilders.termQuery("Alquilable", "S"));
+			queryBuilder.must(QueryBuilders.termQuery("Alquilable", S));
 			NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder().withQuery(queryBuilder);//no necesaria query para recuperar SOLO todos aggregates//.withQuery(queryBuilder);
 //			nativeSearchQueryBuilder.withMaxResults(0); 
 			// Configurar el tamaño de la página en 0
