@@ -152,36 +152,6 @@ function EngineContent({ tipoMotor, autonomia, prestaciones }) {
 }
 
 
-// function Extras(listExtras) {
-//     const extrasString = {
-//         gps: { text: "GPS", tooltip: "Navegación GPS" },
-//         sillaBebe: { text: "Bebe", tooltip: "Silla para Bebes" },
-//         proteccionenCarretera: { text: "Prot. Carretera", tooltip: "Proteccion en carretera" },
-//         opcionSeguroTodoRiesgo: { text: "Opcion Todo riesgo", tooltip: "Seguro todo riesgo opcional" }
-//     }
-//     const extrasObject = {
-//         exenciondeFranquicia: {
-//             // TODO: valores estan estatioos solo...   deben ser aleatorios
-//             120: { text: "Exencion 120", tooltip: "Excencion Franquicia 120" },
-//             180: { text: "Excencion 180", tooltip: "Excencion Franquicia 180" },
-//             182: { text: "Excencion 182", tooltip: "Excencion Franquicia 182 y variable randommm" },
-//         }
-
-//     }
-
-//     console.log("listaTags: ", listExtras)
-//     const listaTags = listExtras.map((extra) => typeof extra === "string" ?
-//         <Tooltip title={extrasString[extra].tooltip} key={extra} placement="top"> <Badge label={extrasString[extra].text} variant="outlined" /> </Tooltip> :
-//         <Tooltip title={extrasObject[extra.nombre][extra.value].tooltip} key={`${extra.nombre}-${extra.value}`} placement="top"> <Badge label={`${extrasObject[extra.nombre][extra.value].text}`} variant="outlined" /></Tooltip>
-//     )    
-
-//     return (<div className="flex  flex-wrap gap-3">
-
-//         {listaTags}
-//     </div>
-//     )
-
-// }
 function Extras(listExtras) {
 
 

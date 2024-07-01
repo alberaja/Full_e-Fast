@@ -1,7 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect } from "react";
 import * as Icons from "./Icons";
-import { Chip, Tooltip } from "@mui/material";
-import { Link, Route } from "react-router-dom";
 import { useStoreVehiculo } from "../../zustand/store";
 // import PropTypes from 'prop-types'
 
@@ -184,7 +182,3 @@ export default function Card2 ( coche  ) {
     : "" )
   );
 };
-
-// Card2.PropTypes ={
-//   coche: PropTypes.any
-// }
