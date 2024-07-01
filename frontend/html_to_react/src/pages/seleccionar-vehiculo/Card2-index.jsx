@@ -71,8 +71,7 @@ const SearchResultsCarsEFast = ({ results , numDiasRangoEntreFechas}) => {
           <div className="contenedor__eleccion__tu">
             <h3 className="contenedor__eleccion-parrafo">Tu elección</h3>
           </div>
-        </section>
-        {/* aja: el <main> es todo el mismo contenido que "search-results-nuitari.jsx" */}
+        </section>        
         <main>
           <div className=" px-5 py-24 mx-auto  flex flex-col gap-4">
             {fetchedResults &&
