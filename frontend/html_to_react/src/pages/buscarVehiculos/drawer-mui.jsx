@@ -9,6 +9,7 @@ import IconButton from "@mui/material/IconButton";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import MenuFiltroscheckboxDinamicos from "../../components/filters/menufiltros-checkbox-dinamicos";
+import MenuFiltros from "../../components/filters/index-old";
 
 const drawerWidth = 240;
 
@@ -117,7 +118,7 @@ export default function PersistentDrawerLeft({ params, updateSearchParams , resu
 
         
               {/* results: para actualizar valores de los aggregates, y TODO: de qué valores mostrar en los checkbox dinamicos */}
-            {/* <MenuFiltros childrenFiltros={childrenFiltros} checkedLists={checked}  handleChange1={handleChange1} params={params} updateSearchParams={updateSearchParams} results={results}/> */}
+            {/* <MenuFiltros /*childrenFiltros={childrenFiltros} checkedLists={checked}  handleChange1={handleChange1} params={params} updateSearchParams={updateSearchParams} results={results}/> */}
             <MenuFiltroscheckboxDinamicos checkedLists={checked}  handleChange1={handleChange1} params={params} updateSearchParams={updateSearchParams} results={results}/> 
             
 
@@ -137,7 +138,7 @@ export default function PersistentDrawerLeft({ params, updateSearchParams , resu
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            sx={{ mr: 2, ...(open && { display: "none" /*, backgroundColor: "red"*/  }) }}
+            sx={{ ...(open && { display: "none" /*, backgroundColor: "red"*/  }) }}
           >
             {/* <MenuIcon /> */}
             Todos los filtros

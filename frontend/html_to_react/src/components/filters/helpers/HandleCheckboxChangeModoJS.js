@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { useLocation } from "react-router-dom";
 
 export const HandleCheckboxChangeModoJS = (event, setQueryParamsState) => {
   const { name, checked, value } = event.target;

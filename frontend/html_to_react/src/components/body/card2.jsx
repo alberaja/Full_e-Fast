@@ -168,12 +168,7 @@ export default function Card2 ( coche  ) {
                 </div>
               ) : null}
             </div>
-          </div>
-          {/* <div className="barra__oferta__tesla"> */}
-                      {/* <img className="imagen__llave" /*src="images/entrega__llave.png"*/
-                    /*src={imagen} src="images/Zero-SRF-360-9.png" /> */}
-            {/* <img className="imagen__llave" src="/images/entrega__llave.png" />
-          </div> */}
+          </div>          
         </section>
       </section>
 

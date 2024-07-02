@@ -3,7 +3,7 @@ import { transformdata } from './transformData'
 import Paginador from './Paginador';
 import { useLocation } from 'react-router-dom';
 
-const SearchResultsCarsEFast = ({ params, results , numDiasRangoEntreFechas}) => {
+const SearchResultsCarsEFast = ({ results , numDiasRangoEntreFechas}) => {
 
     // ver que llega
     // console.log(results.Cars);
@@ -24,10 +24,10 @@ const SearchResultsCarsEFast = ({ params, results , numDiasRangoEntreFechas}) =>
     return (        
 
         //  Cards
-        // <!--Coche Tesla-->
+        // <!--Listado de vehiculos, ej: Coche Tesla-->
         <main>
             
-            <div className=" px-5 py-24 mx-auto  flex flex-col gap-4" >
+            <div className=" px-5 py-24 mx-auto  flex flex-col gap-6" >
            
                 { queryParams.get('ciudadesVehiculo') && queryParams.get('ciudadesDevolverVehiculo') !== null && queryParams.get('ciudadesDevolverVehiculo') !== queryParams.get('ciudadesVehiculo') ?  <p className='flex justify-center'>Oficina de recogida: { queryParams.get('ciudadesVehiculo')}</p> : ""}
                 { queryParams.get('ciudadesDevolverVehiculo')==null && queryParams.get('ciudadesVehiculo') ?  <p className='flex justify-center'>Oficina de recogida y devolución: { queryParams.get('ciudadesVehiculo')}</p> : ""}
@@ -43,12 +43,9 @@ const SearchResultsCarsEFast = ({ params, results , numDiasRangoEntreFechas}) =>
                     })
                     }                
                 <Paginador results={results}></Paginador>
-            </div>
-           
-
+            </div>           
 
             {/* <!--contenedor__caja de imagenes Coche-->  */}
-
         </main>
 
     );

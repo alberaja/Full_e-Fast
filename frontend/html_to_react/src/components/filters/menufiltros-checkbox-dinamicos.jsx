@@ -18,7 +18,6 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import BatteryChargingFullRoundedIcon from "@mui/icons-material/BatteryChargingFullRounded";
 import SearchIcon from '@mui/icons-material/Search';
-import { BrandSelect } from "./BrandSelect";
 
 const LABELS = {
   cajaCambio: "Caja de cambio",
@@ -78,57 +77,7 @@ console.log("----queryParams", paramsToObject(location.search));
     return queryParamsState[name].includes(value);
   };
 
-  // const handleCheckboxChange = (event) => {
-  //   const { name, value, checked } = event.target;
-  //   setQueryParamsState((prevParamsState) => {
-  //     let updatedValue;
-  //     if (checked) {
-  //       updatedValue = prevParamsState[name]
-  //         ? `${prevParamsState[name]},${value}`
-  //         : value;
-  //     } else {
-  //       const values = prevParamsState[name].split(",").filter((val) => val !== value);
-  //       updatedValue = values.join(",");
-  //     }
-  //     return {
-  //       ...prevParamsState,
-  //       [name]: updatedValue,
-  //     };
-  //   });
-  // };
-
-
-  // Función para manejar cambios en los checkboxes
-  // const handleCheckboxChangeModoJS = (event, valorHumano) => {    
-  //   const { name, checked, value } = event.target;
-  //   // {console.log(" event.target:", event.target)}
-  //   if(name === 'tiposVehiculo'){
-  //   setQueryParamsState((prevState) => ({
-  //     ...prevState,   //copia todas las propiedades del estado anterior en el nuevo estado
-  //     [name]: name === 'cajaCambio'  || name ==='tiposVehiculo' || name ==='tiposElectrico' || name ==='maximoKmStr' || name ==='numPlazas' //añadir tantos como nombres de grupos de cada accordeon tenga
-  //       ? checked ? [...prevState[name], valorHumano]  : prevState[name].filter((item) => item !== valorHumano)
-  //       : prevState[name],
-  //   }));
-  // } else {
-  //   setQueryParamsState((prevState) => ({
-  //     ...prevState,   //copia todas las propiedades del estado anterior en el nuevo estado
-  //     [name]: name === 'cajaCambio'  || name ==='tiposVehiculo' || name ==='tiposElectrico' || name ==='maximoKmStr' || name ==='numPlazas' //añadir tantos como nombres de grupos de cada accordeon tenga
-  //       ? checked ? [...prevState[name], value]  : prevState[name].filter((item) => item !== value)
-  //       : prevState[name],
-  //   }));
-  // }
-  // }; 
-  // const handleCheckboxChangeModoJS = (event) => {
-  //   const { name, checked, value } = event.target;
-  //   setQueryParamsState((prevState) => ({
-  //     ...prevState,
-  //     [name]: name === 'cajaCambio'  || name ==='tiposVehiculo' || name ==='tiposElectrico' || name ==='maximoKmStr' || name ==='numPlazas'  //añadir tantos como nombres de grupos de cada accordeon tenga
-  //       ? checked
-  //         ? [...prevState[name], value]
-  //         : prevState[name].filter((item) => item !== value)
-  //       : prevState[name],
-  //   }));
-  // };
+  
   const handleCheckboxChangeModoJS = (event) => {
     const { name, checked, value } = event.target;
     
@@ -163,6 +112,7 @@ console.log("----queryParams", paramsToObject(location.search));
     <div>
       <span className=" w-full mx-auto pb-4 flex justify-center font-medium text-lg">Configure su Vehiculo</span>
       <ul>
+        {/* para si aggregates es un array /efast/v1/vehiculos  = dejar en index/busquedavehiculos const response = await axios.get(` http://localhost:8762/elastic-efast/api/efast/v1/vehiculos${query}`); */}
         {results?.aggs?.aggregates?.map((aggregate) => {
           const key = Object.keys(aggregate)[0];
           const label = LABELS[key];

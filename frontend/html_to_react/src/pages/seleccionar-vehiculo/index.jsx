@@ -1,4 +1,3 @@
-// src/components/SearchResults.js
 import { useEffect, useState } from 'react';
 import styles from './teslaElegido.module.css';
 //r-router-dom v5 import { useLocation , useHistory } from "react-router-dom";
@@ -15,15 +14,13 @@ import CheckTwoToneIcon from "@mui/icons-material/CheckTwoTone";
 import { useStoreVehiculo } from '../../zustand/store.js';
 
 
-//import imagen from 'images/Zero-SRF-360-9.png'; // Ruta relativa   ../../../public/images/entrega__llave.png
 
 const CocheElegido = ({ /*results*/ }) => {
     // EL id lo recibo de la URL
     const { id } = useParams();
     const [results, setResults] = useState(null);
 
-    // ver que llega
-    // console.log(results.Cars);
+
     const location = useLocation();   // visualizar los estados que llegan en una ruta de react router dom
      console.log("location.state:", location.state);
     let numdiasReservados = location?.state?.diasReservados ?? 0;   //si es undefined, devolver 0
@@ -33,8 +30,7 @@ const CocheElegido = ({ /*results*/ }) => {
     let numPlazas = location?.state?.numPlazas;
     let capLitros = location?.state?.capLitros;
     let autonomiaKm = location?.state?.autonomiaKm;
-    // {console.log("valor actual: ", precio)}
-
+    
     // Zustand
     const {setearValoresZustand_cardVehicleData, setearRentalData_datosReserva} = useStoreVehiculo()
 
@@ -43,20 +39,8 @@ const CocheElegido = ({ /*results*/ }) => {
       let navigate = useNavigate()
     const queryParams = new URLSearchParams(location.search);
        // Estado inicial con todos los valores de los parámetros de búsqueda
-  const [params, setParams] = useState(location.search);
-    // Función para actualizar los parámetros de búsqueda
-    const updateSearchParams = (newParams) => {
-      newParams = location.search;
-        //r-router-dom v5 history.push({ search: newParams });
-        navigate({ search: newParams })
-      setParams(newParams);
-      alert({newParams});
-    };
-//       // Efecto para sincronizar los valores de búsqueda con el estado
-    //   useEffect(() => {
-    //     setParams(location.search);
-    //     alert({params});
-    //   }, [location.search]);
+  
+        // Efecto para sincronizar los valores de búsqueda con el estado
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -97,7 +81,7 @@ const CocheElegido = ({ /*results*/ }) => {
     //console.log("results-->", results) //map para el Array     
     const vehiculoElegido = results?.vehiculos?.map(coche => <Card2 key={coche.id} {...coche}></Card2>)
        
-        //control de buscar 1 id e vehiculo q no responde vehiculos
+        //control de buscar 1 id de vehiculo q no responde vehiculos
         useEffect(() => {
             // console.log("vehiculoElegido", vehiculoElegido);        
             if (vehiculoElegido === null) {
@@ -114,15 +98,7 @@ const CocheElegido = ({ /*results*/ }) => {
         };
 
     return (
-        // /cocheElegido
-        // <main>
-        
-        <>
-        {/* <div><img src="/images/Zero-SRF-360-9.png" className="imagenCoche" /> </div> */}
-            {/* <!--Elección--> */}
-            {/* aja: traerse el Hash del module CSS */}
-            {/* resultado: class="teslaElegido_contenedor__eleccion__DJXrw"
-            nombreFicherodelModulo_nombreClase_hashdelCSS */}
+        <>    
             <section className={ styles["contenedor__eleccion"] } >
                 <div className="contenedor__eleccion__tu">
                     <h3 className="contenedor__eleccion-parrafo">Tu elección</h3>
@@ -266,8 +242,7 @@ const CocheElegido = ({ /*results*/ }) => {
                 </div>
                 <div className={ styles["contenedor__boton__reserva"] }>
                     <a className={ styles["contenedor__boton"] }>
-                        {/* href="teslaReservar.html" */}
-                        {/* <!--calendar link--> */}
+                        {/* href="teslaReservar.html" */}                       
                         {/* aplicarlo asi a todos los botones!! */}
                             {/* para el color del <a><a/> del button poner: color: white; */}
                         <div className={ styles["contenedor__boton-forma"] }>                            
@@ -286,8 +261,7 @@ const CocheElegido = ({ /*results*/ }) => {
                         </div>
                     </a>
                 </div>
-            </section>                                 
-            {/* </main> */}
+            </section>            
         </>
         // /vehiculoElegido
     );

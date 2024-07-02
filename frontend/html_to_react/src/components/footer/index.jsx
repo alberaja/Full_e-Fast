@@ -1,8 +1,6 @@
 
 
-
 export default function Footer() {
-
 
 
     return (
@@ -11,7 +9,6 @@ export default function Footer() {
                 <p> e-fast, correo info@e-fast.com <br />Trabaja con nosotros | Aviso legal | Politica de cookies</p>
             </div>
         </footer>
-
 
     )
 }

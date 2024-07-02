@@ -2,12 +2,6 @@ import { useEffect, useState } from "react";
 
 import { useModal } from '../../hooks/modal';
 
-import { Modal } from "@mui/base";
-import Backdrop from "@mui/material/Backdrop";  // para la modal
-import Fade from "@mui/material/Fade";
-import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
 import Contactanos from "../../pages/contact-us";
 
 export default function Header() {  //export para q luego pueda importarse en index
@@ -69,10 +63,6 @@ export default function Header() {  //export para q luego pueda importarse en in
 
     return (
 
-
-
-
-
         <header className="header" >{ /*  style={}{ /* { /* <!--nav--> */}
             <nav className="nav container">
                 <img src="/images/logo-empresa.png" className="nav_logo" />
@@ -81,7 +71,7 @@ export default function Header() {  //export para q luego pueda importarse en in
                     <img src="/images/icon-hamburger.svg" className="nav_hamburguer" />
                 </label>
                 <ul className="container__menu__responsive">
-                    <li className="container__menu__responsive-item" className="container__menu__responsive-item-inicio">
+                    <li className="container__menu__responsive-item" /*className="container__menu__responsive-item-inicio"*/>
                         <a className="active" href="index.html">Inicio</a>{ /*{ /* <!--esta activo y envia a la página prinicpal (index.html)--> */}
                     </li>
                     <li className="container__menu__responsive-item" >

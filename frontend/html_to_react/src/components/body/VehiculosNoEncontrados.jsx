@@ -32,44 +32,14 @@ export default function VehiculosNoEncontrados({results}){
               <h2 className="text-2xl font-bold text-center mt-4">Vehículos no encontrados</h2>
             </div>
             <section className="producto__zero__caracteristicas">
-              {/* <div className="producto__tesla__parrafo__caracteristicas">
-                <div className="producto__zero__parrafo__velocidadPunta">
-                  <p className="producto__zero__parrafo__velocidadPunta-p">
-                    <img src="/images/velocimetro.png" /> 200km/h
-                  </p>
-                </div>
-                <div className="producto__zero__parrafo__tiempo__carga">
-                  <p className="producto__zero__parrafo__tiempo__carga-p">
-                    <img src="/images/grid_iconoReloj7.svg" /> 2.4h cargarla
-                  </p>
-                </div>
-                <div className="producto__zero__parrafo__autonomia">
-                  <p className="producto__zero__parrafo__autonomia-p">
-                    <img src="/images/bateria.svg" /> 272km autonomía
-                  </p>
-                </div>
-              </div> */}
+             
               <p className="text-gray-500 text-center mt-2">
                 Lo sentimos, no pudimos encontrar ningún vehículo que coincida con tu búsqueda.
                 Pulsa INICIO para comenzar la búsqueda de nuevo.
               </p>
             </section>
           </section>
-          <section className="barra__zero">
-            {/* <div className="barra__zero__precio">
-              <div className="barra__zero__precio__dia">
-                <p className="precio__dia">Precio por 1 día</p>
-                <h3 className="precio__dia__zero-especifico">79€</h3>
-                <img className="iconoCheck" src="images/check.svg" />
-                <p className="barra__precio-Cancelacion__gratuita">
-                  Cancelación gratuita
-                </p>
-              </div>
-            </div>
-            <a href="zeroElegido.html" className="barra__oferta__zero">
-              <div>Ver oferta</div>
-            </a> */}
-          </section>
+          
         </section>
     );
 }

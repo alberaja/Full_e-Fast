@@ -14,7 +14,7 @@ export default function Card(props) {
 
     } = props
     const IconSide = [{ icon: "Information", value: 0 }, { icon: "Car", value: 1, props: { tipo } }, { icon: "Engine", value: 2 }]
-    const pegatina = ECO ? 'Cero.webp' : "Eco.webp"
+    const pegatina = ECO ? "Eco.webp" : 'Cero.webp'
 
 
     const IconSidebar = useMemo(() => IconSide.map(({ icon, value, props }) => {
