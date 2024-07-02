@@ -1,8 +1,6 @@
 import styles from './buscarVehiculo.css';
 
-import ServicioExclusivoFooter from '../../components/footer/servicio-exclusivo-footer';
 
-import DescripyContactoFooter from '../../components/footer/descrip-y-contacto-footer';
 import CarsResultados from './cars-resultados.jsx';
   //r-router-dom v5 import { useLocation , useHistory } from "react-router-dom";
 import { useLocation, useNavigate } from "react-router-dom"
@@ -21,8 +19,6 @@ import VehiculosNoEncontrados from '../../components/body/VehiculosNoEncontrados
 
 
 export default function BuscarVehiculo() {
-
-    // console.log(styles);
 
     const location = useLocation();   // visualizar los estados que llegan en una ruta de react router dom
     // console.log( location.state);
@@ -46,7 +42,7 @@ export default function BuscarVehiculo() {
       newParams = location.search;
         //r-router-dom v5 history.push({ search: newParams });
         navigate({ search: newParams })  
-      console.log("updateSearchParams----->>> ", newParams);
+      //console.log("updateSearchParams----->>> ", newParams);
       setParams(newParams);
       //alert({newParams});
     };
@@ -87,9 +83,7 @@ export default function BuscarVehiculo() {
     const numDiasRangoEntreFechas = calcularRangoEntreFechas(queryParams );    
     console.log("nº dias calculados de alquiler -->", numDiasRangoEntreFechas);
 
-    return (
-      //  <main> {/*<!--main-->*/}
-      // <span>
+    return (      
       <>
         <section className="contenedor__map">
           {/* <!--Ubicación Google Maps--> */}

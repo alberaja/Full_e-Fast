@@ -1,4 +1,3 @@
-import { Pagination } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 
 export default function VehiculosNoEncontrados({results}){

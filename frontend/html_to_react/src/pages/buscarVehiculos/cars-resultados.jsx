@@ -1,10 +1,4 @@
 
-import React, { useState, useEffect } from 'react';
-
-import axios from 'axios';
-
-import { useModal } from '../../hooks/modal.jsx';
-
 import SearchResultsCarsEFast from '../../components/body/search-results-final.jsx';
 
 

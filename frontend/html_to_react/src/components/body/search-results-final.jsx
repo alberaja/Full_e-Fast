@@ -1,21 +1,7 @@
-// src/components/SearchResults.js
-import React from 'react';
-
-//ok antes import './buscarVehiculo.css';
-import { Link, Route } from 'react-router-dom';
-
-// iconos
-import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import BatteryChargingFullRoundedIcon from "@mui/icons-material/BatteryChargingFullRounded";
-import LocalDrinkIcon from '@mui/icons-material/LocalDrink';
-import CheckTwoToneIcon from "@mui/icons-material/CheckTwoTone";
-
-import Card from './Card'
+import Card from './Card';
 import { transformdata } from './transformData'
 import Paginador from './Paginador';
 import { useLocation } from 'react-router-dom';
-import { fontSize } from '@mui/system';
 
 const SearchResultsCarsEFast = ({ params, results , numDiasRangoEntreFechas}) => {
 

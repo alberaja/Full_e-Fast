@@ -1,9 +1,3 @@
-import Modal from "@mui/material/Modal";
-
-import { useModal } from '../../hooks/modal';
-import Backdrop from "@mui/material/Backdrop";  // para la modal
-import Fade from "@mui/material/Fade";
-import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 
@@ -57,7 +51,6 @@ export default function Contactanos({ estilo , open, handleOpen, handleClose}) {
       }, [open]); // El efecto se ejecuta cada vez que la prop `open` cambia
 
     return (
-
         <ModalLayout isOpen={open} handleClose={handleClose}>
                {/* todo lo de dentro de ModalLayout es el children, es 1 prop más */}
                     <IconButton
@@ -182,7 +175,7 @@ export default function Contactanos({ estilo , open, handleOpen, handleClose}) {
                     {/* Otros campos y lógica del formulario */}
        
         </ModalLayout>
-    )
+    );
 
 
 }

@@ -1,5 +1,5 @@
 // src/components/SearchResults.js
-import React, { useEffect , useState} from 'react';
+import { useEffect, useState } from 'react';
 import styles from './teslaElegido.module.css';
 //r-router-dom v5 import { useLocation , useHistory } from "react-router-dom";
 import { useLocation, useNavigate } from "react-router-dom"
@@ -7,15 +7,10 @@ import { useLocation, useNavigate } from "react-router-dom"
 import { useParams } from 'react-router-dom';
 
 //ok antes import './buscarVehiculo.css';
-import { Link, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import Card2 from './../../components/body/card2.jsx'
 
-// iconos
-import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import BatteryChargingFullRoundedIcon from "@mui/icons-material/BatteryChargingFullRounded";
-import LocalDrinkIcon from '@mui/icons-material/LocalDrink';
 import CheckTwoToneIcon from "@mui/icons-material/CheckTwoTone";
 import { useStoreVehiculo } from '../../zustand/store.js';
 
@@ -133,48 +128,7 @@ const CocheElegido = ({ /*results*/ }) => {
                     <h3 className="contenedor__eleccion-parrafo">Tu elección</h3>
                 </div>
             </section>
-            {/* <!--Coche Tesla--> */}
-            {/* <section className="contenedor__caja__vehiculos__tesla" id="vehiculos">
-                <div className="contenedor__caja__vehiculos__dinamico__tesla">
-                    <div className="caja__tesla">
-                        <a href="teslaCaracteristicas.html" className="caja__tesla__imagen">
-                            <img src="images/tesla3.png" className="imagenCoche" />
-                        </a>
-                    </div>
-                </div>
-                <section className="producto__tesla">
-                    <div className="producto__tesla__parrafo">
-                        <h1 className="producto__tesla__parrafo">{coche}</h1>
-                    </div>
-                    <section className="producto__tesla__caracteristicas">
-                        <div className="producto__tesla__parrafo__caracteristicas">
-                            <div className="producto__tesla__parrafo__plazos">
-                                <p className="producto__tesla__parrafo__plazas-p"><img src="images/icono-user.svg" /> 5 plazas</p>
-                            </div>
-                            <div className="producto__tesla__parrafo__plazos">
-                                <p className="producto__tesla__parrafo__litros-p"><img src="images/equipaje.svg" /> 649 litros</p>
-                            </div>
-                            <div className="producto__tesla__parrafo__plazos">
-                                <p className="producto__tesla__parrafo__autonomia-p"><img src="images/bateria.svg" /> 547km autonomía</p>
-                            </div>
-                        </div>
-                    </section>
-                </section>
-                <section className="barra__tesla">
-                    <div className="barra__tesla__precio">
-                        <div className="barra__tesla__precio__dia">
-                            <p className="precio__dia">Precio por <span>1</span> día</p>
-                            <h3 className="precio__dia__tesla-especifico"><span>{precio}</span>€</h3>
-                            {/* <span>159</span>€</h3> 
-                            <img className="iconoCheck" src="images/check.svg" />
-                            <p className="barra__precio-Cancelacion__gratuita">Cancelación gratuita</p>
-                        </div>
-                    </div>
-                    <div className="barra__oferta__tesla">
-                        <img className="imagen__llave" src="images/entrega__llave.png" />
-                    </div>
-                </section>
-            </section> */}
+           
             {/* {precio =results?.vehiculos[0]?.precio[0].por1DiaEuros} */}
             {/* TODO:  componetizar mas el de cards de search-results-carsEFast.jsx */}
                     {/* {console.log('resultadoActivo:',{results})} */}        

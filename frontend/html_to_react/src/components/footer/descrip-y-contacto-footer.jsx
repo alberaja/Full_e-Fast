@@ -2,8 +2,7 @@
 
 export default function DescripyContactoFooter() {
   return (
-    // <>
-
+    
     <section className="contenedor__contacto__conocernos" >
       <div className="contenedor__contacto__conocernos__grid">
         <div className="contenedor__contacto__conocernos__logotipo">
