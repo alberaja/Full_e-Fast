@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import Card2 from './../../components/body/card2.jsx'
 
 import CheckTwoToneIcon from "@mui/icons-material/CheckTwoTone";
+import AddIcon from '@mui/icons-material/Add';
 import { useStoreVehiculo } from '../../zustand/store.js';
 
 
@@ -173,6 +174,48 @@ const CocheElegido = ({ /*results*/ }) => {
                                 &nbsp; Kilometraje hasta {results?.vehiculos[0]?.caracteristicas[0]?.maximodeKm} kms </div>
                         )
                         }
+                    </li>
+                    
+                    {/* extra de Full E-Fast */}
+                    <li className={styles["contenedor__inluido__cancelacion__precio-parrafo"]}>
+                        {results?.vehiculos[0]?.extras[0]?.sillaBebe ? (
+                            <div>                                
+                                <AddIcon style={{ color: "rgb(31, 153, 39)" }} />                                                                                    
+                                &nbsp; (Extra) Silla para Bebé
+                            </div>
+                        ) : null}
+                    </li>                    
+                    <li className={styles["contenedor__inluido__cancelacion__precio-parrafo"]}>
+                        {results?.vehiculos[0]?.extras[0]?.exenciondeFranquicia ? (
+                            <div>                                
+                                <AddIcon style={{ color: "rgb(31, 153, 39)" }} />                                                                                    
+                                &nbsp; (Extra) Exencion de Franquicia de hasta {results?.vehiculos[0]?.extras[0]?.exenciondeFranquicia} €
+                            </div>
+                        ) : null}
+                    </li>
+                    <li className={styles["contenedor__inluido__cancelacion__precio-parrafo"]}>
+                        {results?.vehiculos[0]?.extras[0]?.opcionSeguroTodoRiesgo ? (
+                            <div>                                
+                                <AddIcon style={{ color: "rgb(31, 153, 39)" }} />                                                                                    
+                                &nbsp; (Extra) Seguro a todo riesgo opcional 
+                            </div>
+                        ) : null}
+                    </li>
+                    <li className={styles["contenedor__inluido__cancelacion__precio-parrafo"]}>
+                        {results?.vehiculos[0]?.extras[0]?.gps ? (
+                            <div>                                
+                                <AddIcon style={{ color: "rgb(31, 153, 39)" }} />                                                                                    
+                                &nbsp; (Extra) Navegador GPS
+                            </div>
+                        ) : null}
+                    </li>
+                    <li className={styles["contenedor__inluido__cancelacion__precio-parrafo"]}>
+                        {results?.vehiculos[0]?.extras[0]?.proteccionenCarretera ? (
+                            <div>                                
+                                <AddIcon style={{ color: "rgb(31, 153, 39)" }} />                                                                                    
+                                &nbsp; (Extra) Protección en carretera
+                            </div>
+                        ) : null}
                     </li>
                 </ul>
             </section>
