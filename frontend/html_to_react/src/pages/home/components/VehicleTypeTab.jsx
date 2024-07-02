@@ -39,13 +39,13 @@ export function VehicleTypeTab({selectedVehicleTypes, handleOptionClick} ) {
   {data ? (  
       <div className="sm:hidden" ref={dropdownRef}>      
         <label htmlFor="tabs" className="sr-only">
-          select vehicle type
+            Selecciona el tipo de vehículo
         </label>
         <span
           onClick={toggleDropdown}
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
         >
-          {selectedVehicleTypes.length ? selectedVehicleTypes.join(', ') : 'Select vehicle type'}
+          {selectedVehicleTypes.length ? selectedVehicleTypes.join(', ') : 'Selecciona el tipo de vehículo'}
         </span>
         {/* mostrar los checkbox SOLO si tamaño de screen es pequeño */}
         {/* {isOpen && (

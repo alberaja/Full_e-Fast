@@ -31,14 +31,14 @@ export function FuelTypeTab({selectedFuelTypes, handleOptionClick}) {
     <>
       <div className="lg:hidden" ref={dropdownRef}>
         <label htmlFor="tabs" className="sr-only">
-          Select fuel type
+          Selecciona el tipo de eléctrico
         </label>
           {/* TODO: quitar/(no mostrar valores de selectedFuelTypes y mostrar los de type.valueHuman) */}
           <span
             onClick={toggleDropdown}
             className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           >
-            {selectedFuelTypes.length ? selectedFuelTypes.join(', ') : 'Select fuel type'}
+            {selectedFuelTypes.length ? selectedFuelTypes.join(', ') : 'Selecciona el tipo de eléctrico'}
           </span>
         {isOpen && (
           <div className="absolute z-10 mt-1 w-[70%] bg-white border border-gray-300 rounded-md shadow-lg">
