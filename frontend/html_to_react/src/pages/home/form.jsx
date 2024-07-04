@@ -410,7 +410,7 @@ console.log({selectedVehicleTypes}, selectedVehicleTypes);
       <div className="rounded-lg p-3 bg-gray-200 border border-gray-700 inline-flex flex-col shadow-2xl">
         <div className="bg-gray-200 [&>div>label]:text-gray-600 [&>div>label]:font-semibold [&>div>input]:bg-gray-200 [&>div>input]:text-gray-600 flex-col mx-auto justify-between p-2 xl:flex-row flex">
           <div className="mb-4">
-            <label>pick up: </label>              
+            <label>Recogida: </label>              
             {/* {console.log({startTime})} */}
             <input
               type="time"
@@ -430,7 +430,7 @@ console.log({selectedVehicleTypes}, selectedVehicleTypes);
             </div>
           </div>
           <div>
-            <label>Drop off: </label>
+            <label>Devolución: </label>
             <input 
               type="time" 
               // value={getTime(range.endDate)} 
