@@ -2,7 +2,7 @@ package com.efast.backend.services;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +37,12 @@ public class ReservaServiceImpl implements ReservaService {
 	private final ModelMapper modelMapper = new ModelMapper();
 
 	@Override
-	public List<Reserva> getAllReservas() {
-		return reservaRepository.findAll();
+	public List<ReservaDTO> getAllReservas() {
+//		return reservaRepository.findAll();
+		List<ReservaDTO> reservaDTOs = reservaRepository.findAll().stream()
+                .map(reserva -> modelMapper.map(reserva, ReservaDTO.class))
+                .collect(Collectors.toList());
+		return reservaDTOs;
 	}
 
 	@Override

@@ -3,11 +3,11 @@ package com.efast.backend.model;
 import java.io.Serializable;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -58,7 +58,8 @@ public class Vehiculo implements Serializable {
 //	 private List<VehiculoFavorito> vehiculosFavoritos;
 		// un vehículo puede tener como máximo una reserva asociada. Una reserva solo puede estar asociada con un único vehículo.
 	 	@OneToOne(mappedBy = "vehiculoId")		//nombre variable de Java
-	    private Reserva reserva;
+	 	@JsonBackReference		// NO debe ser serializada.
+	 	private Reserva reserva;
 	    
 	 	@ManyToMany(fetch = FetchType.LAZY)
 	    @JoinTable(name = "vehiculos_favoritos",

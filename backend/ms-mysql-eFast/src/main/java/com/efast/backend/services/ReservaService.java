@@ -10,7 +10,7 @@ import com.efast.backend.model.Conductor;
 import com.efast.backend.model.Reserva;
 
 public interface ReservaService {
-    List<Reserva> getAllReservas();
+    List<ReservaDTO> getAllReservas();
     Reserva getReservaById(Long reservaId);
     // old
     ResponseEntity<String> createReserva(List<Reserva> reserva);

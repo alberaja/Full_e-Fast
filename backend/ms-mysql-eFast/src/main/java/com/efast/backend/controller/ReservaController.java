@@ -30,7 +30,7 @@ public class ReservaController {
     private ReservaService reservaService;
 
     @GetMapping
-    public List<Reserva> getAllReservas() {
+    public List<ReservaDTO> getAllReservas() {
         return reservaService.getAllReservas();
     }
 

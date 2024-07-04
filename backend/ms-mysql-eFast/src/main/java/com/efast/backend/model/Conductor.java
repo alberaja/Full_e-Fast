@@ -7,6 +7,8 @@ import java.util.Set;
 
 import org.hibernate.annotations.NaturalId;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -67,6 +69,7 @@ public class Conductor implements Serializable {
 //	    private String comentarios;
 	
 	    @OneToMany(mappedBy = "conductorId", cascade = CascadeType.ALL)  //nombre variable de Java
+	    @JsonBackReference		// NO debe ser serializada.	
 	    private List<Reserva> reservas;
 	// aja
 //	@ManyToOne//(fetch = FetchType.LAZY)

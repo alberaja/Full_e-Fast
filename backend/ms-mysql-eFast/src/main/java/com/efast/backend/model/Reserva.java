@@ -5,9 +5,11 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -44,16 +46,18 @@ public class Reserva implements Serializable {
 //	    @ManyToOne // muchas instancias de la entidad Reserva pueden estar asociadas con una sola instancia de la entidad Vehiculo.
 //	    @JoinColumn(name = "vehicle_id", nullable = false, columnDefinition = "BIGINT default 0")  // especificar la columna en la tabla de la entidad Reserva que contendrá el identificador del vehículo asociado
 //	    private Vehiculo vehicle;
-	 	@ManyToOne
+	 	@ManyToOne(fetch = FetchType.LAZY)
 	 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	    @JoinColumn(name = "vehiculo_id" /*, nullable = false*/)
-	 	@JsonIgnore 	 	// necesario para GET
+	 	//@JsonIgnore 	 	// necesario para GET
+	 	@JsonManagedReference	// debe ser serializada.
 	 	private Vehiculo  vehiculoId;  //Set<Vehiculo>. necesario set para poder usarlo luego al hacer .save(entidad)
 
-	    @ManyToOne
+	    @ManyToOne(fetch = FetchType.LAZY)
 	    //@GeneratedValue(strategy = GenerationType.IDENTITY)
 	    @JoinColumn(name = "conductor_id" , nullable = false /**/)
-	    @JsonIgnore			// necesario para GET
+	    //@JsonIgnore			// necesario para GET
+	    @JsonManagedReference
 	    private Conductor conductorId; // Set<Conductor>
 	    
 	    @Column(name = "Comentarios")
