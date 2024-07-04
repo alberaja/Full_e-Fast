@@ -1,0 +1,660 @@
+{"index":{"_index":"vehiculos-efastmuchos","_id":"6"}}
+{
+  "CiudadesVehiculo": "Madrid,Zaragoza",
+  "CiudadesDevolverVehiculos": "Madrid,Zaragoza,Barcelona",
+  "LocsVehiculo": [
+    { "lat": 40.41669, "lon": -3.700346 },
+    { "lat": 41.65645655, "lon": -0.87928652 }
+  ],
+  "GeoOficina": { "coordinates": { "lat": 40.41669, "lon": -3.700346 } },
+  "FechaIni": "05-03-2024T07:00",
+  "FechaFin": "08-03-2024T20:00",
+  "MarcaVehiculo": "BMW",
+  "ModeloVehiculo": "i3 REx",
+  "ImagenURL": "Default_BMW_i3_REx_0.webp",
+  "TipoVehiculo": "Moto",
+  "Alquilable": "S",
+  "Last_Updated": "04-03-2024T18:30:00",
+  "Caracteristicas": [
+    {
+      "Numplazas": 7,
+      "Litros": 649,
+      "AutonomiaKm": 600,
+      "TipoVehiculo": "PHEV",
+      "EtiquetaECO": true,
+      "NumeroBolsasmaletero": 6,
+      "Descripcion": "Coche muy cómodo y rápido y veloz",
+      "CajaCambio": "Automatico",
+      "Año": 2025,
+      "MaximodeKm": 120000,
+      "AltoConfort": true,
+      "AltasPrestaciones": true,
+      "PerfectoEstado": true
+    }
+  ],
+  "Precio": [
+    { "Por1DiaEuros": 200, "CancelacionGratis": false, "OfertaEspecial": false, "PrecioOferta": 195 }
+  ],
+  "Extras": [
+    { "GPS": false, "SillaBebe": false, "ProteccionenCarretera": false, "ExenciondeFranquicia": 180, "OpcionSeguroTodoRiesgo": false }
+  ],
+  "Seguro": [
+    { "CoberturaParcialcolisionFranquicia": true, "CoberturaParcialcolisionFranquiciaQty": 1000, "CoberturaRobo": true, "CoberturaRobocolisionFranquiciaQty": 1000 }
+  ]
+}
+{"index":{"_index":"vehiculos-efastmuchos","_id":"7"}}
+{
+  "CiudadesVehiculo": "Madrid,Zaragoza",
+  "CiudadesDevolverVehiculos": "Madrid,Zaragoza,Barcelona",
+  "LocsVehiculo": [
+    { "lat": 40.41669, "lon": -3.700346 },
+    { "lat": 41.65645655, "lon": -0.87928652 }
+  ],
+  "GeoOficina": { "coordinates": { "lat": 40.41669, "lon": -3.700346 } },
+  "FechaIni": "05-03-2024T07:00",
+  "FechaFin": "08-03-2024T20:00",
+  "MarcaVehiculo": "Mazda",
+  "ModeloVehiculo": "MX-30 (2023)",
+  "ImagenURL": "Default_Mazda_MX30_2023_0.webp",
+  "TipoVehiculo": "Moto",
+  "Alquilable": "S",
+  "Last_Updated": "04-03-2024T18:30:00",
+  "Caracteristicas": [
+    {
+      "Numplazas": 7,
+      "Litros": 649,
+      "AutonomiaKm": 600,
+      "TipoVehiculo": "PHEV",
+      "EtiquetaECO": true,
+      "NumeroBolsasmaletero": 6,
+      "Descripcion": "Coche muy cómodo y rápido y veloz",
+      "CajaCambio": "Automatico",
+      "Año": 2025,
+      "MaximodeKm": 120000,
+      "AltoConfort": true,
+      "AltasPrestaciones": true,
+      "PerfectoEstado": true
+    }
+  ],
+  "Precio": [
+    { "Por1DiaEuros": 200, "CancelacionGratis": false, "OfertaEspecial": false, "PrecioOferta": 195 }
+  ],
+  "Extras": [
+    { "GPS": false, "SillaBebe": false, "ProteccionenCarretera": false, "ExenciondeFranquicia": 180, "OpcionSeguroTodoRiesgo": false }
+  ],
+  "Seguro": [
+    { "CoberturaParcialcolisionFranquicia": true, "CoberturaParcialcolisionFranquiciaQty": 1000, "CoberturaRobo": true, "CoberturaRobocolisionFranquiciaQty": 1000 }
+  ]
+}
+{"index":{"_index":"vehiculos-efastmuchos","_id":"8"}}
+{
+  "CiudadesVehiculo": "Madrid,Zaragoza",
+  "CiudadesDevolverVehiculos": "Madrid,Zaragoza,Barcelona",
+  "LocsVehiculo": [
+    { "lat": 40.41669, "lon": -3.700346 },
+    { "lat": 41.65645655, "lon": -0.87928652 }
+  ],
+  "GeoOficina": { "coordinates": { "lat": 40.41669, "lon": -3.700346 } },
+  "FechaIni": "05-03-2024T07:00",
+  "FechaFin": "08-03-2024T20:00",
+  "MarcaVehiculo": "Fisker",
+  "ModeloVehiculo": "Karma",
+  "ImagenURL": "Default_Fisker_Karma_0.webp",
+  "TipoVehiculo": "Moto",
+  "Alquilable": "S",
+  "Last_Updated": "04-03-2024T18:30:00",
+  "Caracteristicas": [
+    {
+      "Numplazas": 7,
+      "Litros": 649,
+      "AutonomiaKm": 600,
+      "TipoVehiculo": "PHEV",
+      "EtiquetaECO": true,
+      "NumeroBolsasmaletero": 6,
+      "Descripcion": "Coche muy cómodo y rápido y veloz",
+      "CajaCambio": "Automatico",
+      "Año": 2025,
+      "MaximodeKm": 120000,
+      "AltoConfort": true,
+      "AltasPrestaciones": true,
+      "PerfectoEstado": true
+    }
+  ],
+  "Precio": [
+    { "Por1DiaEuros": 200, "CancelacionGratis": false, "OfertaEspecial": false, "PrecioOferta": 195 }
+  ],
+  "Extras": [
+    { "GPS": false, "SillaBebe": false, "ProteccionenCarretera": false, "ExenciondeFranquicia": 180, "OpcionSeguroTodoRiesgo": false }
+  ],
+  "Seguro": [
+    { "CoberturaParcialcolisionFranquicia": true, "CoberturaParcialcolisionFranquiciaQty": 1000, "CoberturaRobo": true, "CoberturaRobocolisionFranquiciaQty": 1000 }
+  ]
+}
+{"index":{"_index":"vehiculos-efastmuchos","_id":"9"}}
+{
+  "CiudadesVehiculo": "Madrid,Zaragoza",
+  "CiudadesDevolverVehiculos": "Madrid,Zaragoza,Barcelona",
+  "LocsVehiculo": [
+    { "lat": 40.41669, "lon": -3.700346 },
+    { "lat": 41.65645655, "lon": -0.87928652 }
+  ],
+  "GeoOficina": { "coordinates": { "lat": 40.41669, "lon": -3.700346 } },
+  "FechaIni": "05-03-2024T07:00",
+  "FechaFin": "08-03-2024T20:00",
+  "MarcaVehiculo": "Vauxhall",
+  "ModeloVehiculo": "Ampera",
+  "ImagenURL": "Default_Vauxhall_Ampera_0.webp",
+  "TipoVehiculo": "Moto",
+  "Alquilable": "S",
+  "Last_Updated": "04-03-2024T18:30:00",
+  "Caracteristicas": [
+    {
+      "Numplazas": 7,
+      "Litros": 649,
+      "AutonomiaKm": 600,
+      "TipoVehiculo": "PHEV",
+      "EtiquetaECO": true,
+      "NumeroBolsasmaletero": 6,
+      "Descripcion": "Coche muy cómodo y rápido y veloz",
+      "CajaCambio": "Automatico",
+      "Año": 2025,
+      "MaximodeKm": 120000,
+      "AltoConfort": true,
+      "AltasPrestaciones": true,
+      "PerfectoEstado": true
+    }
+  ],
+  "Precio": [
+    { "Por1DiaEuros": 200, "CancelacionGratis": false, "OfertaEspecial": false, "PrecioOferta": 195 }
+  ],
+  "Extras": [
+    { "GPS": false, "SillaBebe": false, "ProteccionenCarretera": false, "ExenciondeFranquicia": 180, "OpcionSeguroTodoRiesgo": false }
+  ],
+  "Seguro": [
+    { "CoberturaParcialcolisionFranquicia": true, "CoberturaParcialcolisionFranquiciaQty": 1000, "CoberturaRobo": true, "CoberturaRobocolisionFranquiciaQty": 1000 }
+  ]
+}
+{"index":{"_index":"vehiculos-efastmuchos","_id":"10"}}
+{
+  "CiudadesVehiculo": "Madrid,Zaragoza",
+  "CiudadesDevolverVehiculos": "Madrid,Zaragoza,Barcelona",
+  "LocsVehiculo": [
+    { "lat": 40.41669, "lon": -3.700346 },
+    { "lat": 41.65645655, "lon": -0.87928652 }
+  ],
+  "GeoOficina": { "coordinates": { "lat": 40.41669, "lon": -3.700346 } },
+  "FechaIni": "05-03-2024T07:00",
+  "FechaFin": "08-03-2024T20:00",
+  "MarcaVehiculo": "Toyota",
+  "ModeloVehiculo": "Prius Prime",
+  "ImagenURL": "Default_Toyota_Prius_Prime_0.webp",
+  "TipoVehiculo": "Moto",
+  "Alquilable": "S",
+  "Last_Updated": "04-03-2024T18:30:00",
+  "Caracteristicas": [
+    {
+      "Numplazas": 7,
+      "Litros": 649,
+      "AutonomiaKm": 600,
+      "TipoVehiculo": "PHEV",
+      "EtiquetaECO": true,
+      "NumeroBolsasmaletero": 6,
+      "Descripcion": "Coche muy cómodo y rápido y veloz",
+      "CajaCambio": "Automatico",
+      "Año": 2025,
+      "MaximodeKm": 120000,
+      "AltoConfort": true,
+      "AltasPrestaciones": true,
+      "PerfectoEstado": true
+    }
+  ],
+  "Precio": [
+    { "Por1DiaEuros": 200, "CancelacionGratis": false, "OfertaEspecial": false, "PrecioOferta": 195 }
+  ],
+  "Extras": [
+    { "GPS": false, "SillaBebe": false, "ProteccionenCarretera": false, "ExenciondeFranquicia": 180, "OpcionSeguroTodoRiesgo": false }
+  ],
+  "Seguro": [
+    { "CoberturaParcialcolisionFranquicia": true, "CoberturaParcialcolisionFranquiciaQty": 1000, "CoberturaRobo": true, "CoberturaRobocolisionFranquiciaQty": 1000 }
+  ]
+}
+{"index":{"_index":"vehiculos-efastmuchos","_id":"11"}}
+{
+  "CiudadesVehiculo": "Madrid,Zaragoza",
+  "CiudadesDevolverVehiculos": "Madrid,Zaragoza,Barcelona",
+  "LocsVehiculo": [
+    { "lat": 40.41669, "lon": -3.700346 },
+    { "lat": 41.65645655, "lon": -0.87928652 }
+  ],
+  "GeoOficina": { "coordinates": { "lat": 40.41669, "lon": -3.700346 } },
+  "FechaIni": "05-03-2024T07:00",
+  "FechaFin": "08-03-2024T20:00",
+  "MarcaVehiculo": "Mitsubishi",
+  "ModeloVehiculo": "Outlander PHEV",
+  "ImagenURL": "Default_Mitsubishi_Outlander_PHEV_0.webp",
+  "TipoVehiculo": "Moto",
+  "Alquilable": "S",
+  "Last_Updated": "04-03-2024T18:30:00",
+  "Caracteristicas": [
+    {
+      "Numplazas": 7,
+      "Litros": 649,
+      "AutonomiaKm": 600,
+      "TipoVehiculo": "PHEV",
+      "EtiquetaECO": true,
+      "NumeroBolsasmaletero": 6,
+      "Descripcion": "Coche muy cómodo y rápido y veloz",
+      "CajaCambio": "Automatico",
+      "Año": 2025,
+      "MaximodeKm": 120000,
+      "AltoConfort": true,
+      "AltasPrestaciones": true,
+      "PerfectoEstado": true
+    }
+  ],
+  "Precio": [
+    { "Por1DiaEuros": 200, "CancelacionGratis": false, "OfertaEspecial": false, "PrecioOferta": 195 }
+  ],
+  "Extras": [
+    { "GPS": false, "SillaBebe": false, "ProteccionenCarretera": false, "ExenciondeFranquicia": 180, "OpcionSeguroTodoRiesgo": false }
+  ],
+  "Seguro": [
+    { "CoberturaParcialcolisionFranquicia": true, "CoberturaParcialcolisionFranquiciaQty": 1000, "CoberturaRobo": true, "CoberturaRobocolisionFranquiciaQty": 1000 }
+  ]
+}
+{"index":{"_index":"vehiculos-efastmuchos","_id":"12"}}
+{
+  "CiudadesVehiculo": "Madrid,Zaragoza",
+  "CiudadesDevolverVehiculos": "Madrid,Zaragoza,Barcelona",
+  "LocsVehiculo": [
+    { "lat": 40.41669, "lon": -3.700346 },
+    { "lat": 41.65645655, "lon": -0.87928652 }
+  ],
+  "GeoOficina": { "coordinates": { "lat": 40.41669, "lon": -3.700346 } },
+  "FechaIni": "05-03-2024T07:00",
+  "FechaFin": "08-03-2024T20:00",
+  "MarcaVehiculo": "Volvo",
+  "ModeloVehiculo": "XC90 T8 Twin Engine",
+  "ImagenURL": "Default_Volvo_XC90_T8_Twin_Engine_0.webp",
+  "TipoVehiculo": "Moto",
+  "Alquilable": "S",
+  "Last_Updated": "04-03-2024T18:30:00",
+  "Caracteristicas": [
+    {
+      "Numplazas": 7,
+      "Litros": 649,
+      "AutonomiaKm": 600,
+      "TipoVehiculo": "PHEV",
+      "EtiquetaECO": true,
+      "NumeroBolsasmaletero": 6,
+      "Descripcion": "Coche muy cómodo y rápido y veloz",
+      "CajaCambio": "Automatico",
+      "Año": 2025,
+      "MaximodeKm": 120000,
+      "AltoConfort": true,
+      "AltasPrestaciones": true,
+      "PerfectoEstado": true
+    }
+  ],
+  "Precio": [
+    { "Por1DiaEuros": 200, "CancelacionGratis": false, "OfertaEspecial": false, "PrecioOferta": 195 }
+  ],
+  "Extras": [
+    { "GPS": false, "SillaBebe": false, "ProteccionenCarretera": false, "ExenciondeFranquicia": 180, "OpcionSeguroTodoRiesgo": false }
+  ],
+  "Seguro": [
+    { "CoberturaParcialcolisionFranquicia": true, "CoberturaParcialcolisionFranquiciaQty": 1000, "CoberturaRobo": true, "CoberturaRobocolisionFranquiciaQty": 1000 }
+  ]
+}
+{"index":{"_index":"vehiculos-efastmuchos","_id":"13"}}
+{
+  "CiudadesVehiculo": "Madrid,Zaragoza",
+  "CiudadesDevolverVehiculos": "Madrid,Zaragoza,Barcelona",
+  "LocsVehiculo": [
+    { "lat": 40.41669, "lon": -3.700346 },
+    { "lat": 41.65645655, "lon": -0.87928652 }
+  ],
+  "GeoOficina": { "coordinates": { "lat": 40.41669, "lon": -3.700346 } },
+  "FechaIni": "05-03-2024T07:00",
+  "FechaFin": "08-03-2024T20:00",
+  "MarcaVehiculo": "BMW",
+  "ModeloVehiculo": "X5 xDrive45e",
+  "ImagenURL": "Default_BMW_X5_xDrive45e_0.webp",
+  "TipoVehiculo": "Moto",
+  "Alquilable": "S",
+  "Last_Updated": "04-03-2024T18:30:00",
+  "Caracteristicas": [
+    {
+      "Numplazas": 7,
+      "Litros": 649,
+      "AutonomiaKm": 600,
+      "TipoVehiculo": "PHEV",
+      "EtiquetaECO": true,
+      "NumeroBolsasmaletero": 6,
+      "Descripcion": "Coche muy cómodo y rápido y veloz",
+      "CajaCambio": "Automatico",
+      "Año": 2025,
+      "MaximodeKm": 120000,
+      "AltoConfort": true,
+      "AltasPrestaciones": true,
+      "PerfectoEstado": true
+    }
+  ],
+  "Precio": [
+    { "Por1DiaEuros": 200, "CancelacionGratis": false, "OfertaEspecial": false, "PrecioOferta": 195 }
+  ],
+  "Extras": [
+    { "GPS": false, "SillaBebe": false, "ProteccionenCarretera": false, "ExenciondeFranquicia": 180, "OpcionSeguroTodoRiesgo": false }
+  ],
+  "Seguro": [
+    { "CoberturaParcialcolisionFranquicia": true, "CoberturaParcialcolisionFranquiciaQty": 1000, "CoberturaRobo": true, "CoberturaRobocolisionFranquiciaQty": 1000 }
+  ]
+}
+{"index":{"_index":"vehiculos-efastmuchos","_id":"14"}}
+{
+  "CiudadesVehiculo": "Madrid,Zaragoza",
+  "CiudadesDevolverVehiculos": "Madrid,Zaragoza,Barcelona",
+  "LocsVehiculo": [
+    { "lat": 40.41669, "lon": -3.700346 },
+    { "lat": 41.65645655, "lon": -0.87928652 }
+  ],
+  "GeoOficina": { "coordinates": { "lat": 40.41669, "lon": -3.700346 } },
+  "FechaIni": "05-03-2024T07:00",
+  "FechaFin": "08-03-2024T20:00",
+  "MarcaVehiculo": "BMW",
+  "ModeloVehiculo": "3 Series Mild Hybrid",
+  "ImagenURL": "Default_BMW_3_Series_Mild_Hybrid_0.webp",
+  "TipoVehiculo": "Moto",
+  "Alquilable": "S",
+  "Last_Updated": "04-03-2024T18:30:00",
+  "Caracteristicas": [
+    {
+      "Numplazas": 7,
+      "Litros": 649,
+      "AutonomiaKm": 600,
+      "TipoVehiculo": "PHEV",
+      "EtiquetaECO": true,
+      "NumeroBolsasmaletero": 6,
+      "Descripcion": "Coche muy cómodo y rápido y veloz",
+      "CajaCambio": "Automatico",
+      "Año": 2025,
+      "MaximodeKm": 120000,
+      "AltoConfort": true,
+      "AltasPrestaciones": true,
+      "PerfectoEstado": true
+    }
+  ],
+  "Precio": [
+    { "Por1DiaEuros": 200, "CancelacionGratis": false, "OfertaEspecial": false, "PrecioOferta": 195 }
+  ],
+  "Extras": [
+    { "GPS": false, "SillaBebe": false, "ProteccionenCarretera": false, "ExenciondeFranquicia": 180, "OpcionSeguroTodoRiesgo": false }
+  ],
+  "Seguro": [
+    { "CoberturaParcialcolisionFranquicia": true, "CoberturaParcialcolisionFranquiciaQty": 1000, "CoberturaRobo": true, "CoberturaRobocolisionFranquiciaQty": 1000 }
+  ]
+}
+{"index":{"_index":"vehiculos-efastmuchos","_id":"15"}}
+{
+  "CiudadesVehiculo": "Madrid,Zaragoza",
+  "CiudadesDevolverVehiculos": "Madrid,Zaragoza,Barcelona",
+  "LocsVehiculo": [
+    { "lat": 40.41669, "lon": -3.700346 },
+    { "lat": 41.65645655, "lon": -0.87928652 }
+  ],
+  "GeoOficina": { "coordinates": { "lat": 40.41669, "lon": -3.700346 } },
+  "FechaIni": "05-03-2024T07:00",
+  "FechaFin": "08-03-2024T20:00",
+  "MarcaVehiculo": "Audi",
+  "ModeloVehiculo": "A6 Mild Hybrid",
+  "ImagenURL": "Default_Audi_A6_Mild_Hybrid_0.webp",
+  "TipoVehiculo": "Moto",
+  "Alquilable": "S",
+  "Last_Updated": "04-03-2024T18:30:00",
+  "Caracteristicas": [
+    {
+      "Numplazas": 7,
+      "Litros": 649,
+      "AutonomiaKm": 600,
+      "TipoVehiculo": "PHEV",
+      "EtiquetaECO": true,
+      "NumeroBolsasmaletero": 6,
+      "Descripcion": "Coche muy cómodo y rápido y veloz",
+      "CajaCambio": "Automatico",
+      "Año": 2025,
+      "MaximodeKm": 120000,
+      "AltoConfort": true,
+      "AltasPrestaciones": true,
+      "PerfectoEstado": true
+    }
+  ],
+  "Precio": [
+    { "Por1DiaEuros": 200, "CancelacionGratis": false, "OfertaEspecial": false, "PrecioOferta": 195 }
+  ],
+  "Extras": [
+    { "GPS": false, "SillaBebe": false, "ProteccionenCarretera": false, "ExenciondeFranquicia": 180, "OpcionSeguroTodoRiesgo": false }
+  ],
+  "Seguro": [
+    { "CoberturaParcialcolisionFranquicia": true, "CoberturaParcialcolisionFranquiciaQty": 1000, "CoberturaRobo": true, "CoberturaRobocolisionFranquiciaQty": 1000 }
+  ]
+}
+{"index":{"_index":"vehiculos-efastmuchos","_id":"16"}}
+{
+  "CiudadesVehiculo": "Madrid,Zaragoza",
+  "CiudadesDevolverVehiculos": "Madrid,Zaragoza,Barcelona",
+  "LocsVehiculo": [
+    { "lat": 40.41669, "lon": -3.700346 },
+    { "lat": 41.65645655, "lon": -0.87928652 }
+  ],
+  "GeoOficina": { "coordinates": { "lat": 40.41669, "lon": -3.700346 } },
+  "FechaIni": "05-03-2024T07:00",
+  "FechaFin": "08-03-2024T20:00",
+  "MarcaVehiculo": "Ford",
+  "ModeloVehiculo": "Fusion",
+  "ImagenURL": "Default_Ford_Fusion_Hybrid_0.webp",
+  "TipoVehiculo": "Moto",
+  "Alquilable": "S",
+  "Last_Updated": "04-03-2024T18:30:00",
+  "Caracteristicas": [
+    {
+      "Numplazas": 7,
+      "Litros": 649,
+      "AutonomiaKm": 600,
+      "TipoVehiculo": "PHEV",
+      "EtiquetaECO": true,
+      "NumeroBolsasmaletero": 6,
+      "Descripcion": "Coche muy cómodo y rápido y veloz",
+      "CajaCambio": "Automatico",
+      "Año": 2025,
+      "MaximodeKm": 120000,
+      "AltoConfort": true,
+      "AltasPrestaciones": true,
+      "PerfectoEstado": true
+    }
+  ],
+  "Precio": [
+    { "Por1DiaEuros": 200, "CancelacionGratis": false, "OfertaEspecial": false, "PrecioOferta": 195 }
+  ],
+  "Extras": [
+    { "GPS": false, "SillaBebe": false, "ProteccionenCarretera": false, "ExenciondeFranquicia": 180, "OpcionSeguroTodoRiesgo": false }
+  ],
+  "Seguro": [
+    { "CoberturaParcialcolisionFranquicia": true, "CoberturaParcialcolisionFranquiciaQty": 1000, "CoberturaRobo": true, "CoberturaRobocolisionFranquiciaQty": 1000 }
+  ]
+}
+{"index":{"_index":"vehiculos-efastmuchos","_id":"17"}}
+{
+  "CiudadesVehiculo": "Madrid,Zaragoza",
+  "CiudadesDevolverVehiculos": "Madrid,Zaragoza,Barcelona",
+  "LocsVehiculo": [
+    { "lat": 40.41669, "lon": -3.700346 },
+    { "lat": 41.65645655, "lon": -0.87928652 }
+  ],
+  "GeoOficina": { "coordinates": { "lat": 40.41669, "lon": -3.700346 } },
+  "FechaIni": "05-03-2024T07:00",
+  "FechaFin": "08-03-2024T20:00",
+  "MarcaVehiculo": "Honda",
+  "ModeloVehiculo": "Insight",
+  "ImagenURL": "Default_Honda_Insight_0.webp",
+  "TipoVehiculo": "Moto",
+  "Alquilable": "S",
+  "Last_Updated": "04-03-2024T18:30:00",
+  "Caracteristicas": [
+    {
+      "Numplazas": 7,
+      "Litros": 649,
+      "AutonomiaKm": 600,
+      "TipoVehiculo": "PHEV",
+      "EtiquetaECO": true,
+      "NumeroBolsasmaletero": 6,
+      "Descripcion": "Coche muy cómodo y rápido y veloz",
+      "CajaCambio": "Automatico",
+      "Año": 2025,
+      "MaximodeKm": 120000,
+      "AltoConfort": true,
+      "AltasPrestaciones": true,
+      "PerfectoEstado": true
+    }
+  ],
+  "Precio": [
+    { "Por1DiaEuros": 200, "CancelacionGratis": false, "OfertaEspecial": false, "PrecioOferta": 195 }
+  ],
+  "Extras": [
+    { "GPS": false, "SillaBebe": false, "ProteccionenCarretera": false, "ExenciondeFranquicia": 180, "OpcionSeguroTodoRiesgo": false }
+  ],
+  "Seguro": [
+    { "CoberturaParcialcolisionFranquicia": true, "CoberturaParcialcolisionFranquiciaQty": 1000, "CoberturaRobo": true, "CoberturaRobocolisionFranquiciaQty": 1000 }
+  ]
+}
+{"index":{"_index":"vehiculos-efastmuchos","_id":"18"}}
+{
+  "CiudadesVehiculo": "Madrid,Zaragoza",
+  "CiudadesDevolverVehiculos": "Madrid,Zaragoza,Barcelona",
+  "LocsVehiculo": [
+    { "lat": 40.41669, "lon": -3.700346 },
+    { "lat": 41.65645655, "lon": -0.87928652 }
+  ],
+  "GeoOficina": { "coordinates": { "lat": 40.41669, "lon": -3.700346 } },
+  "FechaIni": "05-03-2024T07:00",
+  "FechaFin": "08-03-2024T20:00",
+  "MarcaVehiculo": "Hyundai",
+  "ModeloVehiculo": "Ioniq",
+  "ImagenURL": "Default_Hyundai_Ioniq_Hybrid_0.webp",
+  "TipoVehiculo": "Moto",
+  "Alquilable": "S",
+  "Last_Updated": "04-03-2024T18:30:00",
+  "Caracteristicas": [
+    {
+      "Numplazas": 7,
+      "Litros": 649,
+      "AutonomiaKm": 600,
+      "TipoVehiculo": "PHEV",
+      "EtiquetaECO": true,
+      "NumeroBolsasmaletero": 6,
+      "Descripcion": "Coche muy cómodo y rápido y veloz",
+      "CajaCambio": "Automatico",
+      "Año": 2025,
+      "MaximodeKm": 120000,
+      "AltoConfort": true,
+      "AltasPrestaciones": true,
+      "PerfectoEstado": true
+    }
+  ],
+  "Precio": [
+    { "Por1DiaEuros": 200, "CancelacionGratis": false, "OfertaEspecial": false, "PrecioOferta": 195 }
+  ],
+  "Extras": [
+    { "GPS": false, "SillaBebe": false, "ProteccionenCarretera": false, "ExenciondeFranquicia": 180, "OpcionSeguroTodoRiesgo": false }
+  ],
+  "Seguro": [
+    { "CoberturaParcialcolisionFranquicia": true, "CoberturaParcialcolisionFranquiciaQty": 1000, "CoberturaRobo": true, "CoberturaRobocolisionFranquiciaQty": 1000 }
+  ]
+}
+{"index":{"_index":"vehiculos-efastmuchos","_id":"19"}}
+{
+  "CiudadesVehiculo": "Madrid,Zaragoza",
+  "CiudadesDevolverVehiculos": "Madrid,Zaragoza,Barcelona",
+  "LocsVehiculo": [
+    { "lat": 40.41669, "lon": -3.700346 },
+    { "lat": 41.65645655, "lon": -0.87928652 }
+  ],
+  "GeoOficina": { "coordinates": { "lat": 40.41669, "lon": -3.700346 } },
+  "FechaIni": "05-03-2024T07:00",
+  "FechaFin": "08-03-2024T20:00",
+  "MarcaVehiculo": "Kia",
+  "ModeloVehiculo": "Niro",
+  "ImagenURL": "Default_Kia_Niro_Hybrid_0.webp",
+  "TipoVehiculo": "Moto",
+  "Alquilable": "S",
+  "Last_Updated": "04-03-2024T18:30:00",
+  "Caracteristicas": [
+    {
+      "Numplazas": 7,
+      "Litros": 649,
+      "AutonomiaKm": 600,
+      "TipoVehiculo": "PHEV",
+      "EtiquetaECO": true,
+      "NumeroBolsasmaletero": 6,
+      "Descripcion": "Coche muy cómodo y rápido y veloz",
+      "CajaCambio": "Automatico",
+      "Año": 2025,
+      "MaximodeKm": 120000,
+      "AltoConfort": true,
+      "AltasPrestaciones": true,
+      "PerfectoEstado": true
+    }
+  ],
+  "Precio": [
+    { "Por1DiaEuros": 200, "CancelacionGratis": false, "OfertaEspecial": false, "PrecioOferta": 195 }
+  ],
+  "Extras": [
+    { "GPS": false, "SillaBebe": false, "ProteccionenCarretera": false, "ExenciondeFranquicia": 180, "OpcionSeguroTodoRiesgo": false }
+  ],
+  "Seguro": [
+    { "CoberturaParcialcolisionFranquicia": true, "CoberturaParcialcolisionFranquiciaQty": 1000, "CoberturaRobo": true, "CoberturaRobocolisionFranquiciaQty": 1000 }
+  ]
+}
+{"index":{"_index":"vehiculos-efastmuchos","_id":"20"}}
+{
+  "CiudadesVehiculo": "Madrid,Zaragoza",
+  "CiudadesDevolverVehiculos": "Madrid,Zaragoza,Barcelona",
+  "LocsVehiculo": [
+    { "lat": 40.41669, "lon": -3.700346 },
+    { "lat": 41.65645655, "lon": -0.87928652 }
+  ],
+  "GeoOficina": { "coordinates": { "lat": 40.41669, "lon": -3.700346 } },
+  "FechaIni": "05-03-2024T07:00",
+  "FechaFin": "08-03-2024T20:00",
+  "MarcaVehiculo": "Mercedes",
+  "ModeloVehiculo": "Benz Eclass",
+  "ImagenURL": "Default_MercedesBenz_EClass_Mild_Hybrid_0.webp",
+  "TipoVehiculo": "Moto",
+  "Alquilable": "S",
+  "Last_Updated": "04-03-2024T18:30:00",
+  "Caracteristicas": [
+    {
+      "Numplazas": 7,
+      "Litros": 649,
+      "AutonomiaKm": 600,
+      "TipoVehiculo": "PHEV",
+      "EtiquetaECO": true,
+      "NumeroBolsasmaletero": 6,
+      "Descripcion": "Coche muy cómodo y rápido y veloz",
+      "CajaCambio": "Automatico",
+      "Año": 2025,
+      "MaximodeKm": 120000,
+      "AltoConfort": true,
+      "AltasPrestaciones": true,
+      "PerfectoEstado": true
+    }
+  ],
+  "Precio": [
+    { "Por1DiaEuros": 200, "CancelacionGratis": false, "OfertaEspecial": false, "PrecioOferta": 195 }
+  ],
+  "Extras": [
+    { "GPS": false, "SillaBebe": false, "ProteccionenCarretera": false, "ExenciondeFranquicia": 180, "OpcionSeguroTodoRiesgo": false }
+  ],
+  "Seguro": [
+    { "CoberturaParcialcolisionFranquicia": true, "CoberturaParcialcolisionFranquiciaQty": 1000, "CoberturaRobo": true, "CoberturaRobocolisionFranquiciaQty": 1000 }
+  ]
+}
