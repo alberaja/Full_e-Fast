@@ -411,7 +411,7 @@ header::after{/*Sombra en el header*/
     box-shadow: 1px 1px 17px -5px rgba(0,0,0,0.15);
     display: block;
     padding: 0.1px;
-    height: 800px;
+    height: 1162px; /*800px*/
     width: 100%;
     
     justify-content: center;
