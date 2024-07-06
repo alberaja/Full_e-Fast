@@ -8,14 +8,7 @@ import { AddressSearch } from "./components/AddressSearch";
 import { BrandType } from "./components/BrandType";
 //desktop no de mui:
  import DatePicker from "./components/DatePicker";
-// import { DatePickerMUI } from '@mui/x-date-pickers';
 
-// import dayjs from 'dayjs';
-// import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
-// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-// import { StaticDateRangePicker } from '@mui/x-date-pickers-pro/StaticDateRangePicker';
-// import { pickersLayoutClasses } from '@mui/x-date-pickers/PickersLayout';
 
 import { Link } from "react-router-dom";
 
@@ -35,26 +28,6 @@ function parseURL(input) {
     //params.append("option", tiposElectrico.join(", ")); // .concat("&option=", tiposElectrico.join(","))
   }
   return params.toString();
-}
-
-function getTime(date) { // 05-03-2024T07:00
-  return `${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}`;
-}
-
-function getDate(date) {// 05-03-2024T07:00
-  return `${date.getFullYear()}-${((date.getMonth() + 1) + "").padStart(2, "0")}-${(date.getDate() + "").padStart(2, "0")}`;
-}
-
-function setTime(date, newDate) {
-  date.setHours(newDate.getHours());
-  date.setMinutes(newDate.getMinutes());
-  date.setSeconds(newDate.getSeconds());
-}
-
-function setDate(date, newDate) {
-  date.setDate(newDate.getDate());
-  date.setMonth(newDate.getMonth());
-  date.setFullYear(newDate.getFullYear());
 }
 
  function Form() {
@@ -96,61 +69,7 @@ function setDate(date, newDate) {
     })
   })
 
-  const handleStartTimeChange = (event) => {
-    setRange({
-      ...range,
-      startDate: new Date(event.target.value)
-    });
-  };
-
-  const handleEndTimeChange = (event) => {
-    setRange({
-      ...range,
-      endDate: new Date(event.target.value)
-    });
-  };
-
-  const handleStartDateChange = (event) => {
-    const date = new Date(event.target.value);
-    const dateString = event.target.value;
-    const parts = dateString.split('-'); // Dividir la cadena en partes usando el guion
-    const formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`; // Reorganizar las partes para formar el formato deseado
-    // setStartDate(/*event.target.value*/formattedDate); // establece el estado de la fecha de inicio
-    handleSelect([
-      {
-        startDate: date,
-        endDate: selectedRange[0].endDate,
-        key: "selection",
-      },
-    ]);
-  };
-
-  const handleEndDateChange = (event) => {
-    const date = new Date(event.target.value);
-    const dateString = event.target.value;
-    const parts = dateString.split('-');
-    const formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
-  //   if (endDate >= startDate) {
-  //     // La fecha de endDate es mayor o igual que startDate
-  //     // setEndDate(formattedDate);   // establece el estado
-  //     // no lo uso
-  //     handleSelect([
-  //       {
-  //         startDate: selectedRange[0].startDate,
-  //         endDate: date,
-  //         key: "selection",
-  //       },
-  //     ]);
-  // } else {
-  //   alert("La fecha de entrega debe ser mayor o igual que la fecha del inicio del alquiler");
-  //   // setEndDate(startDate);
-  // }    
-  };
-
-  const handleSelect = (ranges) => {
-    setSelectedRange([ranges[0]]);
-    console.log({selectedRange});
-  };
+ 
   const handleSelectDesktop = (ranges) => {
     setSelectedRange([ranges.selection]);
     console.log({selectedRange});
@@ -283,48 +202,6 @@ console.log({selectedVehicleTypes}, selectedVehicleTypes);
     }
   )
 
-   const createHandleDate = (dateType) => (e) => {
-    if(e.target.value === ""){
-      return setRange((range) => ({
-        ...range,
-        [dateType]: dateType === "endDate"? range.startDate ?? new Date() : new Date()
-      }))
-    } 
-    const newDate = new Date(e.target.value);
-    if(dateType === "endDate" && newDate < range.startDate){ 
-      setDate(newDate, range.startDate);
-    }
-    const date = dateType === "endDate" ? range.endDate : range.startDate;
-    setTime(newDate, date);
-    setRange((range) => ({
-    ...range,
-      [dateType]: newDate
-    }));
-   }
-
-   const createHandleTime = (timeType) => (e) => {
-    if(e.target.value === ""){
-      return setRange((range) => ({
-        ...range,
-        [timeType]: new Date()
-      }))
-    } 
-    const [hours, minutes] = e.target.value.split(":").map(Number);
-    const newDate = new Date(timeType === "endDate" ? range.endDate : range.startDate);
-    newDate.setHours(hours);
-    newDate.setMinutes(minutes);
-    if(timeType === "endDate" && isBefore( newDate, range.startDate)){
-      setTime(newDate, range.startDate);
-   
-    }
-    const date = timeType === "endDate" ? range.endDate : range.startDate;
-    setDate(newDate, date);
-    setRange((range) => ({
-      ...range,
-        [timeType]: newDate
-      }));
-   }
-
 
    // forma2 de enviar valores de fecha-hora a /busquedaVehiculos
    const [forms, setForms] = useState({
@@ -336,14 +213,6 @@ console.log({selectedVehicleTypes}, selectedVehicleTypes);
 
    const [newParams, setNewParams] = useState('')
 
-  //  const handleChangeForm = (field, value) => {
-  //   console.log(field, value);
-  //     setForms({
-  //       ...forms, // 1 copia del forms, pero va a cambiar solo el valor del [field]
-  //       [field]: value
-  //     })
-  //     //console.log({forms}); 
-  //  }
   const handleChangeForm = (field, value) => {    
     setForms((prevForm)=>({
         ...prevForm, // 1 copia del forms, pero va a cambiar solo el valor del [field]
@@ -477,41 +346,12 @@ console.log({selectedVehicleTypes}, selectedVehicleTypes);
                   }}
                   renderInput={(params) => <TextField {...params} fullWidth />}
                 // readOnly  
-                /> */}
-             {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer
-                  components={[
-                    'DateRangePicker',
-                    'MobileDateRangePicker',
-                    'DesktopDateRangePicker',
-                    'StaticDateRangePicker',
-                  ]}
-                >
-                    <DemoItem label="Static variant" component="StaticDateRangePicker">
-                    <StaticDateRangePicker
-                      defaultValue={[dayjs('2022-04-17'), dayjs('2022-04-21')]}
-                      sx={{
-                        [`.${pickersLayoutClasses.contentWrapper}`]: {
-                          alignItems: 'center',
-                        },
-                      }}
-                    />
-            </DemoItem>
-          </DemoContainer>
-        </LocalizationProvider> */}
+                /> */}             
         </div>
         
       </div>
-      {/* TODO: boton aqui */}
-      {/* <div className="w-full flex flex-col p-5 gap-4">
-      <button 
-          className="border border-gray-400 rounded-md p-1 text-lg text-gray-700 bg-blue-100"
-          // onClick={""}
-        >
-          Buscar Vehiculos
-          </button> 
-      </div> */}
-    </div>  //form>     
+      
+    </div>    
     
   );
 }
