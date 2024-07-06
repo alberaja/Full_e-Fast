@@ -39,8 +39,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
 @Slf4j
-@Service
-public class AggregationsServiceImpl implements AggregationsService{
+//Ok, DESCOMENTAR aqui @Service
+public class AggregationsServiceImpl_conNoResetearValoresa0 implements AggregationsService{
 	
 //	@Value("${transmissionTypes.values}")
 //  private String transmissionFilterProp;
@@ -115,6 +115,16 @@ public class AggregationsServiceImpl implements AggregationsService{
 				// solo aplicar "evitar perder el contexto=evitar perder el conteo de los checkbox NO seleccionados." si selecciona alguno dentro de los filtros controlados
 				// Si NoResetearValoresa0=true--> se mantienen(reemplazan) con los que recupera del aggregates con la query solo Alquilable=S
 				// (transmissionTypes no hace falta), tipoVehiculoElectrico, carTypes
+				boolean NoResetearValoresa0 = false;
+				if ((tiposElectrico != null && !tiposElectrico.isEmpty() || tiposVehiculo != null && !tiposVehiculo.isEmpty()
+						 || (maximoKm != null || maximoKmStr != null) || numPlazasMin != null
+						 //quitar   || numPlazasMin != null
+						 || marcasVehiculo != null  ) 
+						 && (ciudadVehiculo==null && ciudadDevolverVehiculo==null)) //guardar contexto solo si no ha filtrado por ciudades 
+				{
+					NoResetearValoresa0 = true;
+				}
+				NoResetearValoresa0 = false;
 				Query query = nativeSearchQueryBuilder.build();
 				// aja
 				log.info("query generada: " + query.toString());
@@ -157,22 +167,22 @@ public class AggregationsServiceImpl implements AggregationsService{
 					// Usar filtrosProp  mejor que @Values      //String[] transmRequiredFilt = transmissionFilterProp.split(",");
 					String[] transmRequiredFilt = filtrosProp.getTransmissionTypes().toArray(new String[filtrosProp.getTransmissionTypes().size()]);
 					log.info("transmissionTypesAgg: "+ transmissionTypesAgg);
-					List<Map<String, Object>> transmissionAggs = StringAggs(transmissionTypesAgg, transmRequiredFilt, false);
+					List<Map<String, Object>> transmissionAggs = StringAggs(transmissionTypesAgg, transmRequiredFilt, false, NoResetearValoresa0);
 					aggregates.add(Map.of("cajaCambio", transmissionAggs));
 					
 					String[] fuelRequiredFilt = filtrosProp.getFuelTypes().toArray(new String[filtrosProp.getFuelTypes().size()]); // String[] fuelRequiredFilt = fuelTypesFilterProp.split(",");	
 					// calcular aggregates SI se ha seleccionado un filtro de un grupo <> al filtro concreto actual(tiposElectrico)
 					//Object fuelTypesAggs = tiposVehiculoTiposElectrico(tiposVehiculo, queryBuilder);
 					// mantener el contexto del resto de checkbox EN el grupo de filtros concreto
-					List<Map<String, Object>> fuelTypesAggs = StringAggs(tipoVehiculoElectricoAgg, fuelRequiredFilt, true);
+					List<Map<String, Object>> fuelTypesAggs = StringAggs(tipoVehiculoElectricoAgg, fuelRequiredFilt, true, NoResetearValoresa0);
 					aggregates.add(Map.of("tiposElectrico", fuelTypesAggs));
 					
 					String[] carRequiredFilt = filtrosProp.getCarTypes().toArray(new String[filtrosProp.getCarTypes().size()]); // String[] carRequiredFilt = carTypesFilterProp.split(",");			
-					List<Map<String, Object>> carTypesAggs = StringAggs(carTypesAgg, carRequiredFilt, false);
+					List<Map<String, Object>> carTypesAggs = StringAggs(carTypesAgg, carRequiredFilt, false, NoResetearValoresa0);
 					aggregates.add(Map.of("tiposVehiculo", carTypesAggs)); // carTypes
 					
 					String[] brandsVehicleFilt = filtrosProp.getBrandsVehicle().toArray(new String[filtrosProp.getBrandsVehicle().size()]); // String[] carRequiredFilt = carTypesFilterProp.split(",");			
-					List<Map<String, Object>> brandsVehiclesAggs = StringAggs(brandsVehiclesAgg, brandsVehicleFilt, false);
+					List<Map<String, Object>> brandsVehiclesAggs = StringAggs(brandsVehiclesAgg, brandsVehicleFilt, false, NoResetearValoresa0);
 					aggregates.add(Map.of("marcasVehiculo", brandsVehiclesAggs)); // brandsVehicle = marcaVehiculo 
 					
 					// ParsedRange
@@ -197,7 +207,45 @@ public class AggregationsServiceImpl implements AggregationsService{
 			                typeDetails.put(Constantes.VALOR, bucket.getKey().toString());
 			                maximoNumplazasTypes.add(typeDetails);
 			            });
-			           
+			            String[] maximoNumplazasTypesRequiredFilt = filtrosProp.getMaximoNumplazasTypes().toArray(new String[filtrosProp.getMaximoNumplazasTypes().size()]); // String[] maximoNumplazasTypesRequiredFilt = maximoNumplazasTypesFilterProp.split(",");	
+			            for (String requiredType : Arrays.asList(maximoNumplazasTypesRequiredFilt)) {
+			    		    if (maximoNumplazasTypes.stream().noneMatch(type -> type.get(Constantes.VALOR).equals(requiredType))) {
+			    		    	// UC03 Filter menu con checkboxs
+			    		    	// evitar perder el contexto=evitar perder el conteo de los checkbox NO seleccionados. Recuperar conteo de todos aggregates.
+			    		    	if (NoResetearValoresa0 && (maximoNumplazasAgg.getName().equals("maximoNumPlazas") )/*maximoNumplazas*/ /*solo los ParsedLongTerms*/ ) {
+			    					//volver a recuperar el contexto
+			    		    		Map<String, Aggregation> aggsKmsyPlazas = soloAggregationsKmsyPlazas();
+			    		    		//mantener el conteo Real para ese filtro
+			    		    		ParsedLongTerms maximoNumplazas = (ParsedLongTerms) aggsKmsyPlazas.get("maximoNumPlazas");
+			    		    		Map<String, Object> typeDetails = new HashMap<>();
+			    		    		// ParsedLongTerms
+			    		    		maximoNumplazas.getBuckets().forEach(bucket -> {
+							    		log.info("valor: "+ bucket.getKey().toString());
+							    			// Añadir los que SI tienen valores en numVehicles. ej PHEV equal PHEV
+							    			 if ( requiredType.equals(bucket.getKey().toString())) {
+									    			typeDetails.put(Constantes.DISPONIBLE, bucket.getDocCount() > 0);
+									    			typeDetails.put(Constantes.NUMVEHICULOS, (int) bucket.getDocCount());
+									    			typeDetails.put(Constantes.VALOR, bucket.getKey().toString());
+							    			 }
+									});
+									if (!typeDetails.isEmpty()) {
+										maximoNumplazasTypes.add(typeDetails);
+									} else { // Añadir los que NO tienen valores en numVehicles. aqui entra si
+												// stringTerms.getName()=transmissionTypes
+										typeDetails.put(Constantes.DISPONIBLE, false);
+										typeDetails.put(Constantes.NUMVEHICULOS, 0);
+										typeDetails.put(Constantes.VALOR, requiredType);
+										maximoNumplazasTypes.add(typeDetails);
+									}
+								} else {
+									Map<String, Object> typeDetails = new HashMap<>();
+									typeDetails.put(Constantes.DISPONIBLE, false);
+									typeDetails.put(Constantes.NUMVEHICULOS, 0);
+									typeDetails.put(Constantes.VALOR, requiredType);
+									maximoNumplazasTypes.add(typeDetails);
+								}
+			    		    }
+			    		}
 					aggregates.add(Map.of("maximoNumPlazas", maximoNumplazasTypes));//maximoNumPlazasTypes
 					
 					//aggregates = StringAggs(tipoVehiculoElectricoAgg);
@@ -346,7 +394,7 @@ public class AggregationsServiceImpl implements AggregationsService{
 	}
 	
 	// solo para los aggs de tipo ParsedStringTerms
-		private List<Map<String, Object>> StringAggs(ParsedStringTerms stringTerms, String [] transmRequiredFilt, boolean valueHuman) {
+		private List<Map<String, Object>> StringAggs(ParsedStringTerms stringTerms, String [] transmRequiredFilt, boolean valueHuman, boolean NoResetearValoresa0) {
 			List<Map<String, Object>> aggsTypes = new ArrayList<>();
 			//List<Map<String, Object>> aggregatesReturned = new ArrayList<>();
 			//(recorrer) resultados del aggregate ejecutado en stringTerms
@@ -366,7 +414,87 @@ public class AggregationsServiceImpl implements AggregationsService{
 			});
 			// Agregar valores requeridos que no estén presentes en los buckets y en aggsTypes
 //			String[] transmRequiredFilt = transmissionFilterProp.split(",");		
-
+			for (String requiredType : Arrays.asList(transmRequiredFilt)) {
+			    if (aggsTypes.stream().noneMatch(type -> type.get(Constantes.VALOR).equals(requiredType))) {
+			    	// UC03 Filter menu con checkboxs
+			    	// evitar perder el contexto=evitar perder el conteo de los checkbox NO seleccionados. Recuperar conteo de todos aggregates. 
+			    	if (NoResetearValoresa0 && (stringTerms.getName().equals("tipoVehiculoElectrico") || stringTerms.getName().equals("tiposVehiculo")  /*carTypes*/ /*solo los ParsedStringTerms*/ 
+			    		|| stringTerms.getName().equals("marcasVehiculo")    )  ) {
+						//volver a recuperar el contexto
+			    		Map<String, Aggregation> aggs = soloAggregations();
+			    		//mantener el conteo Real para ese filtro
+			    		ParsedStringTerms tipoVehiculoElectricoAgg = (ParsedStringTerms) aggs.get("tipoVehiculoElectrico");
+			    		ParsedStringTerms carTypesAgg = (ParsedStringTerms) aggs.get("tiposVehiculo"); //carTypes
+			    		ParsedStringTerms marcasVehiculoAgg = (ParsedStringTerms) aggs.get("marcasVehiculo");
+			    		
+			    		Map<String, Object> typeDetails = new HashMap<>();
+			    		// recuperar para luego recorrer el ParsedStringTerms correcto
+//			    		ParsedStringTerms parsedTerms = Optional.ofNullable(stringTerms)
+//			    			    .filter(terms -> "tipoVehiculoElectrico".equals(terms.getName()))
+//			    			    .map(terms -> tipoVehiculoElectricoAgg)
+//			    			    .orElseGet(() -> Optional.ofNullable(stringTerms)
+//			    			        .filter(terms -> "carTypes".equals(terms.getName()))
+//			    			        .map(terms -> carTypesAgg)
+//			    			        .orElse(null));		    		
+						ParsedStringTerms parsedTerms = null;
+						switch (stringTerms.getName()) {
+						case "tipoVehiculoElectrico": {
+							parsedTerms = tipoVehiculoElectricoAgg;
+							break;
+						}
+						case "tiposVehiculo": {	//carTypes
+							parsedTerms = carTypesAgg;
+							break;
+						}
+						case "marcasVehiculo": {
+							parsedTerms = marcasVehiculoAgg;
+							break;
+						}
+						}
+						if (parsedTerms != null) {
+							// ParsedStringTerms
+							parsedTerms.getBuckets().forEach(bucket -> {
+					    		System.out.println("valor: "+ bucket.getKey().toString());
+					    			// Añadir los que SI tienen valores en numVehicles. ej PHEV equal PHEV
+					    			 if ( requiredType.equals(bucket.getKey().toString())) {
+							    			typeDetails.put(Constantes.DISPONIBLE, bucket.getDocCount() > 0);
+							    			typeDetails.put(Constantes.NUMVEHICULOS, (int) bucket.getDocCount());
+							    			typeDetails.put(Constantes.VALOR, bucket.getKey().toString());
+							    			if (valueHuman) {
+							    				String tipoElectricoHuman = fromClave(bucket.getKey().toString());
+							    				typeDetails.put(Constantes.VALOR_HUMANO, tipoElectricoHuman);
+							    			}
+					    			 }
+					    		});
+						} 
+						// maximodeKmTypesAgg es maximoNumplazasAgg, y maximoNumPlazasAgg es ParsedLongTerms 
+						
+			    		
+			    		if (!typeDetails.isEmpty()) {
+			    			 aggsTypes.add(typeDetails);
+						} else { // Añadir los que NO tienen valores en numVehicles. aqui entra si stringTerms.getName()=transmissionTypes
+							typeDetails.put(Constantes.DISPONIBLE, false);
+					        typeDetails.put(Constantes.NUMVEHICULOS, 0);
+					        typeDetails.put(Constantes.VALOR, requiredType);
+					        if (valueHuman) {
+			    				String tipoElectricoHuman = fromClave(requiredType);
+			    				typeDetails.put(Constantes.VALOR_HUMANO, tipoElectricoHuman);
+			    			}
+					        aggsTypes.add(typeDetails);
+						}
+					} else {
+			        Map<String, Object> typeDetails = new HashMap<>();
+			        typeDetails.put(Constantes.DISPONIBLE, false);
+			        typeDetails.put(Constantes.NUMVEHICULOS, 0);
+			        typeDetails.put(Constantes.VALOR, requiredType);    
+			        if (valueHuman) {
+						String tipoElectricoHuman = fromClave(requiredType);
+						typeDetails.put(Constantes.VALOR_HUMANO, tipoElectricoHuman);
+					}
+			        aggsTypes.add(typeDetails);
+					}
+			    }
+			}
 //			aggregatesReturned.add(Map.of("transmissionTypes", aggsTypes));
 			
 			return aggsTypes; //aggregatesReturned;

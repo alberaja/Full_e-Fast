@@ -8,7 +8,7 @@ WORKDIR /app
 COPY target/ms-elastic-eFast-0.0.1-SNAPSHOT.jar /app/ms-elastic-eFast-0.0.1-SNAPSHOT.jar
 
 # Expone el puerto en el que la aplicación Spring Boot se ejecutará (puerto 8080 por defecto)
-#EXPOSE 8080
+#EXPOSE 8088
 
 # Define el comando para ejecutar la aplicación
 ENTRYPOINT ["java", "-jar", "/app/ms-elastic-eFast-0.0.1-SNAPSHOT.jar"]
