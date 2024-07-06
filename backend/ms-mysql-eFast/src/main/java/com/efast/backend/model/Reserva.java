@@ -48,7 +48,7 @@ public class Reserva implements Serializable {
 //	    private Vehiculo vehicle;
 	 	@ManyToOne(fetch = FetchType.LAZY)
 	 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	    @JoinColumn(name = "vehiculo_id" /*, nullable = false*/)
+	    @JoinColumn(name = "vehiculo_id" , nullable = false)
 	 	//@JsonIgnore 	 	// necesario para GET
 	 	@JsonManagedReference	// debe ser serializada.
 	 	private Vehiculo  vehiculoId;  //Set<Vehiculo>. necesario set para poder usarlo luego al hacer .save(entidad)
