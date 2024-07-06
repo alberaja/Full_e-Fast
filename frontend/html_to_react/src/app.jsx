@@ -1,12 +1,9 @@
-import logo from './logo.svg';
-// import './App.css';
 import Header from './components/header/index.jsx';
 import { React } from 'react';
 import Footer from './components/footer/index.jsx';
 import ServicioExclusivoFooter from './components/footer/servicio-exclusivo-footer.jsx';
 import DescripyContactoFooter from './components/footer/descrip-y-contacto-footer.jsx';
 // no valido import './buscarVehiculo.js'
-import { Grid, TextField } from '@mui/material';
 
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';  // necesario BrowserRouter, ya que react-router-dom doesn't export a Router, instead, it exports a BrowserRouter

@@ -1,4 +1,4 @@
-import styles from './buscarVehiculo.css';
+import styles from './buscarVehiculo.css'; // necesario para el Mapa de GMaps
 
 
 import CarsResultados from './cars-resultados.jsx';
