@@ -14,6 +14,7 @@
     - React router dom v.6
     - Zustand v.4.5
     - MUI v.5
+    - Tailwind  v.2.3
     - Axios v.1
     - Stripe v.8
        
