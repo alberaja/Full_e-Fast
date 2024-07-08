@@ -23,6 +23,12 @@ import { BrowserRouter } from "react-router-dom";
 import ReservaFinalizada from './pages/reserva-finalizada/index.jsx';
 
 
+// ***************
+//  * @author Alberto Jimenez Arregui
+//  * El proyecto ha sido desarrollado como parte del Trabajo de Fin de Estudio, 
+//  * en el Grado en Ingeniería Informática de UNIR.
+// ****************
+
 function App() {
 
   // add JS  
