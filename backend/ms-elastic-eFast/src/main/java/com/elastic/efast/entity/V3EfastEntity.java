@@ -39,7 +39,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 // varios mapeos de prueba
-@Document(indexName = "vehiculos-efast-random-collection")//vehiculos-efast-random //vehiculos-efast-random-collection //ok vehiculos-efastmuchos   //ok vehiculos-efast   //ok "vehiculos-v3-mappingv2defltmejorado")
+//@Document(indexName = "vehiculos-efast-random-collection")//vehiculos-efast-random //vehiculos-efast-random-collection //ok vehiculos-efastmuchos   //ok vehiculos-efast   //ok "vehiculos-v3-mappingv2defltmejorado")
+@Document(indexName = "#{@environment.getProperty('elasticsearch.indexName')}")
 // https://www.baeldung.com/jackson-advanced-annotations
 // SNAKE_CASE: All letters are lowercase with underscores as separators between name elements, e.g. snake_case.
 // SNAKE_CASE: modelo_vehiculo
