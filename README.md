@@ -10,8 +10,6 @@ Evolución y modernización de la Aplicación e-Fast para el alquiler de vehícu
   **Front-end:**
 
     - Reactjs v.18
-
-    - Reactjs v.18
     - React hook form v.7
     - React router dom v.6
     - Zustand v.4.5
