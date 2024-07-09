@@ -1,4 +1,7 @@
 
+#  Levantar Full e-Fast
+pnpm start
+
 # aja #
 # 1. Descarga en local la carpeta de dependencias_  node_modules 
 npm install 
