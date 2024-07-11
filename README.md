@@ -22,10 +22,15 @@
     
   **Back-end:**
     - Java v.11 y v.17 (última LTS (Long Term Support))
-    - spring Cloud v.2023
-    - Spring Boot v.3
-    - spring-data-elasticsearch v.4.2
+    - Spring Boot v.3 & Spring-boot-devtools
+    - spring Cloud v.2023    
     - Stripe v.23.9
+    - Spring-boot-starter-mail   
+    - spring-data-elasticsearch v.4.2
+    - Mysql-connector & Hibernate
+    - Lombok
+    - OpenAPI
+    - Modelmapper
 
 
 ## Descripción
