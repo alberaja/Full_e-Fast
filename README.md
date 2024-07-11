@@ -26,11 +26,11 @@
     - spring Cloud v.2023    
     - Stripe v.23.9
     - Spring-boot-starter-mail   
-    - spring-data-elasticsearch v.4.2
-    - Mysql-connector & Hibernate
-    - Lombok
-    - OpenAPI
-    - Modelmapper
+    - Spring-data-elasticsearch v.4.2
+    - Spring-data-jpa & Mysql-connector & Hibernate
+    - Lombok v.1.18
+    - OpenAPI v.2 y v.3
+    - Modelmapper v.3.1 
 
 
 ## Descripción
