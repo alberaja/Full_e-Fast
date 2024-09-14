@@ -37,7 +37,7 @@
 
 El presente proyecto forma parte del **TFE** \(**T**rabajo de **F**in de **E**studios\) del Grado en Ingeniería Informática realizado en **<a href="https://www.unir.net" target="_blank">UNIR</a>**.
 
-Se trata del desarrollo de la evolución de una aplicación web que permite ofrecer vehículos eléctricos en alquiler usadno tecnologías modernas y escalables y, además, permite a la empresa ayudarle a gestionar la flota de vehiculos que componen su oferta.
+Se trata del desarrollo de la evolución de una aplicación web que permite ofrecer vehículos eléctricos en alquiler usando tecnologías modernas y escalables y, además, permite a la empresa ayudarle a gestionar la flota de vehiculos que componen su oferta.
 
 ![image](https://github.com/alberaja/Full_e-Fast/assets/29755489/fdfec00e-e2cd-462f-805b-d008057d12c0)
 
